@@ -1,0 +1,7 @@
+<% if session[:user_id] %>
+  <script type="text/javascript">
+      window.location.href="/pages/new"
+  </script>
+<% else %>
+  <div>You must login or register to create a page.</div>
+<% end %>

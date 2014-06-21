@@ -1,0 +1,14 @@
+<h1>Register:</h1>
+<%= form_tag({controller: "users", action: "create"}, method: "post") do %>
+  <%= label_tag(:first, "First name:") %>
+  <%= text_field_tag(:first) %>
+  <%= label_tag(:last, "Last name:") %>
+  <%= text_field_tag(:last) %>
+  <%= label_tag(:login, "Login:") %>
+  <%= text_field_tag(:login) %>
+  <%= label_tag(:password, "Password:") %>
+  <%= password_field_tag(:password) %>
+  <%= label_tag(:password_confirm, "Confirm password:") %>
+  <%= password_field_tag(:password_confirm) %>
+  <%= submit_tag("Submit") %>
+<% end %>
