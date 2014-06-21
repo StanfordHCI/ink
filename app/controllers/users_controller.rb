@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def login
-
   end
 
   def post_login
@@ -37,7 +36,11 @@ class UsersController < ApplicationController
     @new_user.login = params[:login]
     @new_user.password = params[:password]
     @new_user.password_confirmation = params[:password_confirmation]
-    @new_user.save
-    redirect_to action: 'login'
+    if @new_user.valid?
+      @new_user.save
+      redirect_to action: 'login'
+    else
+      redirect_to action: 'new'
+    end
   end
 end
