@@ -12,12 +12,12 @@ class UsersController < ApplicationController
   end
 
   def post_login
-    session_user = User.find_by_login(params[:login])
-    if (session_user.nil? || !session_user.password_valid?(params[:password]))
+    @session_user = User.find_by_login(params[:login])
+    if (@session_user.nil? || !@session_user.password_valid?(params[:password]))
       redirect_to action: 'login'
     else
-      session[:user_id] = session_user.id
-      redirect_to session_user
+      session[:user_id] = @session_user.id
+      redirect_to @session_user
     end
   end
 
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     @new_user.last_name = params[:last]
     @new_user.login = params[:login]
     @new_user.password = params[:password]
-    @password_confirm = params[:password_confirm]
+    @new_user.password_confirmation = params[:password_confirmation]
     @new_user.save
     redirect_to action: 'login'
   end

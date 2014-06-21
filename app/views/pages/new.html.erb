@@ -1,0 +1,9 @@
+<%= form_for @session_user, url: {action: "create"} do |f| %>
+  Site Name*      : <%= f.text_field :site_name %><br/>
+  Site Description: <%= f.text_area :description %><br/>
+  Panel Name*     : <%= f.text_field :panel_name %><br/>
+  Display panel name? <%= f.check_box :display %><br/>
+  Panel Type*     : <%= f.select :panel_type, [["Visual element","visual"],["Select form","select"],["Info summary","info"]]%><br/>
+  Background image: <%= f.file_field :background %><br/>
+  <%= f.submit "Create page" %>
+<% end %>
