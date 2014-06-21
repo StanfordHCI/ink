@@ -36,10 +36,21 @@ class UsersController < ApplicationController
     @new_user.login = params[:login]
     @new_user.password = params[:password]
     @new_user.password_confirmation = params[:password_confirmation]
+
+    for user in User.find(:all)
+      if user.login == params[:login]
+        #throw error "username taken"
+        redirect_to action: 'new'
+        return
+      end
+    end
+
     if @new_user.valid?
       @new_user.save
+      #show success message
       redirect_to action: 'login'
     else
+      #throw error "invalid form"
       redirect_to action: 'new'
     end
   end
