@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def post_login
     @session_user = User.find_by_login(params[:login])
     if (@session_user.nil? || !@session_user.password_valid?(params[:password]))
-      redirect_to action: 'login'
+      redirect_to action: 'login', alert: "Invalid login."
     else
       session[:user_id] = @session_user.id
       redirect_to @session_user
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def logout
     reset_session
-    redirect_to action: 'login'
+    redirect_to action: 'login', notice: "You have logged out."
   end
 
   def new
@@ -39,19 +39,16 @@ class UsersController < ApplicationController
 
     for user in User.find(:all)
       if user.login == params[:login]
-        #throw error "username taken"
-        redirect_to action: 'new'
+        redirect_to action: 'new', alert: "Username taken."
         return
       end
     end
 
     if @new_user.valid?
       @new_user.save
-      #show success message
-      redirect_to action: 'login'
+      redirect_to action: 'login', notice: "Thank you for registering!"
     else
-      #throw error "invalid form"
-      redirect_to action: 'new'
+      redirect_to action: 'new', alert: "Invalid form. Please try again."
     end
   end
 end
