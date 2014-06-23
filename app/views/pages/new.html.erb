@@ -1,14 +1,19 @@
 <%= form_for @session_user, :url => pages_path, :method => :POST do |f| %>
   Site Name*:<br/>
-  <%= text_field_tag :site_name %><br/>
+  <%= text_field_tag :site_name, @page.site_name %><br/>
   Site Description:<br/>
-  <%= text_area_tag :description %><br/>
+  <%= text_area_tag :description, @page.description %><br/>
   Panel Name*:<br/>
-  <%= text_field_tag :panel_name %><br/>
+  <%= text_field_tag :panel_name, @page.panel_name %><br/>
   Display panel name? <%= check_box_tag :display %><br/>
   Panel Type*:<br/>
-  <%= select_tag(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]],"visual"))%><br/>
+  <% if (@page.nil?) %>
+    <% type = "visual" %>
+  <% else %>
+    <% type = @page.panel_type %>
+  <% end %>
+  <%= select_tag(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]], type))%><br/>
   Background image:<br/>
-  <%= f.file_field :background %><br/>
+  <%= file_field_tag :background %><br/>
   <%= submit_tag "Create page" %>
 <% end %>

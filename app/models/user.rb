@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates :login, presence: true
   validates :password, presence: true, confirmation: true
   validates :password_confirmation, presence: true
-  has_many :pages
+  has_one :page
 
   def password_valid?(pass)
     computed_pass = Digest::SHA2.hexdigest(self.salt + pass)
