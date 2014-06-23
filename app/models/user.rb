@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+  validates :login, presence: true
   validates :password, presence: true, confirmation: true
   validates :password_confirmation, presence: true
   has_many :pages

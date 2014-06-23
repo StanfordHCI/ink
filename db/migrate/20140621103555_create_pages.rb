@@ -4,9 +4,10 @@ class CreatePages < ActiveRecord::Migration
       t.integer :user_id
       t.string :site_name
       t.string :description
+      t.string :panel_name
       t.integer :display_panel_name #true if greater than 0
       t.string :panel_type
-      t.background :background_file
+      t.string :background_file
       t.timestamps
     end
   end

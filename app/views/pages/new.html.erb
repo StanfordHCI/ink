@@ -1,9 +1,14 @@
-<%= form_for @session_user, url: {action: "create"} do |f| %>
-  Site Name*      : <%= f.text_field :site_name %><br/>
-  Site Description: <%= f.text_area :description %><br/>
-  Panel Name*     : <%= f.text_field :panel_name %><br/>
-  Display panel name? <%= f.check_box :display %><br/>
-  Panel Type*     : <%= f.select :panel_type, [["Visual element","visual"],["Select form","select"],["Info summary","info"]]%><br/>
-  Background image: <%= f.file_field :background %><br/>
-  <%= f.submit "Create page" %>
+<%= form_for @session_user, :url => pages_path, :method => :POST do |f| %>
+  Site Name*:<br/>
+  <%= text_field_tag :site_name %><br/>
+  Site Description:<br/>
+  <%= text_area_tag :description %><br/>
+  Panel Name*:<br/>
+  <%= text_field_tag :panel_name %><br/>
+  Display panel name? <%= check_box_tag :display %><br/>
+  Panel Type*:<br/>
+  <%= select_tag(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]],"visual"))%><br/>
+  Background image:<br/>
+  <%= f.file_field :background %><br/>
+  <%= submit_tag "Create page" %>
 <% end %>

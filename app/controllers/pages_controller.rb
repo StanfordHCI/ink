@@ -23,6 +23,10 @@ class PagesController < ApplicationController
     end
     @page.background_file = params[:user][:background].original_filename
    
-    @page.save
+    if @page.save
+      redirect_to @session_user
+    else
+      redirect_to action: 'new', alert: "Invalid form. Please try again."
+    end
   end
 end

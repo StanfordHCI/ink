@@ -14,6 +14,36 @@
 
 #header
 {
-  font-size: 60px;
+  margin: 0 auto;
+  font-family: Lucida Grande;
+  font-size: 100px;
   text-align: center;
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:150px;
+  background: rgba(0,0,0,0.85);
+  z-index: 1;
+}
+
+#header a:link,
+#header a:visited,
+#header a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+#register
+{
+  font-size: 12px;
+  text-align: right;
+  text-decoration: none;
+  color: gray;
+}
+
+body
+{
+  margin: 0px;
+  padding: 148px 0px 0px 0px;
 }
