@@ -23,22 +23,28 @@ class PagesController < ApplicationController
     @page.user_id = @session_user.id
     @page.site_name = params[:site_name]
     @page.description = params[:description]
-#    @page.panel_name = params[:panel_name]
-#    @page.display_panel_name = params[:display]
-#    @page.panel_type = params[:panel_type]
-
-#    uploaded = params[:background]
-#    if !(uploaded.nil?)
-#      File.open(Rails.root.join('app','assets','images', uploaded.original_filename), 'wb') do |file|
-#        file.write(uploaded.read)
-#      end
-#      @page.background_file = params[:background].original_filename
-#    end
+    #add_panel(@page)
 
     if @page.save
       redirect_to @session_user
     else
       redirect_to action: 'new', alert: "Invalid form. Please try again."
+    end
+  end
+
+  def add_panel(page)
+    @panel = Panel.new
+    @panel.page_id = page.id
+    @panel.panel_name = params[:panel_name]
+    @panel.display = params[:display]
+    @panel.panel_type = params[:panel_type]
+    
+    uploaded = params[:background]
+    if !(uploaded.nil?)
+      File.open(Rails.root.join('app','assets','images', uploaded.original_filename), 'wb') do |file|
+        file.write(uploaded.read)
+      end
+      @panel.background_file = params[:background].original_filename
     end
   end
 end

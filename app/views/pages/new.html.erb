@@ -4,9 +4,12 @@
   <%= label :description, "Site Description:" %><br/>
   <%= text_area_tag :description, @page.description %><br/>
 
-  <%= fields_for :panels do |builder| %>
+  <div id="panels">
+  <%= fields = fields_for :panels do |builder| %>
     <%= render 'panel_fields', :f => builder %>
   <% end %>
+  </div>
+  <%= link_to_function("Add panel", "add_fields(this, \"#{escape_javascript(fields)}\", \"panel\")") %> </br>
 
   <!--
     Panel Name*:<br/>
