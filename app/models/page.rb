@@ -3,5 +3,5 @@ class Page < ActiveRecord::Base
 
   belongs_to :user
   has_many :panels, :dependent => :destroy
-  accepts_nested_attributes_for :panels
+  accepts_nested_attributes_for :panels, :allow_destroy => true
 end

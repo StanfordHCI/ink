@@ -1,17 +1,11 @@
 <%= form_for @session_user, :url => pages_path, :method => :POST do |f| %>
-  Site Name*:<br/>
+  <%= label :site_name, "Site Name*:" %><br/>
   <%= text_field_tag :site_name, @page.site_name %><br/>
-  Site Description:<br/>
+  <%= label :description, "Site Description:" %><br/>
   <%= text_area_tag :description, @page.description %><br/>
 
   <%= fields_for :panels do |builder| %>
-    Panel Name*:<br/>
-    <%= builder.text_field :panel_name %><br/>
-    Display panel name? <%= builder.check_box :display %><br/>
-    Panel Type*:<br/>
-    <%= builder.select(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]], "visual"))%><br/>
-    Background image:<br/>
-    <%= builder.file_field :background %><br/>
+    <%= render 'panel_fields', :f => builder %>
   <% end %>
 
   <!--
