@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140621103555) do
+ActiveRecord::Schema.define(version: 20140623234602) do
 
   create_table "pages", force: true do |t|
     t.integer  "user_id"
@@ -21,6 +21,12 @@ ActiveRecord::Schema.define(version: 20140621103555) do
     t.integer  "display_panel_name"
     t.string   "panel_type"
     t.string   "background_file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "panels", force: true do |t|
+    t.integer  "page_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -3,17 +3,30 @@
   <%= text_field_tag :site_name, @page.site_name %><br/>
   Site Description:<br/>
   <%= text_area_tag :description, @page.description %><br/>
-  Panel Name*:<br/>
-  <%= text_field_tag :panel_name, @page.panel_name %><br/>
-  Display panel name? <%= check_box_tag :display %><br/>
-  Panel Type*:<br/>
-  <% if (@page.nil?) %>
-    <% type = "visual" %>
-  <% else %>
-    <% type = @page.panel_type %>
+
+  <%= fields_for :panels do |builder| %>
+    Panel Name*:<br/>
+    <%= builder.text_field :panel_name %><br/>
+    Display panel name? <%= builder.check_box :display %><br/>
+    Panel Type*:<br/>
+    <%= builder.select(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]], "visual"))%><br/>
+    Background image:<br/>
+    <%= builder.file_field :background %><br/>
   <% end %>
-  <%= select_tag(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]], type))%><br/>
+
+  <!--
+    Panel Name*:<br/>
+  <#%= text_field_tag :panel_name, @page.panel_name %><br/>
+  Display panel name? <#%= check_box_tag :display %><br/>
+  Panel Type*:<br/>
+  <#% if (@page.nil?) %>
+  <#% type = "visual" %>
+  <#% else %>
+  <#% type = @page.panel_type %>
+  <#% end %>
+  <#%= select_tag(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]], type))%><br/>
   Background image:<br/>
-  <%= file_field_tag :background %><br/>
+  <#%= file_field_tag :background %><br/>
+  --> 
   <%= submit_tag "Create page" %>
 <% end %>
