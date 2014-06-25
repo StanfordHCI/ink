@@ -1,4 +1,8 @@
 <h1><%= @cur_user.first_name %> <%= @cur_user.last_name %>'s Site</h1>
 <% if !((@cur_user.page).nil?) %>
   <%= @cur_user.page.site_name %>
+  <% for panel in @cur_user.page.panels %>
+    <%= panel.panel_name %>
+    <%= panel.id %><br/>
+  <% end %>
 <% end %>

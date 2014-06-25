@@ -5,25 +5,20 @@
   <%= text_area_tag :description, @page.description %><br/>
 
   <div id="panels">
-  <%= fields = fields_for :panels do |builder| %>
-    <%= render 'panel_fields', :f => builder %>
+  <% new_panel = @page.send(:panels).build %>
+  <%= fields = f.fields_for :panels do |builder| %>
+    <%= render "panel_fields", :p => builder %>
   <% end %>
   </div>
-  <%= link_to_function("Add panel", "add_fields(this, \"#{escape_javascript(fields)}\", \"panel\")") %> </br>
+  <%= link_to_function("Add panel", "add_fields(\"#{escape_javascript(fields)}\", \"panel\")") %> </br>
 
-  <!--
-    Panel Name*:<br/>
-  <#%= text_field_tag :panel_name, @page.panel_name %><br/>
-  Display panel name? <#%= check_box_tag :display %><br/>
-  Panel Type*:<br/>
-  <#% if (@page.nil?) %>
-  <#% type = "visual" %>
-  <#% else %>
-  <#% type = @page.panel_type %>
-  <#% end %>
-  <#%= select_tag(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]], type))%><br/>
-  Background image:<br/>
-  <#%= file_field_tag :background %><br/>
-  --> 
-  <%= submit_tag "Create page" %>
+  <%= f.submit "Create page" %>
 <% end %>
+
+<!--
+  <div id="panels">
+<#%= fields = form_for @page, :url => panels_path, :method => :POST do |builder| %>
+  <#%= render 'panel_fields', :f => builder %>
+  <#%end%>
+</div>
+-->

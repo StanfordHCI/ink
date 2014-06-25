@@ -10,7 +10,9 @@ class PagesController < ApplicationController
     else
       @page = @session_user.page
     end
-    @page.panels.build
+    panel = @page.panels.build
+    
+    panel.save
   end
 
   def create
@@ -23,7 +25,6 @@ class PagesController < ApplicationController
     @page.user_id = @session_user.id
     @page.site_name = params[:site_name]
     @page.description = params[:description]
-    #add_panel(@page)
 
     if @page.save
       redirect_to @session_user
@@ -32,19 +33,4 @@ class PagesController < ApplicationController
     end
   end
 
-  def add_panel(page)
-    @panel = Panel.new
-    @panel.page_id = page.id
-    @panel.panel_name = params[:panel_name]
-    @panel.display = params[:display]
-    @panel.panel_type = params[:panel_type]
-    
-    uploaded = params[:background]
-    if !(uploaded.nil?)
-      File.open(Rails.root.join('app','assets','images', uploaded.original_filename), 'wb') do |file|
-        file.write(uploaded.read)
-      end
-      @panel.background_file = params[:background].original_filename
-    end
-  end
 end

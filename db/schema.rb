@@ -16,17 +16,17 @@ ActiveRecord::Schema.define(version: 20140623234602) do
   create_table "pages", force: true do |t|
     t.integer  "user_id"
     t.string   "site_name"
-    t.string   "description"
-    t.string   "panel_name"
-    t.integer  "display_panel_name"
-    t.string   "panel_type"
-    t.string   "background_file"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "panels", force: true do |t|
     t.integer  "page_id"
+    t.string   "panel_name"
+    t.integer  "display"
+    t.string   "panel_type"
+    t.string   "background_file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

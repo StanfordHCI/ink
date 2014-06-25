@@ -1,13 +1,12 @@
 <p class="panel_fields">
-  <%= f.label :panel_name, "Panel Name*:" %><br/>
-  <%= f.text_field :panel_name %><br/>
-  <%= f.label :display, "Display panel name?" %>
-  <%= f.check_box :display %><br/>
-  <%= f.label :panel_type, "Panel Type*:" %><br/>
-  <%= f.select(:panel_type, options_for_select([["Visual element","vis    ual"],["Select form","select"],["Info summary","info"]], "visual"))%><br/>
-  <%= f.label :background, "Background image:" %><br/>
-  <%= f.file_field :background %><br/>
-  
-  <%= f.hidden_field :_destroy, id: "destroy" %>
-  <%= link_to_function "remove this panel", "remove_fields(this)" %>  
+  <%= p.label :panel_name, "Panel Name*:" %><br/>
+  <%= p.text_field :panel_name %><br/>
+  <%= p.label :display, "Display panel name?" %>
+  <%= p.check_box :display %><br/>
+  <%= p.label :panel_type, "Panel Type*:" %><br/>
+  <%= p.select(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]], "visual"))%><br/>
+  <%= p.label :background, "Background image:" %><br/>
+  <%= p.file_field :background %><br/>
+  <%= p.hidden_field :_destroy, id: "destroy" %>
+  <%= link_to_function "Remove this panel", "remove_fields(this)" %>  
 </p>

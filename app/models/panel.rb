@@ -1,4 +1,4 @@
 class Panel < ActiveRecord::Base
-  validates :panel_name, presence: true
-  belongs_to :page
+  belongs_to :page, inverse_of: :panels
+  validates_presence_of :page
 end

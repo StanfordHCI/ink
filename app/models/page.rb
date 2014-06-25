@@ -1,7 +1,6 @@
 class Page < ActiveRecord::Base
-  validates :site_name, presence: true
-
   belongs_to :user
-  has_many :panels, :dependent => :destroy
-  accepts_nested_attributes_for :panels, :allow_destroy => true
+  has_many :panels, :dependent => :destroy, inverse_of: :page
+  validates :site_name, presence: true
+  accepts_nested_attributes_for :panels, :reject_if => lambda {|a| a[:panel_name].blank? }, :allow_destroy => true
 end
