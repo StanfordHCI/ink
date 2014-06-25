@@ -11,8 +11,7 @@ class PagesController < ApplicationController
       @page = @session_user.page
     end
     panel = @page.panels.build
-    
-    panel.save
+    panel.save #this is necessary for panel to save
   end
 
   def create
