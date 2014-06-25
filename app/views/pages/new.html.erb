@@ -1,24 +1,27 @@
-<%= form_for @session_user, :url => pages_path, :method => :POST do |f| %>
+<%= form_for @page, :url => pages_path, :method => :POST do |f| %>
+  <div>
   <%= label :site_name, "Site Name*:" %><br/>
   <%= text_field_tag :site_name, @page.site_name %><br/>
   <%= label :description, "Site Description:" %><br/>
   <%= text_area_tag :description, @page.description %><br/>
-
-  <div id="panels">
-  <% new_panel = @page.send(:panels).build %>
-  <%= fields = f.fields_for :panels do |builder| %>
-    <%= render "panel_fields", :p => builder %>
-  <% end %>
   </div>
-  <%= link_to_function("Add panel", "add_fields(\"#{escape_javascript(fields)}\", \"panel\")") %> </br>
-
-  <%= f.submit "Create page" %>
-<% end %>
-
-<!--
   <div id="panels">
-<#%= fields = form_for @page, :url => panels_path, :method => :POST do |builder| %>
-  <#%= render 'panel_fields', :f => builder %>
-  <#%end%>
-</div>
--->
+  <%= link_to_add_panel(f) %>
+  </div>
+  <!--
+    <#% new_panel = f.object.class.reflect_on_association(:panels).klass.new %>
+  <#%= fields = f.fields_for(:panels, new_panel, :child_index => "new_panels") do |builder| %>
+    <#%= render "panel_fields", :p => builder %>
+    <#% end %>
+    <#%= link_to_function("Add panel", "add_fields(\"#{escape_javascript(fields)}\", \"panel\")") %> </br>
+    -->
+    <%= f.submit "Create page" %>
+  <% end %>
+
+  <!--
+    <div id="panels">
+  <#%= fields = form_for @page, :url => panels_path, :method => :POST do |builder| %>
+    <#%= render 'panel_fields', :f => builder %>
+    <#%end%>
+  </div>
+  -->
