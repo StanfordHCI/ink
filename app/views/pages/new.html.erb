@@ -1,12 +1,24 @@
 <%= form_for @page do |f| %>
   <div>
-  <%= f.label :site_name, "Site Name*:" %><br/>
-  <%= f.text_field :site_name %><br/>
-  <%= f.label :description, "Site Description:" %><br/>
-  <%= f.text_area :description %><br/>
+    <%= f.label :site_name, "Site Name*:" %><br/>
+    <%= f.text_field :site_name %><br/>
+    <%= f.label :description, "Site Description:" %><br/>
+    <%= f.text_area :description %><br/>
   </div>
   <div>
-  <%= link_to_add_panel(f) %>
+    <% if !(@page_panels.nil?) %>
+      <% for existing_panel in @page_panels %>
+        <%= fields = add_existing_panel(f, existing_panel) %>
+        <!-- FIXME: This script isn't actually executing.
+        <script type="text/javascript">
+          add_fields("panels", \"#{escape_javascript(fields)}\");
+        </script>
+        -->
+      <% end %>
+    <% end %>
+    <div id="panels">
+      <%= link_to_add_panel(f) %>
+    </div>
   </div>
   <%= f.submit "Create page" %>
 <% end %>

@@ -14,6 +14,7 @@ class PagesController < ApplicationController
     else
       @page = @session_user.page
     end
+    @page_panels = @page.panels
   end
 
   def create

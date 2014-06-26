@@ -7,4 +7,12 @@ module PageHelper
     end
     link_to_function("Add panel", "add_fields(this, \"#{escape_javascript(fields)}\")")
   end
+
+  def add_existing_panel(f, existing_panel)
+    fields = f.fields_for(:panels, existing_panel, :child_index => "new_panels") do |builder|
+      render "panel_fields", :p => builder
+    end
+    #want to  call add_fields here...
+    return fields
+  end
 end
