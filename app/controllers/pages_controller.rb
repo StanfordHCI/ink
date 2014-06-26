@@ -14,16 +14,14 @@ class PagesController < ApplicationController
     else
       @page = @session_user.page
     end
-    #panel = @page.panels.build
-    #panel.save #this is necessary for panel to save
   end
 
   def create
     @session_user = User.find(session[:user_id])
-    if ((@session_user.page).nil?)
+    if ((@session_user.page).nil?) #this if may not be necessary
       @page = Page.new(page_params)
     else
-      @page = @session_user.page
+      @page = @session_user.page #never gets here if auto calls update
     end
     @page.user_id = @session_user.id
     @page.site_name = params[:page][:site_name]
@@ -45,20 +43,6 @@ class PagesController < ApplicationController
     @page.site_name = params[:page][:site_name]
     @page.description = params[:page][:description]
 
-=begin
-    for panel in params[:page][:panels_attributes]
-      new_panel = @page.panels.build
-      #new_panel = Panel.new(panel[1])
-      new_panel.page_id = @page.id
-      new_panel.panel_name = panel[1][:panel_name]
-      new_panel.display = panel[1][:display]
-      new_panel.panel_type = panel[1][:panel_type]
-
-      uploaded = params
-
-      new_panel.save
-    end
-=end
     create_panel(params[:page][:panels_attributes], @page)
 
     if @page.save  
@@ -77,7 +61,6 @@ class PagesController < ApplicationController
   def create_panel(attributes, cur_page)
     if !(attributes.nil?)
       for panel in attributes
-        #new_panel = Panel.new(panel[1])
         new_panel = cur_page.panels.build
         new_panel.page_id = cur_page.id
         new_panel.panel_name = panel[1][:panel_name]
