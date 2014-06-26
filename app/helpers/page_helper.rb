@@ -12,7 +12,7 @@ module PageHelper
     fields = f.fields_for(:panels, existing_panel, :child_index => "new_panels") do |builder|
       render "panel_fields", :p => builder
     end
-    #want to  call add_fields here...
+    #want to  call add_existing_fields here...
     return fields
   end
 end
