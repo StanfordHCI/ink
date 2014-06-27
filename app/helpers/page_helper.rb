@@ -1,4 +1,8 @@
 module PageHelper
+  def link_to_remove_panel(f)
+    f.hidden_field(:_destroy) + link_to_function("Remove this panel", "remove_fields(this)")
+  end
+  
   def link_to_add_panel(f)
     #new_panel = f.object.class.reflect_on_association(:panels).klass.new
     new_panel = f.object.send(:panels).build #this and line above have same effect...

@@ -7,6 +7,6 @@
   <%= p.select(:panel_type, options_for_select([["Visual element","visual"],["Select form","select"],["Info summary","info"]], "visual"))%><br/>
   <%= p.label :background, "Background image:" %><br/>
   <%= p.file_field :background %><br/>
-  <%= p.hidden_field :_destroy, id: "destroy" %>
-  <%= link_to_function "Remove this panel", "remove_fields(this)" %>  
+  <%= p.check_box :_destroy %>
+  <!--<#%= link_to_remove_panel(p) %>-->  
 </p>

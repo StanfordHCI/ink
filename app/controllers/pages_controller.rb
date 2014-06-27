@@ -46,7 +46,7 @@ class PagesController < ApplicationController
 
     create_panel(params[:page][:panels_attributes], @page)
 
-    if @page.save  
+    if @page.update_attributes(params.require(:page).permit(:site_name, :description, panels_attributes: [:panel_name, :display, :panel_type, :background_file]))
       redirect_to @session_user
     else
       redirect_to action: 'new', alert: "Could not update. Please try again."
@@ -56,13 +56,13 @@ class PagesController < ApplicationController
   private
 
   def page_params
-    params.require(:page).permit(:site_name, :description, panels_attributes: [:panel_name, :display, :panel_type, :background_file, :_destroy])
+    params.require(:page).permit(:site_name, :description, panels_attributes: [:panel_name, :display, :panel_type, :background_file])
   end
 
   def create_panel(attributes, cur_page)
     if !(attributes.nil?)
       for panel in attributes
-        new_panel = cur_page.panels.build
+        new_panel = cur_page.panels.build #pass in (panel[1])?
         new_panel.page_id = cur_page.id
         new_panel.panel_name = panel[1][:panel_name]
         new_panel.display = panel[1][:display]
