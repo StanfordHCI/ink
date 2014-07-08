@@ -14,52 +14,33 @@ class PagesController < ApplicationController
 
   def new
     @session_user = User.find(session[:user_id])
-    #@page = Page.new
-    if ((@session_user.page).nil?)
-      @page = Page.new
-    else
-      @page = @session_user.page
-      render :edit
-    end
+    @page = Page.new
   end
 
   def create
     @session_user = User.find(session[:user_id])
-    if ((@session_user.page).nil?)
-      @page = Page.new(page_params)
-    else
-      @page = @session_user.page
-    end
+    @page = Page.new(page_params)
     if @page.save
       redirect_to @session_user, notice: "Successfully created page."
     else
-      #render :new
-      redirect_to action: 'new', alert: "Invalid form. Please try again."
+      render :new
+      #redirect_to action: 'new', alert: "Invalid form. Please try again."
     end
   end
   
   def edit
     @session_user = User.find(session[:user_id])
-    if ((@session_user.page).nil?)
-      @page = Page.new(page_params)
-    else
-      @page = @session_user.page
-    end
+    @page = @session_user.page
   end
   
   def update
     @session_user = User.find(session[:user_id])
-    #@page = @session_user.page
-    if ((@session_user.page).nil?)
-      @page = Page.new(page_params)
-    else
-      @page = @session_user.page
-    end
+    @page = @session_user.page
     if @page.update(page_params)
       redirect_to @session_user, alert: "Successfully updated page."
     else
-      #render :edit
-      redirect_to action: 'new', alert: "Could not update. Please try again."
+      render :edit
+      #redirect_to action: 'edit', alert: "Could not update. Please try again."
     end
   end
 
@@ -115,14 +96,13 @@ class PagesController < ApplicationController
   def page_params
     params.require(:page).permit(
       :user_id, :site_name, :description,
-      text_panel_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy])
+      text_panel_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy],
+      picture_attributes: [:id, :page_id, :panel_name, :display, :description, :photo, :_destroy],
+      s_selectpanel_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+        option_attributes: [:id, :s_selectpanel_id, :option_name, :_destroy]])
   end
 
 =begin
-  def page_params
-    params.require(:page).permit(:site_name, :description, panels_attributes: [:panel_name, :display, :panel_type, :background_file])
-  end
-
   def create_panel(attributes, cur_page)
     if !(attributes.nil?)
       for panel in attributes

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708000054) do
+ActiveRecord::Schema.define(version: 20140708184203) do
+
+  create_table "options", force: true do |t|
+    t.integer  "s_selectpanel_id"
+    t.string   "option_title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "options", ["s_selectpanel_id"], name: "index_options_on_s_selectpanel_id"
 
   create_table "pages", force: true do |t|
     t.integer  "user_id"
@@ -30,6 +39,29 @@ ActiveRecord::Schema.define(version: 20140708000054) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "pictures", force: true do |t|
+    t.integer  "page_id"
+    t.string   "panel_name"
+    t.integer  "display"
+    t.text     "description"
+    t.string   "background_file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pictures", ["page_id"], name: "index_pictures_on_page_id"
+
+  create_table "s_selectpanels", force: true do |t|
+    t.integer  "page_id"
+    t.string   "panel_name"
+    t.integer  "display"
+    t.text     "info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "s_selectpanels", ["page_id"], name: "index_s_selectpanels_on_page_id"
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false

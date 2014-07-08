@@ -1,0 +1,14 @@
+<fieldset>
+  <%= f.label :panel_name %><br/>
+  <%= f.text_field :panel_name %><br/>
+  <%= f.label :display, "Display panel name?" %>
+  <%= f.check_box :display %><br/>
+  <%= f.label :info, "Description:" %><br/>
+  <%= f.text_area :info %><br/>
+  <%= f.fields_for :options do |builder| %>
+    <%= render 'option_fields', f: builder %>
+  <% end %>
+  <%= link_to_add_fields "Add option", f, :options %>
+  <%= f.hidden_field :_destroy %>
+  <%= link_to "remove", "#", class: "remove_fields" %>
+</fieldset>
