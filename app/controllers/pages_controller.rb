@@ -7,12 +7,19 @@ class PagesController < ApplicationController
     end
   end
 
+  def show
+    @session_user = User.find(session[:user_id])
+    @page = @session_user.page
+  end
+
   def new
     @session_user = User.find(session[:user_id])
+    #@page = Page.new
     if ((@session_user.page).nil?)
       @page = Page.new
     else
       @page = @session_user.page
+      render :edit
     end
   end
 
@@ -26,10 +33,11 @@ class PagesController < ApplicationController
     if @page.save
       redirect_to @session_user, notice: "Successfully created page."
     else
+      #render :new
       redirect_to action: 'new', alert: "Invalid form. Please try again."
     end
   end
-
+  
   def edit
     @session_user = User.find(session[:user_id])
     if ((@session_user.page).nil?)
@@ -38,17 +46,19 @@ class PagesController < ApplicationController
       @page = @session_user.page
     end
   end
-
+  
   def update
     @session_user = User.find(session[:user_id])
+    #@page = @session_user.page
     if ((@session_user.page).nil?)
       @page = Page.new(page_params)
     else
       @page = @session_user.page
     end
     if @page.update(page_params)
-      redirect_to @session_user, notice: "Successfully updated page."
+      redirect_to @session_user, alert: "Successfully updated page."
     else
+      #render :edit
       redirect_to action: 'new', alert: "Could not update. Please try again."
     end
   end
