@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708184203) do
+ActiveRecord::Schema.define(version: 20140708214130) do
+
+  create_table "m_selectpanels", force: true do |t|
+    t.integer  "page_id"
+    t.string   "panel_name"
+    t.integer  "display"
+    t.text     "info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "m_selectpanels", ["page_id"], name: "index_m_selectpanels_on_page_id"
 
   create_table "options", force: true do |t|
     t.integer  "s_selectpanel_id"

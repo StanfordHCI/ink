@@ -15,16 +15,13 @@
   <%= f.fields_for :text_panels do |builder| %>
     <%= render 'text_panel_fields', f: builder %>
   <% end %>
-
   <%= f.fields_for :pictures do |builder| %>
     <%= render 'picture_fields', f: builder %>
   <% end %>
-
   <%= f.fields_for :s_selectpanels do |builder| %>
     <%= render 's_selectpanel_fields', f: builder %>
   <% end %>
 
-  </br> 
   <div id="panels">
   </div>
   

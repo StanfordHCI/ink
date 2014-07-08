@@ -7,6 +7,6 @@ class Page < ActiveRecord::Base
   accepts_nested_attributes_for :pictures, allow_destroy: true
   accepts_nested_attributes_for :s_selectpanels, allow_destroy: true
 
-  #validates :site_name, presence: true
+  validates :site_name, presence: true
   #accepts_nested_attributes_for :panels, :reject_if => lambda {|a| a[:panel_name].blank? }, :allow_destroy => true
 end
