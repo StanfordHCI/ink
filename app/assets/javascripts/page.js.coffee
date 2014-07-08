@@ -10,6 +10,13 @@ ready = ->
   $('form').on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
+    panelLocation = document.getElementById('panels')
+    panelLocation.innerHTML += $(this).data('fields').replace(regexp, time)
+    event.preventDefault()
+
+  $('form').on 'click', '.add_option', (event) ->
+    time = new Date().getTime()
+    regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
 

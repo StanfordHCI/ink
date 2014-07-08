@@ -1,5 +1,11 @@
 <%= form_for @page do |f| %>
-  <div>
+  <table id="menu">
+    <td><%= link_to_add_fields "Add Text panel", f, :text_panels %></td>
+    <td><%= link_to_add_fields "Add Picture panel", f, :pictures %></td>
+    <td><%= link_to_add_fields "Add Single Select panel", f, :s_selectpanels %></td>
+  </table>
+  
+  <div id="site_info">
     <%= f.label :site_name, "Site Name*:" %><br/>
     <%= f.text_field :site_name %><br/>
     <%= f.label :description, "Site Description:" %><br/>
@@ -9,18 +15,19 @@
   <%= f.fields_for :text_panels do |builder| %>
     <%= render 'text_panel_fields', f: builder %>
   <% end %>
-  <%= link_to_add_fields "Add Text panel", f, :text_panels %><br/>
 
   <%= f.fields_for :pictures do |builder| %>
     <%= render 'picture_fields', f: builder %>
   <% end %>
-  <%= link_to_add_fields "Add Picture panel", f, :pictures %><br/>
 
   <%= f.fields_for :s_selectpanels do |builder| %>
     <%= render 's_selectpanel_fields', f: builder %>
   <% end %>
-  <%= link_to_add_fields "Add Single Select panel", f, :s_selectpanels %><br/>
 
+  </br> 
+  <div id="panels">
+  </div>
+  
   <!--
   <div>
     <#% if !(@page_panels.nil?) %>

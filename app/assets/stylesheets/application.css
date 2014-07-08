@@ -42,6 +42,25 @@
   color: gray;
 }
 
+#menu
+{
+  border: 1px solid black;
+  background: white;
+  position: fixed;
+  right: 0;
+}
+
+#menu td
+{
+  padding: 5px;
+  border: 1px solid black;
+}
+
+#site_info
+{
+
+}
+
 body
 {
   margin: 0px;
