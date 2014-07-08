@@ -14,6 +14,53 @@ class PagesController < ApplicationController
     else
       @page = @session_user.page
     end
+  end
+
+  def create
+    @session_user = User.find(session[:user_id])
+    if ((@session_user.page).nil?)
+      @page = Page.new(page_params)
+    else
+      @page = @session_user.page
+    end
+    if @page.save
+      redirect_to @session_user, notice: "Successfully created page."
+    else
+      redirect_to action: 'new', alert: "Invalid form. Please try again."
+    end
+  end
+
+  def edit
+    @session_user = User.find(session[:user_id])
+    if ((@session_user.page).nil?)
+      @page = Page.new(page_params)
+    else
+      @page = @session_user.page
+    end
+  end
+
+  def update
+    @session_user = User.find(session[:user_id])
+    if ((@session_user.page).nil?)
+      @page = Page.new(page_params)
+    else
+      @page = @session_user.page
+    end
+    if @page.update(page_params)
+      redirect_to @session_user, notice: "Successfully updated page."
+    else
+      redirect_to action: 'new', alert: "Could not update. Please try again."
+    end
+  end
+
+=begin
+  def new
+    @session_user = User.find(session[:user_id])
+    if ((@session_user.page).nil?)
+      @page = Page.new
+    else
+      @page = @session_user.page
+    end
     @page_panels = @page.panels
   end
 
@@ -52,9 +99,16 @@ class PagesController < ApplicationController
       redirect_to action: 'new', alert: "Could not update. Please try again."
     end
   end
-
+=end
   private
+  
+  def page_params
+    params.require(:page).permit(
+      :user_id, :site_name, :description,
+      text_panel_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy])
+  end
 
+=begin
   def page_params
     params.require(:page).permit(:site_name, :description, panels_attributes: [:panel_name, :display, :panel_type, :background_file])
   end
@@ -79,5 +133,5 @@ class PagesController < ApplicationController
       end
     end
   end
-
+=end
 end

@@ -1,6 +1,9 @@
+/*
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest(".panel_fields").hide();
+  //$("input[type=hidden][id$='_destroy'][value='true']").closest("ITEM SELECTOR").hide();
+
 }
 
 function add_fields(link, content) {
@@ -14,3 +17,4 @@ function add_existing_fields(content) {
   var regexp = new RegExp("new_panels", "g");
   $("div").parent(".panels").before(content.replace(regexp, new_id));
 }
+*/
