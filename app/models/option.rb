@@ -1,3 +1,3 @@
 class Option < ActiveRecord::Base
-  belongs_to :s_selectpanel
+  belongs_to :selectpanel, polymorphic: true
 end

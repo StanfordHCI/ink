@@ -99,7 +99,9 @@ class PagesController < ApplicationController
       text_panel_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy],
       picture_attributes: [:id, :page_id, :panel_name, :display, :description, :photo, :_destroy],
       s_selectpanel_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-        option_attributes: [:id, :s_selectpanel_id, :option_name, :_destroy]])
+        option_attributes: [:id, :s_selectpanel_id, :option_name, :_destroy]],
+      m_selectpanel_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+        option_attributes: [:id, :m_selectpanel_id, :option_name, :_destroy]])
   end
 
 =begin
