@@ -15,7 +15,7 @@ class PagesController < ApplicationController
   def new
     @session_user = User.find(session[:user_id])
     @page = Page.new
-    #@options = Array.new
+    @options = Array.new
   end
 
   def create
@@ -34,28 +34,22 @@ class PagesController < ApplicationController
   def edit
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
-    #@option = Array.new
+    @options = Array.new
+    for panel in @page.s_selectpanels
+      for option in panel.options
+        @options.push(option.option_title)
+      end
+    end
+    for panel in @page.m_selectpanels
+      for option in panel.options
+        @options.push(option.option_title)
+      end
+    end
   end
 
   def update
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
-
-=begin
-    @option = Array.new
-    if !((params[:page][:s_selectpanels_attributes]).nil?)
-      for option in params[:page][:s_selectpanels_attributes][:options_attributes]
-        @options.push(option[1][:option_name])
-      end
-    end
-
-    if !((params[:page][:m_selectpanels_attributes]).nil?)
-      for option in params[:page][:m_selectpanels_attributes][:options_attributes]
-        @options.push(option[1][:option_name])
-      end
-    end
-=end
-
     if @page.update(page_params)
       redirect_to @session_user, alert: "Successfully updated page."
     else
