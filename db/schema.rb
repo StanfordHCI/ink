@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140708214130) do
   create_table "options", force: true do |t|
     t.integer  "s_selectpanel_id"
     t.string   "option_title"
+    t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

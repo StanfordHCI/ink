@@ -21,10 +21,12 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = Page.new(page_params)
     if @page.save
+      @session_user.page = @page
       redirect_to @session_user, notice: "Successfully created page."
     else
-      render :new
-      #redirect_to action: 'new', alert: "Invalid form. Please try again."
+      #flash[:error] = "Invalid form. Please try again."
+      #render "new"
+      redirect_to action: 'new', alert: "Invalid form. Please try again."
     end
   end
   
@@ -39,8 +41,8 @@ class PagesController < ApplicationController
     if @page.update(page_params)
       redirect_to @session_user, alert: "Successfully updated page."
     else
-      render :edit
-      #redirect_to action: 'edit', alert: "Could not update. Please try again."
+      #render :edit
+      redirect_to action: 'edit', alert: "Could not update. Please try again."
     end
   end
 
