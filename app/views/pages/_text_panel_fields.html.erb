@@ -1,9 +1,9 @@
 <fieldset>
   <%= f.label :panel_name, "Panel Name*:" %><br/>
   <%= f.text_field :panel_name %><br/>
-  <%= f.label :display, "Display panel name?" %>
-  <%= f.check_box :display %><br/>
-  <%= f.label :info, "Content" %><br/>
+  <%= f.check_box :display %>
+  <%= f.label :display, "Display panel name?" %><br/>
+  <%= f.label :info, "Content*:" %><br/>
   <%= f.text_area :info %><br/>
   <%= f.hidden_field :_destroy %>
   <%= link_to "remove", "#", class: "remove_fields" %>

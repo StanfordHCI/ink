@@ -11,6 +11,8 @@
     <%= f.text_field :site_name %><br/>
     <%= f.label :description, "Site Description:" %><br/>
     <%= f.text_area :description %><br/>
+    <%= f.check_box :display_description %>
+    <%= f.label :display_description, "Display description on page?" %><br/>
   </div>
 
   <%= f.fields_for :text_panels do |builder| %>

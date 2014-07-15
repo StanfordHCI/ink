@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140708214130) do
     t.integer  "user_id"
     t.string   "site_name"
     t.text     "description"
+    t.integer  "display_description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
