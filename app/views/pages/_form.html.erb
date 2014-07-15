@@ -30,23 +30,6 @@
 
   <div id="panels">
   </div>
-  
-  <!--
-  <div>
-    <#% if !(@page_panels.nil?) %>
-      <#% for existing_panel in @page_panels %>
-        <#%= fields = add_existing_panel(f, existing_panel) %>
-        <#%= javascript_tag do %>
-          var content = "<#%= j fields %>";
-          add_existing_fields(content);
-        <#% end %>
-      <#% end %>
-    <#% end %>
-    <div class="panels">
-      <#%= link_to_add_panel(f) %>
-    </div>
-  </div> 
-  -->
 
   <%= f.submit "Create page" %>
 <% end %>
