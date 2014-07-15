@@ -25,14 +25,13 @@ ActiveRecord::Schema.define(version: 20140708214130) do
   add_index "m_selectpanels", ["page_id"], name: "index_m_selectpanels_on_page_id"
 
   create_table "options", force: true do |t|
-    t.integer  "s_selectpanel_id"
+    t.integer  "selectpanel_id"
+    t.string   "selectpanel_type"
     t.string   "option_title"
     t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "options", ["s_selectpanel_id"], name: "index_options_on_s_selectpanel_id"
 
   create_table "pages", force: true do |t|
     t.integer  "user_id"

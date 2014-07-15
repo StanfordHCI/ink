@@ -1,7 +1,8 @@
 class CreateOptions < ActiveRecord::Migration
   def change
     create_table :options do |t|
-      t.references :s_selectpanel, index: true
+      t.integer :selectpanel_id
+      t.string :selectpanel_type
       t.string :option_title
       t.string :icon
       t.timestamps
