@@ -8,6 +8,7 @@ ready = ->
     event.preventDefault()
 
   $('form').on 'click', '.add_fields', (event) ->
+    $('table').hide()  
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     panelLocation = document.getElementById('panels')
@@ -19,6 +20,9 @@ ready = ->
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
+
+  $('form').on 'click', '.add_panel', (event) ->
+    $('table').show()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
