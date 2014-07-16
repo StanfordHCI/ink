@@ -14,8 +14,7 @@ ready = ->
     $("#panel_types").show()
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
-    panelLocation = document.getElementById('panels')
-    panelLocation.innerHTML += $(this).data('fields').replace(regexp, time)
+    $('#menu').before($(this).data('fields').replace(regexp, time)) 
     event.preventDefault()
 
   $('form').on 'click', '.add_option', (event) ->
