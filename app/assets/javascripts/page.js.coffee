@@ -11,7 +11,7 @@ ready = ->
 
   $('form').on 'click', '.add_fields', (event) ->
     $('table').hide()  
-    $("#panel_types").show()
+    $("#panel_button").show()
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $('#menu').before($(this).data('fields').replace(regexp, time)) 
@@ -25,7 +25,7 @@ ready = ->
 
   $('form').on 'click', '.add_panel', (event) ->
     $('table').show()
-    $("#panel_types").hide()
+    $("#panel_button").hide()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
