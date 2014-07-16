@@ -1,11 +1,4 @@
 <%= form_for @page do |f| %>
-  <table id="menu">
-    <td><%= link_to_add_fields "Add Text panel", f, :text_panels %></td>
-    <td><%= link_to_add_fields "Add Picture panel", f, :pictures %></td>
-    <td><%= link_to_add_fields "Add Single-Select panel", f, :s_selectpanels %></td>
-    <td><%= link_to_add_fields "Add Multi-Select panel", f, :m_selectpanels %></td>  
-  </table>
-  
   <div id="site_info">
     <%= f.label :site_name, "Site Name*:" %><br/>
     <%= f.text_field :site_name %><br/>
@@ -30,6 +23,13 @@
 
   <div id="panels">
   </div>
+  
+  <table id="menu">
+    <td><%= link_to_add_fields "Add Text panel", f, :text_panels %></td>
+    <td><%= link_to_add_fields "Add Picture panel", f, :pictures %></td>
+    <td><%= link_to_add_fields "Add Single-Select panel", f, :s_selectpanels %></td>
+    <td><%= link_to_add_fields "Add Multi-Select panel", f, :m_selectpanels %></td>  
+  </table>
   
   <div id="panel_types">
     <%= link_to("Add a panel", "#", class: "add_panel") %>

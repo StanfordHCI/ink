@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
+  $('table').hide()
+
   $('form').on 'click', '.remove_fields', (event) ->
     $(this).prev('input[type=hidden]').val('1')
     $(this).closest('fieldset').hide()
@@ -9,6 +11,7 @@ ready = ->
 
   $('form').on 'click', '.add_fields', (event) ->
     $('table').hide()  
+    $("#panel_types").show()
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     panelLocation = document.getElementById('panels')
@@ -23,6 +26,8 @@ ready = ->
 
   $('form').on 'click', '.add_panel', (event) ->
     $('table').show()
+    $("#panel_types").hide()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
+
