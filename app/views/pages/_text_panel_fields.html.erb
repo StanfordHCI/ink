@@ -7,9 +7,13 @@
   <%= f.text_area :info %><br/>
 
   <% if !(@options.nil?) %>
-    <% for option in @options %>
-      <%= option %>
-    <% end %>
+    <div class="tags">
+      Panel present when user selects...
+      <% for option in @options %>
+        <%= add_tags f, :tags %>
+        <%= option %>
+      <% end %>
+    </div>
   <% end %>
 
   <%= f.hidden_field :_destroy %>

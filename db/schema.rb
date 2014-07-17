@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708214130) do
+ActiveRecord::Schema.define(version: 20140717173644) do
 
   create_table "m_selectpanels", force: true do |t|
     t.integer  "page_id"
@@ -84,6 +84,15 @@ ActiveRecord::Schema.define(version: 20140708214130) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+
+  create_table "tags", force: true do |t|
+    t.integer  "panel_id"
+    t.string   "panel_type"
+    t.string   "name"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "text_panels", force: true do |t|
     t.integer  "page_id"

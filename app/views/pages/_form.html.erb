@@ -21,11 +21,17 @@
     <%= render 'm_selectpanel_fields', f: builder %>
   <% end %>
 
+  <!--
+  <script type="text/javascript">
+    var options = <#% @options %>
+  </script>
+  -->
+
   <table id="menu">
-    <td><%= link_to_add_fields "text.png", f, :text_panels %></td>
-    <td><%= link_to_add_fields "picture.png", f, :pictures %></td>
-    <td><%= link_to_add_fields "single.png", f, :s_selectpanels %></td>
-    <td><%= link_to_add_fields "multi.png", f, :m_selectpanels %></td>  
+    <td><%= link_to_add_panels "text.png", f, :text_panels %></td>
+    <td><%= link_to_add_panels "picture.png", f, :pictures %></td>
+    <td><%= link_to_add_panels "single.png", f, :s_selectpanels %></td>
+    <td><%= link_to_add_panels "multi.png", f, :m_selectpanels %></td>  
   </table>
   
   <div id="panel_button">

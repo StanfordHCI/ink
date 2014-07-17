@@ -88,6 +88,11 @@ fieldset
   float: right;
 }
 
+.tags
+{
+  padding-top: 10px;
+}
+
 body
 {
   font-family: Helvetica;

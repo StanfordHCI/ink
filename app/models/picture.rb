@@ -1,3 +1,5 @@
 class Picture < ActiveRecord::Base
   belongs_to :page
+  has_many :tags, as: :panel
+  accepts_nested_attributes_for :tags
 end
