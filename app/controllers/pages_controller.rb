@@ -22,7 +22,6 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = Page.new(page_params)
 
-
     if @page.save
       @session_user.page = @page
       redirect_to @session_user, notice: "Successfully created page."
@@ -34,13 +33,31 @@ class PagesController < ApplicationController
   def edit
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
+    for panel in @page.text_panels
+      for tag in panel.tags
+        tag.destroy
+      end
+    end
+    
+    for panel in @page.pictures
+      for tag in panel.tags
+        tag.destroy
+      end
+    end
+
     @options = Array.new
     for panel in @page.s_selectpanels
+      for tag in panel.tags
+        tag.destroy
+      end
       for option in panel.options
         @options.push(option.option_title)
       end
     end
     for panel in @page.m_selectpanels
+      for tag in panel.tags
+        tag.destroy
+      end
       for option in panel.options
         @options.push(option.option_title)
       end
@@ -63,14 +80,14 @@ class PagesController < ApplicationController
     params.require(:page).permit(
       :user_id, :site_name, :description, :display_description,
       text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-        tags_attributes: [:id, :panel_id, :panel_type, :name, :value]],
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]],
       pictures_attributes: [:id, :page_id, :panel_name, :display, :description, :photo, :_destroy,
-        tags_attributes: [:id, :panel_id, :panel_type, :name, :value]],
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]],
       s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
         options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
-        tags_attributes: [:id, :panel_id, :panel_type, :name, :value]],
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]],
       m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
         options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
-        tags_attributes: [:id, :panel_id, :panel_type, :name, :value]])
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]])
   end
 end
