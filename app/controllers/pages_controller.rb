@@ -22,6 +22,19 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = Page.new(page_params)
 
+    for picture_attribute in params[:page][:pictures_attributes]
+      uploaded = picture_attribute[1][:photo]
+      if !(uploaded.nil?)
+        File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
+          file.write(uploaded.read)
+        end
+        picture_panel = Picture.find_by_id(picture_attribute[1][:id])
+        if !(picture_panel.nil?)
+          picture_panel.background_file = uploaded.original_filename
+        end
+      end
+    end
+    
     if @page.save
       @session_user.page = @page
       redirect_to @session_user, notice: "Successfully created page."
@@ -67,6 +80,20 @@ class PagesController < ApplicationController
   def update
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
+
+    for picture_attribute in params[:page][:pictures_attributes]
+      uploaded = picture_attribute[1][:photo]
+      if !(uploaded.nil?)
+        File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
+          file.write(uploaded.read)
+        end
+        picture_panel = Picture.find_by_id(picture_attribute[1][:id])
+        if !(picture_panel.nil?)
+          picture_panel.background_file = uploaded.original_filename
+        end
+      end
+    end
+
     if @page.update(page_params)
       redirect_to @session_user, alert: "Successfully updated page."
     else
@@ -81,13 +108,13 @@ class PagesController < ApplicationController
       :user_id, :site_name, :description, :display_description,
       text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]],
-      pictures_attributes: [:id, :page_id, :panel_name, :display, :description, :photo, :_destroy,
-        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]],
-      s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-        options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
-        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]],
-      m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-        options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
-        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]])
+        pictures_attributes: [:id, :page_id, :panel_name, :display, :description, :background_file, :_destroy,
+          tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]],
+          s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+            options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
+            tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]],
+            m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+              options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
+              tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value]])
   end
 end
