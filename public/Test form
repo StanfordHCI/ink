@@ -1,1 +1,1 @@
-{"type":"home2","menu_title":"Home"}
+{"title":"Test form","pages":[{"type":"basic-data-exp","menu_title":"Text"},{"type":"basic-data-exp","menu_title":"Picture","image":null},{"type":"single-select","subtitle":"Pick one","rows":"1","columns":"3","menu_title":"Single","options":[{"title":"A"},{"title":"B"},{"title":"C"}]},{"type":"single-select","subtitle":"Pick one","rows":"1","columns":"3","menu_title":"Single","options":[{"title":"A"},{"title":"B"},{"title":"C"}]}]}

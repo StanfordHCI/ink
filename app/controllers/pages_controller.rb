@@ -111,18 +111,49 @@ class PagesController < ApplicationController
       :user_id, :site_name, :description, :display_description,
       text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-        pictures_attributes: [:id, :page_id, :panel_name, :display, :description, :background_file, :_destroy,
-          tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-          s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-            options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
-            tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-            m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-              options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
-              tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
+      pictures_attributes: [:id, :page_id, :panel_name, :display, :description, :background_file, :_destroy,
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+      s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+        options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+      m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+        options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
   end
 
   def create_json(page)
-    page_hash = { "type" => "home2", "menu_title" => "Home" }
+    page_hash = {:title => page.site_name}
+    panels = Array.new
+
+    for panel in page.text_panels
+      temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name}
+      panels.push(temp_hash)
+    end
+    for panel in page.pictures
+      temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :image => panel.background_file}
+      panels.push(temp_hash)
+    end
+    for panel in page.s_selectpanels
+      options = Array.new
+      for option in panel.options
+        temp_option = {:title => option.option_title}
+        options.push(temp_option)
+      end
+      temp_hash = {:type => "single-select", :subtitle => panel.info, :rows => "1", :columns => "3", :menu_title => panel.panel_name, :options => options}
+      panels.push(temp_hash)
+    end
+    for panel in page.m_selectpanels
+      options = Array.new
+      for option in panel.options
+        temp_option = {:title => option.option_title}
+        options.push(temp_option)
+      end
+      temp_hash = {:type => "single-select", :subtitle => panel.info, :rows => "1", :columns => "3", :menu_title => panel.panel_name, :options => options}
+      panels.push(temp_hash)
+    end
+    
+    page_hash = page_hash.merge(:pages => panels)
+
     File.open(Rails.root.join('public', page.site_name), 'wb') do |file|
       file.write(page_hash.to_json)
     end
