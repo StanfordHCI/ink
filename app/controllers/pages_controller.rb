@@ -97,6 +97,7 @@ class PagesController < ApplicationController
     end
 
     if @page.update(page_params)
+      create_json(@page)
       redirect_to @session_user, alert: "Successfully updated page."
     else
       redirect_to action: 'edit', alert: "Could not update. Please try again."
@@ -118,5 +119,12 @@ class PagesController < ApplicationController
             m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
               options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
               tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
+  end
+
+  def create_json(page)
+    page_hash = { "type" => "home2", "menu_title" => "Home" }
+    File.open(Rails.root.join('public', page.site_name), 'wb') do |file|
+      file.write(page_hash.to_json)
+    end
   end
 end
