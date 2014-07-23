@@ -18,11 +18,11 @@ module PageHelper
     link_to(name, "#", class: "add_option", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
-  def add_tags(f, association)
+  def add_tags(f, association, option_name)
     new_object = f.object.send(association).klass.new
     id = new_object.object_id
     f.fields_for(association, new_object, child_index: id) do |builder|
-      render("tag_fields", f: builder)
+      render("tag_fields", f: builder, tag_name: option_name)
     end
   end
 end
