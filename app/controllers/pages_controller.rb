@@ -82,18 +82,11 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
 
-    if !((params[:page][:pictures_attributes]).nil?)
-      for picture_attribute in params[:page][:pictures_attributes]
-        uploaded = picture_attribute[1][:photo]
-        if !(uploaded.nil?)
-          File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
-            file.write(uploaded.read)
-          end
-          for panel in @page.pictures
-            if panel.panel_name == picture_attribute[1][:panel_name]
-              panel.background_file = uploaded.original_filename
-            end
-          end
+    file_upload(params[:page][:pictures_attributes], @page.pictures)
+    for panel in params[:page][:s_selectpanels_attributes]
+      for select_panel in @page.s_selectpanels
+        if select_panel.panel_name == panel[1][:panel_name]
+          file_upload(panel[1][:tags_attributes], select_panel.options)
         end
       end
     end
@@ -113,13 +106,13 @@ class PagesController < ApplicationController
       :user_id, :site_name, :description, :display_description,
       text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-        pictures_attributes: [:id, :page_id, :panel_name, :display, :description, :background_file, :_destroy,
+        pictures_attributes: [:id, :page_id, :panel_name, :display, :description, :file, :_destroy,
           tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
           s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-            options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
+            options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
             tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
             m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-              options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :icon, :_destroy],
+              options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
               tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
   end
 
@@ -134,7 +127,7 @@ class PagesController < ApplicationController
     end
     for panel in page.pictures
       tags = generate_tags(panel)
-      temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :image => panel.background_file, :tags => tags}
+      temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :image => panel.file, :tags => tags}
       panels.push(temp_hash)
     end
     for panel in page.s_selectpanels
@@ -156,7 +149,7 @@ class PagesController < ApplicationController
   def generate_select_panel(panel)
     options = Array.new
     for option in panel.options
-      temp_option = {:title => option.option_title}
+      temp_option = {:title => option.option_title, :image => option.file}
       options.push(temp_option)
     end
     tags = generate_tags(panel)
@@ -174,4 +167,22 @@ class PagesController < ApplicationController
     return tags
   end
 
-end
+  def file_upload(parameter, panel_type)
+    if !((parameter).nil?)
+      for attribute in parameter
+        uploaded = attribute[1][:photo]
+        if !(uploaded.nil?)
+          File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
+            file.write(uploaded.read)
+          end
+          for panel in panel_type
+            if panel.panel_name == attribute[1][:panel_name]
+              panel.file = uploaded.original_filename
+            end
+          end
+        end
+      end
+    end
+  end
+
+  end

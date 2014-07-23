@@ -5,7 +5,7 @@ class CreatePictures < ActiveRecord::Migration
       t.string :panel_name
       t.integer :display
       t.text :description
-      t.string :background_file
+      t.string :file
       t.timestamps
     end
   end

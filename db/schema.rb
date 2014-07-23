@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140717173644) do
     t.integer  "selectpanel_id"
     t.string   "selectpanel_type"
     t.string   "option_title"
-    t.string   "icon"
+    t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140717173644) do
     t.string   "panel_name"
     t.integer  "display"
     t.text     "description"
-    t.string   "background_file"
+    t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
