@@ -12,22 +12,27 @@
   <%= render 'panel_info', panel: panel %>
   </p>
   </header>
+  <% count = 0 %>
   <% for option in panel.options %>
-    <div class='row'>
-      <div class='col-md-4'>
+    <% if (count % 3) == 0 %>
+      <div class='row'>
+      <% end %>
+      <div class='col-md-4 text-center'>
         <div class='service-block'>
           <div class='service-icon'>
             <i class='fa fa- <%option.id%>'></i>
           </div>
-          <h3>
-            <%= option.option_title %>
-          </h3>
-          <p>
-          "INSERT OPTION DESCRIPTION ATTRIBUTE HERE."
-          </p>
+          <h3><%= option.option_title %></h3>
+          <p>"INSERT OPTION DESCRIPTION ATTRIBUTE HERE."</p>
         </div>
       </div>
-    </div>
+      <% count = count + 1 %>
+      <% if (count % 3) == 0 %>
+      </div>
+    <% end %>
   <% end %>
+  <% if (count % 3) != 0 %>
+  </div>
+<% end %>
 </div>
 </section>

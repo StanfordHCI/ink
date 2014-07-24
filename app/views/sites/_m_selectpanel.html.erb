@@ -9,8 +9,11 @@
   <%= render 'panel_info', panel: panel %>
   </p>
   </header>
+  <% count = 0 %>
   <% for option in panel.options %>
-    <div class='row'>
+    <% if (count % 3) == 0 %>
+      <div class='row'>
+      <% end %>
       <div class='col-md-4 text-center'>
         <div class='research hi-icon-effect-1'>
           <i class='hi-icon fa fa-<%option.id%>'></i>
@@ -24,7 +27,13 @@
         </p>
         </header>
       </div>
-    </div>
+      <% count = count + 1 %>
+      <% if (count % 3) == 0 %>
+      </div>
+    <% end %>
   <% end %>
+  <% if (count % 3) != 0 %>
+  </div>
+<% end %>
 </div>
 </section>
