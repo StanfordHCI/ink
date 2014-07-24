@@ -1,3 +1,61 @@
 // Place all the styles related to the page controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.options
+{
+  margin-left: 100px;
+  border: none;
+}
+
+fieldset
+{
+  border: none;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+#menu
+{
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+#menu td
+{
+  padding-left: 30px;
+}
+
+#site_info
+{
+  padding-bottom: 20px;
+}
+
+.remove
+{
+  text-align: right;
+}
+
+#panel_button
+{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#submit
+{
+  padding-right: 10px;
+  float: right;
+}
+
+.tags
+{
+  padding-top: 10px;
+}
+
+body
+{
+  font-family: Helvetica;
+  margin: 0px;
+  padding: 125px 0px 0px 0px;
+}

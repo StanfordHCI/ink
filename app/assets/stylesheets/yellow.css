@@ -1,0 +1,162 @@
+/* yellow - #f1c40f */
+
+
+a:link,a:visited{
+	color:#f1c40f;
+}
+
+::-moz-selection {
+    background: #f1c40f;
+    text-shadow: none;
+}
+
+::selection {
+    background: #f1c40f;
+    text-shadow: none;
+}
+
+
+.navbar-default a.navbar-brand:hover,
+.navbar-default a.navbar-brand:active{
+	color:#f1c40f;
+}
+
+.navbar-default .navbar-nav>li>a{
+	color:#fff;
+}
+
+.navbar-default .navbar-nav>li>a:hover, 
+.navbar-default .navbar-nav>li>a:focus,a:hover,a:active,.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:hover, 
+.navbar-default .navbar-nav>.active>a:focus{
+	color:#f1c40f;
+
+}
+
+.nav-effect a:hover::before,
+.nav-effect a:focus::before {
+  color: #f1c40f;
+  text-shadow: 10px 0 #f1c40f, -10px 0 #f1c40f;
+}
+
+.spacer,.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus,#grid .mix .overlay,.follow {
+background: #f1c40f;
+}
+
+.planContainer .button a.bestPlanButton,
+.planContainer .price p.bestPlanPrice,
+.planContainer .button a.bestPlanButton {
+  background: #f1c40f;
+  border: 2px solid #f1c40f;
+}
+
+.planContainer .button a.bestPlanButton:hover {
+  background: #f1c40f;
+  border: 2px solid #f1c40f;
+}
+
+.flex-control-paging li a:hover { background: #f1c40f; }
+.flex-control-paging li a.flex-active { background: #f1c40f;}
+
+.home-slides li span{
+	color:#f1c40f;
+}
+
+.nav-pills>li>a:hover,
+.nav-pills>li.active>a{
+	background: #f1c40f;
+	border: 2px solid #f1c40f;
+	color:#fff;
+}
+
+#page-contact{
+	background: #f1c40f;
+	color:#fff;
+}
+
+#page-contact .spacer{
+	background: #fff;
+}
+
+#page-contact .section-title{
+	color:#fff;
+}
+
+.btn.btn-default{
+   background: #f1c40f;
+}
+
+.btn.btn-default:hover,
+.btn.btn-default:active{
+    color:#f1c40f;
+}
+
+
+.hi-icon-effect-1 .hi-icon {
+	background: #f1c40f;
+}
+
+.hi-icon-effect-1 .hi-icon:after {
+	box-shadow: 0 0 0 4px #f1c40f;
+}
+
+.no-touch .hi-icon-effect-1 .hi-icon:hover {
+	
+}
+
+
+
+.service-block .service-icon{
+   box-shadow: 0px 0px 0px 3px #f1c40f;
+    background: #f1c40f;
+}
+
+.service-icon i{
+		color:#fff;
+
+}
+
+.service-block h3{
+	color:#f1c40f;
+}
+
+.service-block:hover{
+	background: #f1c40f;
+}
+
+.service-block:hover .service-icon{
+	background:#fff;
+}
+
+.service-block:hover .service-icon i{
+	color:#f1c40f;
+}
+
+.service-block:hover  h3,
+.service-block:hover  p,
+.service-block:hover ul li{
+	color:#fff;
+}
+
+.service-block:hover  ul li{
+	 border-bottom: solid thin #fff;
+}
+
+.highlight{
+	background: #f1c40f;
+	color:#fff;
+}
+
+.highlight h2{
+	color:#fff;
+}
+
+blockquote i{
+	color:#f1c40f;
+}
+
+
+
+
+
+

@@ -2,21 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-// Formatting for header
-h1 {
-  font-weight: bold;
-  font-size: 24pt;
-}
 
-// Formatting for images
-.image {
-  width: 300px;
-  height: auto;
-}
-
-// Bolds users' names above comment
-.user {
-  font-weight: bold;
+body
+{
+  font-family: Helvetica;
+  margin: 0px;
+  padding: 125px 0px 0px 0px;
 }
 
 

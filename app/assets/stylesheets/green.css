@@ -1,0 +1,157 @@
+/* green - #1ABC9C */
+
+a:link,a:visited{
+	color:#1ABC9C;
+}
+
+::-moz-selection {
+    background: #1ABC9C;
+    text-shadow: none;
+}
+
+::selection {
+    background: #1ABC9C;
+    text-shadow: none;
+}
+
+
+.navbar-default a.navbar-brand:hover,
+.navbar-default a.navbar-brand:active{
+	color:#1ABC9C;
+}
+
+.navbar-default .navbar-nav>li>a{
+	color:#fff;
+}
+
+.navbar-default .navbar-nav>li>a:hover, 
+.navbar-default .navbar-nav>li>a:focus,a:hover,a:active,.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:hover, 
+.navbar-default .navbar-nav>.active>a:focus{
+	color:#1ABC9C;
+
+}
+
+.nav-effect a:hover::before,
+.nav-effect a:focus::before {
+  color: #1ABC9C;
+  text-shadow: 10px 0 #1ABC9C, -10px 0 #1ABC9C;
+}
+
+.spacer,.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus,#grid .mix .overlay,.follow {
+background: #1ABC9C;
+}
+
+.planContainer .button a.bestPlanButton,
+.planContainer .price p.bestPlanPrice,
+.planContainer .button a.bestPlanButton {
+  background: #1ABC9C;
+  border: 2px solid #1ABC9C;
+}
+
+.planContainer .button a.bestPlanButton:hover {
+  background: #1ABC9C;
+  border: 2px solid #1ABC9C;
+}
+
+.flex-control-paging li a:hover { background: #1ABC9C; }
+.flex-control-paging li a.flex-active { background: #1ABC9C;}
+
+.home-slides li span{
+	color:#1ABC9C;
+}
+
+.nav-pills>li>a:hover,
+.nav-pills>li.active>a{
+	background: #1ABC9C;
+	border: 2px solid #1ABC9C;
+	color:#fff;
+}
+
+#page-contact{
+	background: #1ABC9C;
+	color:#fff;
+}
+
+#page-contact .spacer{
+	background: #fff;
+}
+
+#page-contact .section-title{
+	color:#fff;
+}
+
+.btn.btn-default{
+   background: #1ABC9C;
+}
+
+.btn.btn-default:hover,
+.btn.btn-default:active{
+    color:#1ABC9C;
+}
+
+
+.hi-icon-effect-1 .hi-icon {
+	background: #1ABC9C;
+}
+
+.hi-icon-effect-1 .hi-icon:after {
+	box-shadow: 0 0 0 4px #1ABC9C;
+}
+
+.no-touch .hi-icon-effect-1 .hi-icon:hover {
+	
+}
+
+
+
+.service-block .service-icon{
+   box-shadow: 0px 0px 0px 3px #1ABC9C;
+    background: #1ABC9C;
+}
+
+.service-icon i{
+		color:#fff;
+
+}
+
+.service-block h3{
+	color:#1ABC9C;
+}
+
+.service-block:hover{
+	background: #1ABC9C;
+}
+
+.service-block:hover .service-icon{
+	background:#fff;
+}
+
+.service-block:hover .service-icon i{
+	color:#1ABC9C;
+}
+
+.service-block:hover  h3,
+.service-block:hover  p,
+.service-block:hover ul li{
+	color:#fff;
+}
+
+.service-block:hover  ul li{
+	 border-bottom: solid thin #fff;
+}
+
+.highlight{
+	background: #1ABC9C;
+	color:#fff;
+}
+
+.highlight h2{
+	color:#fff;
+}
+
+blockquote i{
+	color:#1ABC9C;
+}
+
+
