@@ -15,9 +15,21 @@
   <!-- Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  
-  <% for picture_panel in @page.pictures %>
-    <%= render 'picture_panel_head', panel: picture_panel %>
+
+  <% content_for :head do %>
+    <% for picture_panel in @page.pictures %>
+      <%= render 'picture_panel_head', panel: picture_panel %>
+    <% end %>
+    <% for s_selectpanel in @page.s_selectpanels %>
+      <% for option in s_selectpanel.options %>
+        <%= render 'options_head', option: option %>
+      <% end %>
+    <% end %>
+    <% for m_selectpanel in @page.m_selectpanels %>
+      <% for option in m_selectpanel.options %>
+        <%= render 'options_head', option: option %>
+      <% end %>
+    <% end %>
   <% end %>
 </head>
 <body>
@@ -27,12 +39,13 @@
       <div class='flexslider '>
         <p class='intro-text'>
         <%= @page.site_name %>
+        </p>
+      </div>
+      <p class='intro-subtext'>
         <% if !(@page.description.nil?) %>
           </br><%= @page.description %>
         <% end %>
-        </p>
-      </div>
-      <p class='intro-text'></p>
+      </p>
       <div id='go' class='btn btn-default learn-more'>
         <span data-hover='Learn More'>BEGIN</span>
       </div>
