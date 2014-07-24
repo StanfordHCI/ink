@@ -4,7 +4,7 @@ class CreatePictures < ActiveRecord::Migration
       t.references :page, index: true
       t.string :panel_name
       t.integer :display
-      t.text :description
+      t.text :info
       t.string :file
       t.timestamps
     end

@@ -1,0 +1,33 @@
+<section id='page-services' class='page-services single-select'>
+<div class='container'>
+  <header class='section-header'>
+  <h2 class='section-title'>
+    <span>
+      <%= render 'panel_title', panel: panel %>
+    </span>
+  </h2>
+  <div class='spacer'>
+  </div>
+  <p class='section-subtitle'>
+  <%= render 'panel_info', panel: panel %>
+  </p>
+  </header>
+  <% for option in panel.options %>
+    <div class='row'>
+      <div class='col-md-4'>
+        <div class='service-block'>
+          <div class='service-icon'>
+            <i class='fa fa- <%option.id%>'></i>
+          </div>
+          <h3>
+            <%= option.option_title %>
+          </h3>
+          <p>
+          "INSERT OPTION DESCRIPTION ATTRIBUTE HERE."
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+</section>

@@ -1,5 +1,8 @@
 class Page < ActiveRecord::Base
   belongs_to :user
+
+  has_one :site
+
   has_many :text_panels
   has_many :pictures
   has_many :s_selectpanels

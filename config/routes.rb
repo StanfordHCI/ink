@@ -1,5 +1,6 @@
 Project4::Application.routes.draw do
 
+  get "site/show"
   get "home/index"
   root 'home#index'
 
@@ -12,7 +13,7 @@ Project4::Application.routes.draw do
   end
 
   resources :pages
-
+  resources :sites
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -23,16 +23,19 @@ class PagesController < ApplicationController
     @page = Page.new(page_params)
 
     file_upload(params[:page][:pictures_attributes], @page.pictures)
-    for panel in params[:page][:s_selectpanels_attributes]
-      for select_panel in @page.s_selectpanels
-        if select_panel.panel_name == panel[1][:panel_name]
-          file_upload(panel[1][:options_attributes], select_panel.options)
+    if !((params[:page][:s_selectpanels_attributes]).nil?)
+      for panel in params[:page][:s_selectpanels_attributes]
+        for select_panel in @page.s_selectpanels
+          if select_panel.panel_name == panel[1][:panel_name]
+            file_upload(panel[1][:options_attributes], select_panel.options)
+          end
         end
       end
     end
-    
+
     if @page.save
       @session_user.page = @page
+      @page.site = Site.new
       redirect_to @session_user, notice: "Successfully created page."
     else
       redirect_to action: 'new', alert: "Invalid form. Please try again."
@@ -78,17 +81,20 @@ class PagesController < ApplicationController
     @page = @session_user.page
 
     file_upload(params[:page][:pictures_attributes], @page.pictures)
-    for panel in params[:page][:s_selectpanels_attributes]
-      for select_panel in @page.s_selectpanels
-        if select_panel.panel_name == panel[1][:panel_name]
-          file_upload(panel[1][:options_attributes], select_panel.options)
+    if !((params[:page][:s_selectpanels_attributes]).nil?)
+      for panel in params[:page][:s_selectpanels_attributes]
+        for select_panel in @page.s_selectpanels
+          if select_panel.panel_name == panel[1][:panel_name]
+            file_upload(panel[1][:options_attributes], select_panel.options)
+          end
         end
       end
     end
 
     if @page.update(page_params)
       create_json(@page)
-      redirect_to @session_user, alert: "Successfully updated page."
+      redirect_to @page.site
+      #redirect_to @session_user, alert: "Successfully updated page."
     else
       redirect_to action: 'edit', alert: "Could not update. Please try again."
     end
@@ -101,14 +107,14 @@ class PagesController < ApplicationController
       :user_id, :site_name, :description, :display_description,
       text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-      pictures_attributes: [:id, :page_id, :panel_name, :display, :description, :file, :_destroy,
-        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-      s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-        options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
-        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-      m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-        options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
-        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
+        pictures_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :_destroy,
+          tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+          s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+            options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+            tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+            m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+              options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+              tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
   end
 
   def file_upload(parameter, array)
