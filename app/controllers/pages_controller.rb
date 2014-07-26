@@ -21,7 +21,6 @@ class PagesController < ApplicationController
   def create
     @session_user = User.find(session[:user_id])
     @page = Page.new(page_params)
-
     file_upload(params[:page][:pictures_attributes], @page.pictures)
     if !((params[:page][:s_selectpanels_attributes]).nil?)
       for panel in params[:page][:s_selectpanels_attributes]
@@ -32,7 +31,6 @@ class PagesController < ApplicationController
         end
       end
     end
-
     if @page.save
       @session_user.page = @page
       @page.site = Site.new
@@ -45,6 +43,14 @@ class PagesController < ApplicationController
   def edit
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
+    
+    @panels = Array.new
+    for panel in Panel.find(:all) 
+        if panel.page_id == @page.id
+          @panels.push(panel)
+        end
+    end
+
     for panel in @page.text_panels
       for tag in panel.tags
         tag.destroy
@@ -90,9 +96,8 @@ class PagesController < ApplicationController
         end
       end
     end
-
     if @page.update(page_params)
-      create_json(@page)
+      #create_json(@page)
       redirect_to @page.site
       #redirect_to @session_user, alert: "Successfully updated page."
     else
@@ -105,6 +110,9 @@ class PagesController < ApplicationController
   def page_params
     params.require(:page).permit(
       :user_id, :site_name, :description, :display_description,
+      panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy, :file, :type, :panel_type,
+            options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+            tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
       text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
         pictures_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :_destroy,
@@ -115,7 +123,7 @@ class PagesController < ApplicationController
             m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
               options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
               tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
-  end
+ end
 
   def file_upload(parameter, array)
     if !((parameter).nil?)

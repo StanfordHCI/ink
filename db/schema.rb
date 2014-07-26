@@ -45,12 +45,15 @@ ActiveRecord::Schema.define(version: 20140723231633) do
   create_table "panels", force: true do |t|
     t.integer  "page_id"
     t.string   "panel_name"
+    t.text     "info"
     t.integer  "display"
-    t.string   "panel_type"
-    t.string   "background_file"
+    t.string   "type"
+    t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "panels", ["page_id"], name: "index_panels_on_page_id"
 
   create_table "pictures", force: true do |t|
     t.integer  "page_id"

@@ -1,3 +1,4 @@
-<style>.parallax-background<%= panel.id %>{background-image: url('/assets/<%= panel.file %>')}</style>
-
+<% if !((panel.file).nil?) %>
+  <style>.parallax-background<%= panel.id %>{background-image: url('/assets/<%= panel.file %>')}</style>
+<% end %>
 

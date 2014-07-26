@@ -1,4 +1,4 @@
-class MSelectpanel < ActiveRecord::Base
+class MSelectpanel < Panel
   belongs_to :page
   has_many :options, as: :selectpanel
   has_many :tags, as: :panel

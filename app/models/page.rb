@@ -3,6 +3,9 @@ class Page < ActiveRecord::Base
 
   has_one :site
 
+  has_many :panels
+  accepts_nested_attributes_for :panels, allow_destroy: true
+  
   has_many :text_panels
   has_many :pictures
   has_many :s_selectpanels

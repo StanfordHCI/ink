@@ -8,22 +8,28 @@
     <%= f.label :display_description, "Display description on page?" %><br/>
   </div>
 
-  <%= f.fields_for :text_panels do |builder| %>
-    <%= render 'text_panel_fields', f: builder %>
+  <% for panel in @panels %>
+    <% if panel.type == "TextPanel" %>
+      <%= f.fields_for panel do |builder| %>
+        <%= render 'text_panel_fields', f: builder %>
+      <% end %>
+    <% elsif panel.type == "Picture" %>
+      <%= f.fields_for panel do |builder| %>
+        <%= render 'picture_fields', f: builder %>
+      <% end %>
+    <% elsif panel.type == "SSelectpanel" %>
+      <%= f.fields_for panel do |builder| %>
+        <%= render 's_selectpanel_fields', f: builder %>
+      <% end %>
+    <% else %> 
+      <%= f.fields_for panel do |builder| %>
+        <%= render 'm_selectpanel_fields', f: builder %>
+      <% end %>
+    <% end %>
   <% end %>
-  <%= f.fields_for :pictures do |builder| %>
-    <%= render 'picture_fields', f: builder %>
-  <% end %>
-  <%= f.fields_for :s_selectpanels do |builder| %>
-    <%= render 's_selectpanel_fields', f: builder %>
-  <% end %>
-  <%= f.fields_for :m_selectpanels do |builder| %>
-    <%= render 'm_selectpanel_fields', f: builder %>
-  <% end %>
-
   <!--
-  <script type="text/javascript">
-    var options = <#% @options %>
+    <script type="text/javascript">
+  var options = <#% @options %>
   </script>
   -->
 
@@ -33,7 +39,7 @@
     <td><%= link_to_add_panels "single.png", f, :s_selectpanels %></td>
     <td><%= link_to_add_panels "multi.png", f, :m_selectpanels %></td>  
   </table>
-  
+
   <div id="panel_button">
     <%= link_to("Add a panel", "#", class: "add_panel") %>
   </div>

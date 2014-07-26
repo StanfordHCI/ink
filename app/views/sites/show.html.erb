@@ -7,8 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="">
 
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
   <!-- Color option -->
   <%= stylesheet_link_tag "red", media: "all" %>
 
@@ -53,43 +51,41 @@
   </div>
   </section>
 
-
-  <% for text_panel in @page.text_panels %>
-    <%= render 'text_panel', panel: text_panel %>
+  <% for panel in @page.panels %>
+    <% if panel.type == "TextPanel" %>
+      <%= render 'text_panel', panel: panel %>
+    <% elsif panel.type == "Picture" %>
+      <%= render 'picture_panel', panel: panel %>
+    <% elsif panel.type == "SSelectpanel" %>
+      <%= render 's_selectpanel', panel: panel %>
+    <% else %>
+      <%= render 'm_selectpanel', panel: panel %>
+    <% end %>
   <% end %>
-  <% for picture_panel in @page.pictures %>
-    <%= render 'picture_panel', panel: picture_panel %>
-  <% end %>
-  <% for s_selectpanel in @page.s_selectpanels %>
-    <%= render 's_selectpanel', panel: s_selectpanel %>
-  <% end %>
-  <% for m_selectpanel in @page.m_selectpanels %>
-    <%= render 'm_selectpanel', panel: m_selectpanel %>
-  <% end %>
-  <!-- welcome begins -->
-  <!-- Nav starts -->
-  <!--
-  <div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Breaking News</a>
+    <!-- welcome begins -->
+    <!-- Nav starts -->
+    <!--
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Breaking News</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav nav-effect" id="main-menu">
+            <li><a href="#page-welcome"><span data-hover="b">Home</span></a></li>
+            <li><a href="#page-services"><span data-hover="Services">Type</span></a></li>
+            <li><a href="#page-about"><span data-hover="About">Preference</span></a></li>
+            <li><a href="#page-portfolio-controls"><span data-hover="Portfolio">Portfolio</span></a></li>
+            <li><a href="#page-contact"><span data-hover="Contact">Contact</span></a></li>
+          </ul>
+        </div>
       </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav nav-effect" id="main-menu">
-          <li><a href="#page-welcome"><span data-hover="b">Home</span></a></li>
-          <li><a href="#page-services"><span data-hover="Services">Type</span></a></li>
-          <li><a href="#page-about"><span data-hover="About">Preference</span></a></li>
-          <li><a href="#page-portfolio-controls"><span data-hover="Portfolio">Portfolio</span></a></li>
-          <li><a href="#page-contact"><span data-hover="Contact">Contact</span></a></li>
-        </ul>
-      </div>
-    </div>
-    -->
-  </body>
-</html>
+      -->
+    </body>
+  </html>

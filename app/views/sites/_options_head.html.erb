@@ -1,1 +1,3 @@
-<style>.fa-<%= option.id %>:before{content: url("/assets/<%= option.file %>");}</style>
+<% if !((option.file).nil?) %>
+  <style>.fa-<%= option.id %>:before{content: url("/assets/<%= option.file %>");}</style>
+<% end %>
