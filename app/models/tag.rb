@@ -1,3 +1,3 @@
 class Tag < ActiveRecord::Base
-  belongs_to :panel, polymorphic: true
+  belongs_to :panel
 end

@@ -10,30 +10,32 @@
   </p>
   </header>
   <% count = 0 %>
-  <% for option in panel.options %>
-    <% if (count % 3) == 0 %>
-      <div class='row'>
-      <% end %>
-      <div class='col-md-4 text-center'>
-        <div class='research hi-icon-effect-1'>
-          <i class='hi-icon fa fa-<%=option.id%>'></i>
-        </div>
-        <header class='process-header'>
-        <h3>
-          <%= option.option_title %>
-        </h3>
-        <p>
-        "INSERT OPTION DESCRIPTION ATTRIBUTE HERE."
-        </p>
-        </header>
-      </div>
-      <% count = count + 1 %>
+  <% if !((panel.options).nil?) %>
+    <% for option in panel.options %>
       <% if (count % 3) == 0 %>
-      </div>
+        <div class='row'>
+        <% end %>
+        <div class='col-md-4 text-center'>
+          <div class='research hi-icon-effect-1'>
+            <i class='hi-icon fa fa-<%=option.id%>'></i>
+          </div>
+          <header class='process-header'>
+          <h3>
+            <%= option.option_title %>
+          </h3>
+          <p>
+          "INSERT OPTION DESCRIPTION ATTRIBUTE HERE."
+          </p>
+          </header>
+        </div>
+        <% count = count + 1 %>
+        <% if (count % 3) == 0 %>
+        </div>
+      <% end %>
     <% end %>
+    <% if (count % 3) != 0 %>
+    </div>
   <% end %>
-  <% if (count % 3) != 0 %>
-  </div>
 <% end %>
 </div>
 </section>
