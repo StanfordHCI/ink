@@ -1,6 +1,8 @@
 <fieldset class="options">
-  <%= f.label :option_title, "Option: " %>
-  <%= f.text_field :option_title %>
+  <div>
+    <%= f.label :option_title, "Option: " %>
+    <%= f.text_field :option_title, :onkeyup=>"Tag(this.value, 'tags')" %>
+  </div>
   <%= f.label :photo, "Upload icon*: " %>
   <%= f.file_field :photo %>
   <%= f.hidden_field :_destroy %>

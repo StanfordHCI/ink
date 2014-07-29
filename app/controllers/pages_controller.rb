@@ -47,9 +47,9 @@ class PagesController < ApplicationController
     @options = Array.new
     for panel in Panel.find(:all) 
       if panel.page_id == @page.id
-        for tag in panel.tags
-          tag.destroy
-        end
+        #for tag in panel.tags
+        #  tag.destroy
+        #end
         if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
           for option in panel.options
             @options.push(option.option_title)
@@ -59,121 +59,121 @@ class PagesController < ApplicationController
     end
   end
 
-    def update
-      @session_user = User.find(session[:user_id])
-      @page = @session_user.page
+  def update
+    @session_user = User.find(session[:user_id])
+    @page = @session_user.page
 
-      file_upload(params[:page][:pictures_attributes], @page.pictures)
-      if !((params[:page][:s_selectpanels_attributes]).nil?)
-        for panel in params[:page][:s_selectpanels_attributes]
-          for select_panel in @page.s_selectpanels
-            if select_panel.panel_name == panel[1][:panel_name]
-              file_upload(panel[1][:options_attributes], select_panel.options)
-            end
+    file_upload(params[:page][:pictures_attributes], @page.pictures)
+    if !((params[:page][:s_selectpanels_attributes]).nil?)
+      for panel in params[:page][:s_selectpanels_attributes]
+        for select_panel in @page.s_selectpanels
+          if select_panel.panel_name == panel[1][:panel_name]
+            file_upload(panel[1][:options_attributes], select_panel.options)
           end
         end
       end
-      if @page.update(page_params)
-        #create_json(@page)
-        redirect_to @page.site
-        #redirect_to @session_user, alert: "Successfully updated page."
-      else
-        redirect_to action: 'edit', alert: "Could not update. Please try again."
-      end
     end
+    if @page.update(page_params)
+      #create_json(@page)
+      redirect_to @page.site
+      #redirect_to @session_user, alert: "Successfully updated page."
+    else
+      redirect_to action: 'edit', alert: "Could not update. Please try again."
+    end
+  end
 
-    private
+  private
 
-    def page_params
-      params.require(:page).permit(
-        :user_id, :site_name, :description, :display_description,
-        panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy, :file, :type, :panel_type,
-          options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+  def page_params
+    params.require(:page).permit(
+      :user_id, :site_name, :description, :display_description,
+      panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy, :file, :type, :panel_type,
+        options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+        text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
           tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-          text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+          pictures_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :_destroy,
             tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-            pictures_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :_destroy,
+            s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+              options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
               tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-              s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+              m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
                 options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
-                tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-                m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-                  options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
-                  tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
-    end
+                tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
+  end
 
-    def file_upload(parameter, array)
-      if !((parameter).nil?)
-        for attribute in parameter
-          uploaded = attribute[1][:photo]
-          if !(uploaded.nil?)
-            File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
-              file.write(uploaded.read)
-            end
-            for panel in array
-              if array == @page.pictures
-                if panel.panel_name == attribute[1][:panel_name]
-                  panel.file = uploaded.original_filename
-                end
-              else
-                if panel.option_title == attribute[1][:option_title]
-                  panel.file = uploaded.original_filename
-                end
+  def file_upload(parameter, array)
+    if !((parameter).nil?)
+      for attribute in parameter
+        uploaded = attribute[1][:photo]
+        if !(uploaded.nil?)
+          File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
+            file.write(uploaded.read)
+          end
+          for panel in array
+            if array == @page.pictures
+              if panel.panel_name == attribute[1][:panel_name]
+                panel.file = uploaded.original_filename
+              end
+            else
+              if panel.option_title == attribute[1][:option_title]
+                panel.file = uploaded.original_filename
               end
             end
           end
         end
       end
     end
+  end
 
-    def create_json(page) #no longer used but good for debugging
-      page_hash = {:title => page.site_name}
-      panels = Array.new
+  def create_json(page) #no longer used but good for debugging
+    page_hash = {:title => page.site_name}
+    panels = Array.new
 
-      for panel in page.text_panels
-        tags = generate_tags(panel)
-        temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :tags => tags}
-        panels.push(temp_hash)
-      end
-      for panel in page.pictures
-        tags = generate_tags(panel)
-        temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :image => panel.file, :tags => tags}
-        panels.push(temp_hash)
-      end
-      for panel in page.s_selectpanels
-        temp_hash = generate_select_panel(panel)
-        panels.push(temp_hash)
-      end
-      for panel in page.m_selectpanels
-        temp_hash = generate_select_panel(panel)
-        panels.push(temp_hash)
-      end
-
-      page_hash = page_hash.merge(:pages => panels)
-
-      File.open(Rails.root.join('public', page.site_name), 'wb') do |file|
-        file.write(page_hash.to_json)
-      end
-    end
-
-    def generate_select_panel(panel)
-      options = Array.new
-      for option in panel.options
-        temp_option = {:title => option.option_title, :image => option.file}
-        options.push(temp_option)
-      end
+    for panel in page.text_panels
       tags = generate_tags(panel)
-      temp_hash = {:type => "single-select", :subtitle => panel.info, :rows => "1", :columns => "3", :menu_title => panel.panel_name, :options => options, :tags => tags}
-      return temp_hash
+      temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :tags => tags}
+      panels.push(temp_hash)
+    end
+    for panel in page.pictures
+      tags = generate_tags(panel)
+      temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :image => panel.file, :tags => tags}
+      panels.push(temp_hash)
+    end
+    for panel in page.s_selectpanels
+      temp_hash = generate_select_panel(panel)
+      panels.push(temp_hash)
+    end
+    for panel in page.m_selectpanels
+      temp_hash = generate_select_panel(panel)
+      panels.push(temp_hash)
     end
 
-    def generate_tags(panel)
-      tags = Array.new
-      for tag in panel.tags
-        if tag.value
-          tags.push(tag.name)
-        end
-      end
-      return tags
+    page_hash = page_hash.merge(:pages => panels)
+
+    File.open(Rails.root.join('public', page.site_name), 'wb') do |file|
+      file.write(page_hash.to_json)
     end
   end
+
+  def generate_select_panel(panel)
+    options = Array.new
+    for option in panel.options
+      temp_option = {:title => option.option_title, :image => option.file}
+      options.push(temp_option)
+    end
+    tags = generate_tags(panel)
+    temp_hash = {:type => "single-select", :subtitle => panel.info, :rows => "1", :columns => "3", :menu_title => panel.panel_name, :options => options, :tags => tags}
+    return temp_hash
+  end
+
+  def generate_tags(panel)
+    tags = Array.new
+    for tag in panel.tags
+      if tag.value
+        tags.push(tag.name)
+      end
+    end
+    return tags
+  end
+end

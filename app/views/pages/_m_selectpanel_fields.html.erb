@@ -10,15 +10,19 @@
   <% end %>
   <%= link_to_add_option "Add option", f, :options %>
 
-  <% if !(@options.nil?) %>
-    <div class="tags">
-      Panel present when user selects...
+  <div class="tags">
+    Panel present when user selects...
+    <%= f.fields_for :tags do |builder| %>
+      <%= render 'tag_fields', f: builder %>
+    <% end %>
+
+    <% if !(@options.nil?) %>
       <% for option in @options %>
         <%= add_tags f, :tags, option %>
         <%= option %>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <%= f.hidden_field :_destroy %>
   <%= link_to "remove", "#", class: "remove_fields" %>
