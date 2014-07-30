@@ -82,6 +82,12 @@ class PagesController < ApplicationController
     end
   end
 
+  #Model after add_tags helper
+  def tag(tag_name)
+    @tag = Tag.new
+    @tag.name = tag_name
+  end
+
   private
 
   def page_params

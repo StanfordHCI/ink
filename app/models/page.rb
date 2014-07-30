@@ -5,7 +5,7 @@ class Page < ActiveRecord::Base
 
   has_many :panels
   accepts_nested_attributes_for :panels, allow_destroy: true
-  
+
   has_many :text_panels
   has_many :pictures
   has_many :s_selectpanels
@@ -19,19 +19,19 @@ class Page < ActiveRecord::Base
   validate :require_panel_names
 
   private
-    def require_panel_names
-      for panel in text_panels
-        errors.add(:base, "No text panel name.") if panel.panel_name.blank?
-      end
-      for panel in pictures
-        errors.add(:base, "No picture panel name.") if panel.panel_name.blank?
-      end
-      for panel in s_selectpanels
-        errors.add(:base, "No single select panel name.") if panel.panel_name.blank?
-      end
-      for panel in m_selectpanels
-        errors.add(:base, "No multi select panel name.") if panel.panel_name.blank?
-      end
+  def require_panel_names
+    for panel in text_panels
+      errors.add(:base, "No text panel name.") if panel.panel_name.blank?
     end
+    for panel in pictures
+      errors.add(:base, "No picture panel name.") if panel.panel_name.blank?
+    end
+    for panel in s_selectpanels
+      errors.add(:base, "No single select panel name.") if panel.panel_name.blank?
+    end
+    for panel in m_selectpanels
+      errors.add(:base, "No multi select panel name.") if panel.panel_name.blank?
+    end
+  end
 end
 

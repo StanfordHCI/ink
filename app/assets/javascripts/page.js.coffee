@@ -22,11 +22,6 @@ ready = ->
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
-#    $.ajax({
-#      type: "POST",
-#      url: 
-#      data: {}
-#    });
 
   $('form').on 'click', '.add_panel', (event) ->
     $('table').show()

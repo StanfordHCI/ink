@@ -1,7 +1,7 @@
 <fieldset class="options">
   <div>
     <%= f.label :option_title, "Option: " %>
-    <%= f.text_field :option_title, :onkeyup=>"Tag(this.value, 'tags')" %>
+    <%= f.text_field :option_title, :onblur=>"Tag(this.value, 'tags')" %>
   </div>
   <%= f.label :photo, "Upload icon*: " %>
   <%= f.file_field :photo %>

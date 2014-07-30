@@ -1,7 +1,3 @@
-$(function() {
-  $(document).on('change', function() {
-    Tag(
-
 function Tag(tag_name, div_class) {
   this.div_class = div_class;
   this.tag_name = tag_name;
@@ -10,7 +6,8 @@ function Tag(tag_name, div_class) {
   tag_request.onreadystatechange = function() {
     for (i in divs) {
       if ((' ' + divs[i].className + ' ' ).indexOf(' ' + div_class + ' ') > -1) {
-        divs[i].innerHTML += tag_name;
+        divs[i].innerHTML += "<%= add_tags f, :tags, " + tag_name + "%>";
+        //$.get('<%= url_for :tag, tag_name
       }
     }
   }
