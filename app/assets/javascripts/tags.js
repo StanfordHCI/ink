@@ -7,7 +7,9 @@ function Tag(tag_name, div_class) {
     for (i in divs) {
       if ((' ' + divs[i].className + ' ' ).indexOf(' ' + div_class + ' ') > -1) {
         divs[i].innerHTML += "<%= add_tags f, :tags, " + tag_name + "%>";
-        //$.get('<%= url_for :tag, tag_name
+        //$.get('<%= url_for :tag,' + tag_name + ' %>' , function(response) {
+        //  divs[i].innerHTML += response;
+        //});
       }
     }
   }
