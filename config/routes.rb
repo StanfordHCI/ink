@@ -12,7 +12,12 @@ Project4::Application.routes.draw do
     end
   end
 
-  resources :pages
+  resources :pages do
+    collection do
+      get 'tag'
+    end
+  end
+
   resources :sites
 
   # The priority is based upon order of creation: first created -> highest priority.

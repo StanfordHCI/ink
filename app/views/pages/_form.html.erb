@@ -1,48 +1,46 @@
-<form class="form-control">
-  <%= form_for @page do |f| %>
-    <%= f.label "Edit your page" %>
-    <div id="site_info" class="input-group-addon">
-      <%= f.label :site_name, "Site Name*:" %>
-      <%= f.text_field :site_name %><br/>
-      <%= f.label :description, "Site Description:" %>
-      <%= f.text_area :description %><br/>
-      <%= f.check_box :display_description %>
-      <%= f.label :display_description, "Display description on page?" %><br/>
-    </div>
+<%= form_for @page do |f| %>
+  <%= f.label "Edit your page" %>
+  <div id="site_info" class="input-group-addon">
+    <%= f.label :site_name, "Site Name*:" %>
+    <%= f.text_field :site_name %><br/>
+    <%= f.label :description, "Site Description:" %>
+    <%= f.text_area :description %><br/>
+    <%= f.check_box :display_description %>
+    <%= f.label :display_description, "Display description on page?" %><br/>
+  </div>
 
-    <% for panel in @page.panels %>
-      <div>
+  <% for panel in @page.panels %>
+    <div>
       <% if panel.type == "TextPanel" %>
         <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
-          <%= render 'text_panel_fields', f: builder %>
+          <%= render 'text_panel_fields', f: builder, panel_id: panel.id %>
         <% end %>
       <% elsif panel.type == "Picture" %>
         <%= f.fields_for :pictures, panel, child_index: panel.id do |builder| %>
-          <%= render 'picture_fields', f: builder %>
+          <%= render 'picture_fields', f: builder, panel_id: panel.id %>
         <% end %>
       <% elsif panel.type == "SSelectpanel" %>
         <%= f.fields_for :s_selectpanels, panel, child_index: panel.id do |builder| %>
-          <%= render 's_selectpanel_fields', f: builder %>
+          <%= render 's_selectpanel_fields', f: builder, panel_id: panel.id %>
         <% end %>
       <% else %> 
         <%= f.fields_for :m_selectpanels, panel, child_index: panel.id do |builder| %>
-          <%= render 'm_selectpanel_fields', f: builder %>
+          <%= render 'm_selectpanel_fields', f: builder, panel_id: panel.id %>
         <% end %>
       <% end %>
-      </div>
-    <% end %>
-
-    <table id="menu">
-      <td><%= link_to_add_panels "text.png", f, :text_panels %></td>
-      <td><%= link_to_add_panels "picture.png", f, :pictures %></td>
-      <td><%= link_to_add_panels "single.png", f, :s_selectpanels %></td>
-      <td><%= link_to_add_panels "multi.png", f, :m_selectpanels %></td>  
-    </table>
-
-    <div id="panel_button">
-      <%= link_to("Add a panel", "#", class: "add_panel") %>
     </div>
-
-    <div id="submit"> <%= f.submit "Create page" %></div>
   <% end %>
-</form>
+
+  <table id="menu">
+    <td><%= link_to_add_panels "text.png", f, :text_panels %></td>
+    <td><%= link_to_add_panels "picture.png", f, :pictures %></td>
+    <td><%= link_to_add_panels "single.png", f, :s_selectpanels %></td>
+    <td><%= link_to_add_panels "multi.png", f, :m_selectpanels %></td>  
+  </table>
+
+  <div id="panel_button">
+    <%= link_to("Add a panel", "#", class: "add_panel") %>
+  </div>
+
+  <div id="submit"> <%= f.submit "Create page" %></div>
+<% end %>

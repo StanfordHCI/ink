@@ -82,10 +82,21 @@ class PagesController < ApplicationController
     end
   end
 
-  #Model after add_tags helper
-  def tag(tag_name)
-    @tag = Tag.new
-    @tag.name = tag_name
+  #Calls add_tags helper
+  def tag
+    @session_user = User.find(session[:user_id])
+    @page = @session_user.page
+    @tags = Array.new 
+    for panel in @page.panels
+      tag = Tag.new
+      tag.name = params[:tagname]
+      tag.value = 0
+      tag.page_id = @page.id
+      tag.panel_id = panel.id
+      @tags.push([tag, panel.type])
+    end
+    render :json => @tags
+    #render json: "pages/tag"  
   end
 
   private

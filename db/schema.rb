@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20140723231633) do
   end
 
   create_table "tags", force: true do |t|
+    t.integer  "page_id"
     t.integer  "panel_id"
     t.string   "panel_type"
     t.string   "name"
