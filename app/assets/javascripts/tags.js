@@ -26,7 +26,7 @@ function display_tag(tag) {
   //insert the tag into the div
   var tag_div = document.getElementById("tags" + tag[0].panel_id);
  
-  var tag_id = 1234567891234; //temporary value; should be randomly generated?
+  var tag_id = new Date().getTime(); //ensures the number is different
 
   var panel_type = "text_panels";
   if (tag[1] == "Picture") {

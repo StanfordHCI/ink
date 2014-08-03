@@ -95,8 +95,9 @@ class PagesController < ApplicationController
       tag.panel_id = panel.id
       @tags.push([tag, panel.type])
     end
+    
     render :json => @tags
-    #render json: "pages/tag"  
+    #render action: 'edit' 
   end
 
   private

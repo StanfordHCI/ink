@@ -12,12 +12,14 @@
       <%= render 'tag_fields', f: builder %>
     <% end %>
 
-    <% if !(@options.nil?) %>
-      <% for option in @options %>
-        <%= add_tags f, :tags, option %>
-        <%= option %>
-      <% end %>
-    <% end %>
+    <!--
+    <#% if !(@options.nil?) %>
+      <#% for option in @options %>
+        <#%= add_tags f, :tags, option %>
+        <#%= option %>
+      <#% end %>
+    <#% end %>
+    -->
   </div>
 
   <%= f.hidden_field :_destroy %>

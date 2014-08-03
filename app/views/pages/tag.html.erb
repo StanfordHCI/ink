@@ -1,7 +1,0 @@
-<% for tag in @tags %>
-  <div class="<%tag.name%>, <%tag.panel_id%>">
-    <%= hidden_field :name, tag.name %>
-    <%= check_box :value %>
-    <%= tag.name %>
-  </div>
-<% end %>
