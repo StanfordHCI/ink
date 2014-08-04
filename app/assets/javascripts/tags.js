@@ -1,10 +1,10 @@
-function Tag(tag_name) {
+function Tag(tag_name, panel_id) {
   this.tag_name = tag_name;
 
   var tag_request = new XMLHttpRequest();
-  var URL = "/pages/tag?tagname=" + tag_name;
+  var URL = "/pages/tag?tagname=" + tag_name + "&panelid=" + panel_id;
   tag_request.open("GET", URL, true);
-  tag_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  //tag_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   tag_request.send(); 
   tag_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {
@@ -37,7 +37,7 @@ function display_tag(tag) {
     panel_type = "m_selectpanels";
   }
 
-  tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_name" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][name]" type="hidden">';
+  tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_name" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][name]" type="hidden" value="' + tag[0].name + '">';
   tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_destroy" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][_destroy]" type="hidden" value="false">';
   tag_div.innerHTML += '<input name=page[' + panel_type + '_attributes][' + tag[0].panel_id + '[tags_attributes][' + tag_id + '][value]" type="hidden" value="0">';
   tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_value" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][value]" type="checkbox" value = "1">';

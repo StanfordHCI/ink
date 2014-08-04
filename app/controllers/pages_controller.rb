@@ -88,14 +88,16 @@ class PagesController < ApplicationController
     @page = @session_user.page
     @tags = Array.new 
     for panel in @page.panels
-      tag = Tag.new
-      tag.name = params[:tagname]
-      tag.value = 0
-      tag.page_id = @page.id
-      tag.panel_id = panel.id
-      @tags.push([tag, panel.type])
+      if panel.id > (params[:panelid]).to_i 
+        tag = Tag.new
+        tag.name = params[:tagname]
+        tag.value = 0
+        tag.page_id = @page.id
+        tag.panel_id = panel.id
+        @tags.push([tag, panel.type])
+      end
     end
-    
+
     render :json => @tags
     #render action: 'edit' 
   end
