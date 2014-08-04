@@ -20,10 +20,10 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= add_tags f, :tags, "Always" %>
+      <%= add_tags f, :tags, "Always", @page.id %>
       <% if !(@options.nil?) %>
         <% for option in @options %>
-          <%= add_tags f, :tags, option %>
+          <%= add_tags f, :tags, option, @page.id %>
         <% end %>
       <% end %>
     <% end %>

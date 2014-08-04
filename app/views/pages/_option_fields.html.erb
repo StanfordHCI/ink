@@ -1,6 +1,6 @@
-<fieldset class="options, input-group-addon">
+<fieldset class="options, input-group-addon"> 
   <%= f.label :option_title, "Option: " %>
-  <%= f.text_field :option_title, :onblur=>'Tag(this.value, 1)'%>
+  <%= f.text_field :option_title, id: panel_id, :onblur=>'Tag(this.value, this.id)'%>
   <!-- 1 is hardcoded but should be the panel_id -->
   <br/> 
   <%= f.label :info, "Option info: "%>
@@ -8,5 +8,5 @@
   <%= f.label :photo, "Upload icon*: " %>
   <%= f.file_field :photo %>
   <%= f.hidden_field :_destroy %>
-  <%= link_to "remove", "#", class: "remove_fields" %>
+  <%= link_to "remove", "#", class: "remove_options" %>
 </fieldset>

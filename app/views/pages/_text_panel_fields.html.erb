@@ -16,12 +16,9 @@
         <% end %>
       <% end %>
     <% else %> <!-- if the panel is just created -->
-      <%= add_tags f, :tags, "Always" %>
-      <% if !(@options.nil?) %>
         <% for option in @options %>
-          <%= add_tags f, :tags, option %>
+          <%= add_tags f, :tags, option, @page.id %>
         <% end %>
-      <% end %>
     <% end %>
   </div>
 

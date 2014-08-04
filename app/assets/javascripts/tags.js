@@ -40,7 +40,7 @@ function display_tag(tag) {
   tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_destroy" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][_destroy]" type="hidden" value="false">';
   tag_div.innerHTML += '<input name=page[' + panel_type + '_attributes][' + tag[0].panel_id + '[tags_attributes][' + tag_id + '][value]" type="hidden" value="0">';
   tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_value" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][value]" type="checkbox" value = "1">';
-
+  tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_name" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][page_id]" type="hidden" value="' + tag[0].page_id + '">';
 
   tag_div.innerHTML += tag[0].name; //Figure out how to make the HTML for the form fields
 

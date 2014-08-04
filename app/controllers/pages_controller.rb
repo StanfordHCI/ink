@@ -45,16 +45,27 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
 
+
     @options = Array.new
+    @options.push("Always");
     for panel in Panel.find(:all) 
       if panel.page_id == @page.id
-        #for tag in panel.tags
-        #  tag.destroy
-        #end
         if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
           for option in panel.options
             @options.push(option.option_title)
           end
+        end
+      end
+    end
+
+    panel_ids = Array.new
+    for panel in @page.panels
+      panel_ids.push(panel.id)
+    end
+    for tag in Tag.find(:all)
+      if tag.page_id = @page.id
+        if !(panel_ids.include?(tag.panel_id)) || !(@options.include?(tag.name))
+          tag.destroy
         end
       end
     end
