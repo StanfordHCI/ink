@@ -40,9 +40,9 @@
         </p>
       </div>
       <p class='intro-subtext'>
-        <% if !(@page.description.nil?) %>
-          </br><%= @page.description %>
-        <% end %>
+      <% if !(@page.description.nil?) %>
+        </br><%= @page.description %>
+      <% end %>
       </p>
       <div id='go' class='btn btn-default learn-more'>
         <span data-hover='Learn More'>BEGIN</span>
@@ -51,41 +51,43 @@
   </div>
   </section>
 
-  <% for panel in @page.panels %>
-    <% if panel.type == "TextPanel" %>
-      <%= render 'text_panel', panel: panel %>
-    <% elsif panel.type == "Picture" %>
-      <%= render 'picture_panel', panel: panel %>
-    <% elsif panel.type == "SSelectpanel" %>
-      <%= render 's_selectpanel', panel: panel %>
-    <% else %>
-      <%= render 'm_selectpanel', panel: panel %>
+  <div id="panels">
+    <% for panel in @page.panels %>
+      <% if panel.type == "TextPanel" %>
+        <%= render 'text_panel', panel: panel %>
+      <% elsif panel.type == "Picture" %>
+        <%= render 'picture_panel', panel: panel %>
+      <% elsif panel.type == "SSelectpanel" %>
+        <%= render 's_selectpanel', panel: panel %>
+      <% else %>
+        <%= render 'm_selectpanel', panel: panel %>
+      <% end %>
     <% end %>
-  <% end %>
-    <!-- welcome begins -->
-    <!-- Nav starts -->
-    <!--
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Breaking News</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav nav-effect" id="main-menu">
-            <li><a href="#page-welcome"><span data-hover="b">Home</span></a></li>
-            <li><a href="#page-services"><span data-hover="Services">Type</span></a></li>
-            <li><a href="#page-about"><span data-hover="About">Preference</span></a></li>
-            <li><a href="#page-portfolio-controls"><span data-hover="Portfolio">Portfolio</span></a></li>
-            <li><a href="#page-contact"><span data-hover="Contact">Contact</span></a></li>
-          </ul>
-        </div>
+  </div>
+  <!-- welcome begins -->
+  <!-- Nav starts -->
+  <!--
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Breaking News</a>
       </div>
-      -->
-    </body>
-  </html>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav nav-effect" id="main-menu">
+          <li><a href="#page-welcome"><span data-hover="b">Home</span></a></li>
+          <li><a href="#page-services"><span data-hover="Services">Type</span></a></li>
+          <li><a href="#page-about"><span data-hover="About">Preference</span></a></li>
+          <li><a href="#page-portfolio-controls"><span data-hover="Portfolio">Portfolio</span></a></li>
+          <li><a href="#page-contact"><span data-hover="Contact">Contact</span></a></li>
+        </ul>
+      </div>
+    </div>
+    -->
+  </body>
+</html>
