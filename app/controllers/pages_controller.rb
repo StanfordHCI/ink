@@ -108,17 +108,17 @@ class PagesController < ApplicationController
     params.require(:page).permit(
       :user_id, :site_name, :description, :display_description,
       panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy, :file, :type, :panel_type,
-        options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+        options_attributes: [:id, :info,  :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
         text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
           tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
           pictures_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :_destroy,
             tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
             s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-              options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+              options_attributes: [:id, :info, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
               tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
               m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-                options_attributes: [:id, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+                options_attributes: [:id, :info, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
                 tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
   end
 

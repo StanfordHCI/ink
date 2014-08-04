@@ -127,7 +127,7 @@ function generate_single(div, single_select) {
     if ((count % 3) == 0) {
       div.innerHTML += "<div class='row'>";
     }
-    div.innerHTML += "<div class='col-md-4'><div class='service-block'><div class='service-icon'><i class='fa fa-" + option.id + "'></i></div><h3>" + option.option_title + "</h3><p>'INSERT OPTION DESCRIPTION ATTRIBUTE HERE.'</p></div></div>";
+    div.innerHTML += "<div class='col-md-4'><div class='service-block'><div class='service-icon'><i class='fa fa-" + option.id + "'></i></div><h3>" + option.option_title + "</h3><p>'" + option.info + "'</p></div></div>";
     count++;
     if ((count % 3) == 0) {
       div.innerHTML += "</div>";
@@ -136,7 +136,7 @@ function generate_single(div, single_select) {
   if ((count % 3) != 0) {
     div.innerHTML += "</div>";
   }
-  div.innerHTMLR += "</div></section>";    
+  div.innerHTML += "</div></section>";    
 }
 
 function generate_multi(div, multi_select) {
@@ -154,7 +154,7 @@ function generate_multi(div, multi_select) {
     if ((count % 3) == 0) {
       div.innerHTML += "<div class='row'>";
     }
-    div.innerHTML += "<div class='col-md-4 text-center'><div class='research hi-icon-effect-1'><i class='hi-icon fa fa-" + option.id + "'></i></div><header class='process-header'><h3>" + option.option_title + "</h3><p>'INSERT OPTION DESCRIPTION ATTRIBUTE HERE.'</p></header></div>";
+    div.innerHTML += "<div class='col-md-4 text-center'><div class='research hi-icon-effect-1'><i class='hi-icon fa fa-" + option.id + "'></i></div><header class='process-header'><h3>" + option.option_title + "</h3><p>'" + option.info + "'</p></header></div>";
     count++;
     if ((count % 3) == 0) {
       div.innerHTML += "</div>";

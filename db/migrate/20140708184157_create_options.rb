@@ -5,6 +5,7 @@ class CreateOptions < ActiveRecord::Migration
       t.string :selectpanel_type
       t.string :option_title
       t.string :file
+      t.text :info
       t.timestamps
     end
   end

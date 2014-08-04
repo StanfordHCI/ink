@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140723231633) do
     t.string   "selectpanel_type"
     t.string   "option_title"
     t.string   "file"
+    t.text     "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

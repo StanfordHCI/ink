@@ -52,7 +52,7 @@
   </section>
 
   <div id="panels">
-    <% for panel in @page.panels %>
+    <% for panel in @panels %>
       <% if panel.type == "TextPanel" %>
         <%= render 'text_panel', panel: panel %>
       <% elsif panel.type == "Picture" %>
