@@ -8,9 +8,17 @@ window.onload = function() {
   });
   $('.single-select').on("click", function(e) {
     var selected;
+    var service_blocks = $(".service-block");
     var children = e.target.childNodes;
-    if (children.length == 3) {
+    
+    //Debugging 
+    console.log(e.target);
+    console.log(children);
+    console.log(children.length); 
+   
+    if (children.length == 7) {
       var lastSelected = document.getElementById("selected");
+      console.log(lastSelected);
       if (lastSelected) {
         var index = selected_tags.indexOf(lastSelected.children[1].innerHTML);
         lastSelected.id = "";
@@ -19,7 +27,7 @@ window.onload = function() {
         }
       }
 
-      var tag = children[1];
+      var tag = children[3];
       selected = tag.innerHTML;
       selected_tags.push(selected);
       console.log(selected_tags);
