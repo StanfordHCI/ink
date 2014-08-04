@@ -4,7 +4,6 @@ function Tag(tag_name, panel_id) {
   var tag_request = new XMLHttpRequest();
   var URL = "/pages/tag?tagname=" + tag_name + "&panelid=" + panel_id;
   tag_request.open("GET", URL, true);
-  //tag_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   tag_request.send(); 
   tag_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {

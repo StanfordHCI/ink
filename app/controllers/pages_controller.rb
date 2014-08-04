@@ -34,7 +34,8 @@ class PagesController < ApplicationController
     if @page.save
       @session_user.page = @page
       @page.site = Site.new
-      redirect_to @session_user, notice: "Successfully created page."
+      redirect_to @page.site
+      #redirect_to @session_user, notice: "Successfully created page."
     else
       redirect_to action: 'new', alert: "Invalid form. Please try again."
     end

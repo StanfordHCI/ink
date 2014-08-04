@@ -15,6 +15,7 @@ Project4::Application.routes.draw do
   resources :pages do
     collection do
       get 'tag'
+      get 'demo'
     end
   end
 
