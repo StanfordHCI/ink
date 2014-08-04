@@ -85,9 +85,9 @@ function display_panels() {
         } else if (display[i][1] == "Picture") {
           generate_picture(div, display[i][0]);
         } else if (display[i][1] == "SSelectpanel") {
-          generate_single(div, display[i][0]);
+          generate_single(div, display[i]);
         } else {
-          generate_multi(div, display[i][0]);
+          generate_multi(div, display[i]);
         }
       }
     }
@@ -110,9 +110,56 @@ function generate_picture(div, panel) {
   div.innerHTML += "<body><section id='parallax-quote' class='parallax'><div class='parallax-background" + panel.id + "parallax-background'></div><div class='container'><div class='row'><div class='col-md-12'><div class='parallax-content'><blockquote>" + name + "<footer>" + panel.info + "</footer></blockquote></div></div></div></div></section></body>";
 }
 
-function generate_single(div, panel) {
+function generate_single(div, single_select) {
+  var panel = single_select[0];
+  var options = single_select[2];
+  var name = panel.panel_name;
+  if (panel.display == 0) {
+    name = "";
+  }
+  div.innerHTML += "<section id='page-services' class='page-services single-select'><div class='container'><header class='section-header'><h2 class='section-title'><span>" + name + "</span></h2><div class='spacer'></div><p class='section-subtitle'>" + panel.info + "</p></header>";
+  var count = 0;
+  var num_options = options.length;
+  for(var i=0; i < num_options; i++) {
+    var option = options[i];
+    if ((count % 3) == 0) {
+      div.innerHTML += "<div class='row'>";
+    }
+    div.innerHTML += "<div class='col-md-4'><div class='service-block'><div class='service-icon'><i class='fa fa-" + option.id + "'></i></div><h3>" + option.option_title + "</h3><p>'INSERT OPTION DESCRIPTION ATTRIBUTE HERE.'</p></div></div>";
+    count++;
+    if ((count % 3) == 0) {
+      div.innerHTML += "</div>";
+    }
+  }
+  if ((count % 3) != 0) {
+    div.innerHTML += "</div>";
+  }
+  div.innerHTMLR += "</div></section>";    
 }
 
-function generate_multi(div, panel) {
-
+function generate_multi(div, multi_select) {
+  var panel = multi_select[0];
+  var options = multi_select[2];
+  var name = panel.panel_name;
+  if (panel.display == 0) {
+    name = "";
+  }
+  div.innerHTML += "<section id='page-about' class='page-about multi-select'><div class='container'><header class='section-header'><h2 class='section-title'>" + name + "</h2><div class='spacer'></div><p class='section-subtitle'>" + panel.info + "</p></header>";
+  var count = 0;
+  var num_options = options.length;
+  for(var i=0; i < num_options; i++) {
+    var option = options[i];
+    if ((count % 3) == 0) {
+      div.innerHTML += "<div class='row'>";
+    }
+    div.innerHTML += "<div class='col-md-4 text-center'><div class='research hi-icon-effect-1'><i class='hi-icon fa fa-" + option.id + "'></i></div><header class='process-header'><h3>" + option.option_title + "</h3><p>'INSERT OPTION DESCRIPTION ATTRIBUTE HERE.'</p></header></div>";
+    count++;
+    if ((count % 3) == 0) {
+      div.innerHTML += "</div>";
+    }
+  }
+  if ((count % 3) != 0) {
+    div.innerHTML += "</div>";
+  }
+  div.innerHTML += "</div></section>";    
 }

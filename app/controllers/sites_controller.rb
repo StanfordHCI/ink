@@ -1,5 +1,5 @@
 class SitesController < ApplicationController
-  
+
   def create
   end
 
@@ -19,7 +19,11 @@ class SitesController < ApplicationController
     selected = params[:selected]
     for panel in @page.panels 
       if find_selected(panel, selected)
-        panels.push([panel, panel.type])
+        if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
+          panels.push([panel, panel.type, panel.options])
+        else
+          panels.push([panel, panel.type])
+        end
       end
     end
     render :json => panels
