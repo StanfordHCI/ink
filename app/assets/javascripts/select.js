@@ -10,12 +10,12 @@ window.onload = function() {
     var selected;
     var service_blocks = $(".service-block");
     var children = e.target.childNodes;
-    
+
     //Debugging 
     console.log(e.target);
     console.log(children);
     console.log(children.length); 
-   
+
     if (children.length == 7) {
       var lastSelected = document.getElementById("selected");
       console.log(lastSelected);
@@ -35,8 +35,9 @@ window.onload = function() {
       $('.service-block').css("background-color", "#D3D3D3");
       e.target.style.background = "#000000";
       e.target.id = "selected";
+
+      display_panels();
     }
-    display_panels();
   });
   $('.multi-select').on("click", function(e) {
     if (!e.target.firstChild) {
@@ -51,13 +52,14 @@ window.onload = function() {
           selected_tags.splice(index, 1);
         }
         e.target.style.background = "#3598db";
+        //display_panels();
       } else {
         selected_tags.push(selected);
         console.log(selected_tags);
         e.target.style.background = "blue";
+        display_panels();
       }
     }
-    display_panels();
   });
 };
 

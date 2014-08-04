@@ -2,8 +2,8 @@
   <%= f.label :option_title, "Option: " %>
   <%= f.text_field :option_title, :onblur=>'Tag(this.value, 1)'%>
   <!-- 1 is hardcoded but should be the panel_id -->
-  <%= f.label :photo, "Upload icon*: " %>
-  <%= f.file_field :photo %>
+  <br/> 
+  <%= f.label :photo, "Upload icon*: " %><%= f.file_field :photo %>
   <%= f.hidden_field :_destroy %>
   <%= link_to "remove", "#", class: "remove_fields" %>
 </fieldset>

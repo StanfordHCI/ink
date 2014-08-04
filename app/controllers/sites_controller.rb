@@ -18,7 +18,7 @@ class SitesController < ApplicationController
     panels = Array.new
     selected = params[:selected]
     for panel in @page.panels 
-      if find_selected(panel, selected)
+      if (find_selected(panel, selected) == 1)
         if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
           panels.push([panel, panel.type, panel.options])
         else
@@ -34,7 +34,7 @@ class SitesController < ApplicationController
   #Returns true if one of the panel's tags is selected
   def find_selected(panel, selected)
     for tag in panel.tags
-      if tag.value #if the tag has a value of 1
+      if tag.value == 1 #if the tag has a value of 1
         if tag.name == "Always"
           return 1
         end
