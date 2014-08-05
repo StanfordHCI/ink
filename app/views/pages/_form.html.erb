@@ -9,9 +9,9 @@
 </div>
 </nav>
 
-<!--
-<iframe style="float:right" width="650" height="1500" src=/sites/<%=@page.site.id%>></iframe>
--->
+<!-- For previewing the page beside the form. -->
+<!--<iframe style="float:right" width="650" height="1500" src=/sites/<%=@page.site.id%>></iframe>-->
+
 <%= form_for @page do |f| %>
   <div id="site_info" class="input-group-addon">
     <%= f.label :site_name, "Site Name*:" %>
