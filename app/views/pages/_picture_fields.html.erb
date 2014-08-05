@@ -1,29 +1,31 @@
-<span class="input-group-addon">
-  <%= f.label :panel_name, "Panel Name*:" %><br/>
-  <%= f.text_field :panel_name %><br/>
-  <%= f.check_box :display %>
-  <%= f.label :dislay, "Display panel name?"%><br/>
-  <%= f.label :info, "Panel Info:"%><br/>
-  <%= f.text_area :info %><br/>
-  <%= f.label :photo, "Upload file*: " %>
-  <%= f.file_field :photo %><br/>
+<div>
+  <span class="input-group-addon">
+    <%= f.label :panel_name, "Panel Name*:" %><br/>
+    <%= f.text_field :panel_name %><br/>
+    <%= f.check_box :display %>
+    <%= f.label :dislay, "Display panel name?"%><br/>
+    <%= f.label :info, "Panel Info:"%><br/>
+    <%= f.text_area :info %><br/>
+    <%= f.label :photo, "Upload file*: " %>
+    <%= f.file_field :photo %><br/>
 
-  <div id="tags<%= panel_id %>">
-    Panel present when user selects...
-    <% if !((@page.panels.last).nil?) && (panel_id <= @page.panels.last.id)%>
-      <% panel=Panel.find(panel_id) %>
-      <% for option in panel.tags %>
-        <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
-          <%= render 'tag_fields', f: builder, option_name: option.name %>
+    <div id="tags<%= panel_id %>">
+      Panel present when user selects...
+      <% if !((@page.panels.last).nil?) && (panel_id <= @page.panels.last.id)%>
+        <% panel=Panel.find(panel_id) %>
+        <% for option in panel.tags %>
+          <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
+            <%= render 'tag_fields', f: builder, option_name: option.name %>
+          <% end %>
         <% end %>
-      <% end %>
-    <% else %>
+      <% else %>
         <% for option in @options %>
           <%= add_tags f, :tags, option, @page.id %>
         <% end %>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
 
-  <%= f.hidden_field :_destroy %>
-  <%= link_to "remove", "#", class: "remove_fields" %>
-</span>
+    <%= f.hidden_field :_destroy %>
+    <%= link_to "remove", "#", class: "remove_fields" %>
+  </span>
+</div>

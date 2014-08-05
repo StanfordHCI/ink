@@ -43,6 +43,7 @@ function allow_select() {
       display_panels();
     }
   });
+
   $('.multi-select').on("click", function(e) {
     if (!e.target.firstChild) {
       var container = e.target.parentNode.parentNode;
@@ -56,7 +57,7 @@ function allow_select() {
           selected_tags.splice(index, 1);
         }
         e.target.style.background = "#3598db";
-        //display_panels();
+        display_panels();
       } else {
         selected_tags.push(selected);
         console.log(selected_tags);
@@ -78,12 +79,30 @@ function display_panels() {
   select_request.send();
   select_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {
-      console.log(this.responseText);
       var div = document.getElementById("panels");
       var display = JSON.parse(this.responseText);
-      console.log(display.results);
       div.innerHTML = display.results; 
-      allow_select();
+
+      var single_targets = $(".service-block");
+      for (i=0; i < single_targets.length; i++) {
+        block = single_targets[i];
+        if ((selected_tags.indexOf(block.childNodes[3].innerHTML)) != -1) {
+          block.id = "selected";
+          //block.css("background-color", "#D3D3D3");
+          block.style.background = "#000000";
+        }
+        allow_select();
+      }
+      var multi_targets = $(".hi-icon");
+      for (i=0; i < multi_targets.length; i++) {
+        icon = multi_targets[i];
+        block = $(icon).parent().parent();
+        title = block[0].children[1].children[0].innerHTML;
+        if ((selected_tags.indexOf(title)) != -1) {
+          icon.style.background = "blue";
+        }
+        allow_select();
+      }
     }
   }
-}
+};

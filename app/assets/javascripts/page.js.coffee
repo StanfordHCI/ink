@@ -31,6 +31,7 @@ ready = ->
   $('form').on 'click', '.add_panel', (event) ->
     $('table').show()
     $('#panel_button').hide()
+    event.preventDefault()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
