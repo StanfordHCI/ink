@@ -26,11 +26,6 @@ class SitesController < ApplicationController
     for panel in @page.panels 
       if (find_selected(panel, selected) == 1)
         @panels.push(panel);  
-        #if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
-          #@panels.push([panel, panel.type, panel.options])
-        #else
-          #@panels.push([panel, panel.type])
-        #end
       end
     end
     respond_to do |format|
@@ -40,7 +35,6 @@ class SitesController < ApplicationController
         :results => @preview
       }
       }
-      #render_to_string '/sites/show', layout: false #:json => panels
     end
   end
 

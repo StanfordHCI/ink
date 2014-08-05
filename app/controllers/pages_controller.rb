@@ -87,7 +87,6 @@ class PagesController < ApplicationController
       end
     end
     if @page.update(page_params)
-      #create_json(@page)
       redirect_to @page.site
       #redirect_to @session_user, alert: "Successfully updated page."
     else
@@ -112,7 +111,6 @@ class PagesController < ApplicationController
     end
 
     render :json => @tags
-    #render action: 'edit' 
   end
 
   private
@@ -157,56 +155,5 @@ class PagesController < ApplicationController
         end
       end
     end
-  end
-
-  def create_json(page) #no longer used but good for debugging
-    page_hash = {:title => page.site_name}
-    panels = Array.new
-
-    for panel in page.text_panels
-      tags = generate_tags(panel)
-      temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :tags => tags}
-      panels.push(temp_hash)
-    end
-    for panel in page.pictures
-      tags = generate_tags(panel)
-      temp_hash = {:type => "basic-data-exp", :menu_title => panel.panel_name, :image => panel.file, :tags => tags}
-      panels.push(temp_hash)
-    end
-    for panel in page.s_selectpanels
-      temp_hash = generate_select_panel(panel)
-      panels.push(temp_hash)
-    end
-    for panel in page.m_selectpanels
-      temp_hash = generate_select_panel(panel)
-      panels.push(temp_hash)
-    end
-
-    page_hash = page_hash.merge(:pages => panels)
-
-    File.open(Rails.root.join('public', page.site_name), 'wb') do |file|
-      file.write(page_hash.to_json)
-    end
-  end
-
-  def generate_select_panel(panel)
-    options = Array.new
-    for option in panel.options
-      temp_option = {:title => option.option_title, :image => option.file}
-      options.push(temp_option)
-    end
-    tags = generate_tags(panel)
-    temp_hash = {:type => "single-select", :subtitle => panel.info, :rows => "1", :columns => "3", :menu_title => panel.panel_name, :options => options, :tags => tags}
-    return temp_hash
-  end
-
-  def generate_tags(panel)
-    tags = Array.new
-    for tag in panel.tags
-      if tag.value
-        tags.push(tag.name)
-      end
-    end
-    return tags
   end
 end
