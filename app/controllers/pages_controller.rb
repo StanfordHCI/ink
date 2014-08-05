@@ -45,7 +45,7 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
 
-
+    #Creates an array of existing select options
     @options = Array.new
     @options.push("Always");
     for panel in Panel.find(:all) 
@@ -58,6 +58,7 @@ class PagesController < ApplicationController
       end
     end
 
+    #Deletes tags whose panels have been deleted and whose options have been deleted/edited
     panel_ids = Array.new
     for panel in @page.panels
       panel_ids.push(panel.id)

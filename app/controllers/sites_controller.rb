@@ -21,18 +21,27 @@ class SitesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
     @site = @page.site
-    panels = Array.new
+    @panels = Array.new
     selected = params[:selected]
     for panel in @page.panels 
       if (find_selected(panel, selected) == 1)
-        if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
-          panels.push([panel, panel.type, panel.options])
-        else
-          panels.push([panel, panel.type])
-        end
+        @panels.push(panel);  
+        #if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
+          #@panels.push([panel, panel.type, panel.options])
+        #else
+          #@panels.push([panel, panel.type])
+        #end
       end
     end
-    render :json => panels
+    respond_to do |format|
+      @preview = render_to_string(:action => 'select', :locals => {:panels => @panels})
+      format.json {
+        render :json => {
+        :results => @preview
+      }
+      }
+      #render_to_string '/sites/show', layout: false #:json => panels
+    end
   end
 
   private

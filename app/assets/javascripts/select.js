@@ -1,4 +1,8 @@
 window.onload = function() {
+  allow_select();
+}
+
+function allow_select() {
   $('body').click(function(e){  
     if (e.target.id == 'go') {
       console.log(document.body.children[4].id);
@@ -75,6 +79,12 @@ function display_panels() {
   select_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {
       console.log(this.responseText);
+      var div = document.getElementById("panels");
+      var display = JSON.parse(this.responseText);
+      console.log(display.results);
+      div.innerHTML = display.results; 
+      allow_select();
+      /*
       var display = JSON.parse(this.responseText);
       console.log(display);
       var count = Object.keys(display).length;
@@ -92,6 +102,7 @@ function display_panels() {
           generate_multi(div, display[i]);
         }
       }
+      */
     }
   }
 }
