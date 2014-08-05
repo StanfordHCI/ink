@@ -1,5 +1,5 @@
 window.onload = function() {
-  allow_select();
+  display_panels();
 }
 
 function allow_select() {
@@ -16,13 +16,13 @@ function allow_select() {
     var children = e.target.childNodes;
 
     //Debugging 
-    console.log(e.target);
-    console.log(children);
-    console.log(children.length); 
+    //console.log(e.target);
+    //console.log(children);
+    //console.log(children.length); 
 
     if (children.length == 7) {
       var lastSelected = document.getElementById("selected");
-      console.log(lastSelected);
+      console.log("Selecting single" + lastSelected);
       if (lastSelected) {
         var index = selected_tags.indexOf(lastSelected.children[1].innerHTML);
         lastSelected.id = "";
@@ -34,7 +34,7 @@ function allow_select() {
       var tag = children[3];
       selected = tag.innerHTML;
       selected_tags.push(selected);
-      console.log(selected_tags);
+      console.log("Updated single" + selected_tags);
 
       $('.service-block').css("background-color", "#D3D3D3");
       e.target.style.background = "#000000";
@@ -53,17 +53,19 @@ function allow_select() {
 
       if (e.target.style.background == "blue") {
         var index = selected_tags.indexOf(selected);
+        console.log("Deselecting" + index);
         if (index > -1) {
+          console.log("Deselecting" + index);
           selected_tags.splice(index, 1);
         }
+        console.log("One less multi" + selected_tags);
         e.target.style.background = "#3598db";
-        display_panels();
       } else {
         selected_tags.push(selected);
-        console.log(selected_tags);
+        console.log("Selecting multi" + selected_tags);
         e.target.style.background = "blue";
-        display_panels();
       }
+      display_panels();
     }
   });
 };
@@ -79,7 +81,7 @@ function display_panels() {
   select_request.send();
   select_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {
-      var div = document.getElementById("panels");
+      var div = document.getElementById("site_panels");
       var display = JSON.parse(this.responseText);
       div.innerHTML = display.results; 
 
@@ -91,7 +93,6 @@ function display_panels() {
           //block.css("background-color", "#D3D3D3");
           block.style.background = "#000000";
         }
-        allow_select();
       }
       var multi_targets = $(".hi-icon");
       for (i=0; i < multi_targets.length; i++) {
@@ -101,8 +102,8 @@ function display_panels() {
         if ((selected_tags.indexOf(title)) != -1) {
           icon.style.background = "blue";
         }
-        allow_select();
       }
+      allow_select();
     }
   }
 };

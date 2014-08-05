@@ -1,5 +1,18 @@
+<nav class="panel_menu navbar navbar-default navbar-left" role="navigation">
+<div class="navbar-header">Panels</div>
+<div class="container">
+  <ul>
+  <% for panel in @page.panels %>
+    <li class="icon-bar"><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
+  <% end %>
+</ul>
+</div>
+</nav>
+
+<!--
+<iframe style="float:right" width="650" height="1500" src=/sites/<%=@page.site.id%>></iframe>
+-->
 <%= form_for @page do |f| %>
-  <%= f.label "Edit your page" %>
   <div id="site_info" class="input-group-addon">
     <%= f.label :site_name, "Site Name*:" %>
     <%= f.text_field :site_name %><br/>
