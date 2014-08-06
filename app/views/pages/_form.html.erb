@@ -1,16 +1,32 @@
+<% content_for :head do %>
+  <% for picture_panel in @page.pictures %>
+    <%= render 'sites/picture_panel_head', panel: picture_panel %>
+  <% end %>
+  <% for s_selectpanel in @page.s_selectpanels %>
+    <% for option in s_selectpanel.options %>
+      <%= render 'sites/options_head', option: option %>
+    <% end %>
+  <% end %>
+  <% for m_selectpanel in @page.m_selectpanels %>
+    <% for option in m_selectpanel.options %>
+      <%= render 'sites/options_head', option: option %>
+    <% end %>
+  <% end %>
+<% end %>
+
 <nav class="panel_menu navbar navbar-default navbar-left" role="navigation">
 <div class="navbar-header">Panels</div>
 <div class="container">
   <ul>
-  <% for panel in @page.panels %>
-    <li class="icon-bar"><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
-  <% end %>
-</ul>
+    <% for panel in @page.panels %>
+      <li class="icon-bar"><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
+    <% end %>
+  </ul>
 </div>
 </nav>
 
 <!-- For previewing the page beside the form. -->
-<!--<iframe style="float:right" width="650" height="1500" src=/sites/<%=@page.site.id%>></iframe>-->
+<!--<iframe style="float:right" width="650" height="1500" src=/sites/panel<%=@page.site.id%>></iframe>-->
 
 <%= form_for @page do |f| %>
   <div id="site_info" class="input-group-addon">
@@ -41,6 +57,9 @@
           <%= render 'm_selectpanel_fields', f: builder, panel_id: panel.id %>
         <% end %>
       <% end %>
+      <div class="preview">
+        <%= render template: 'sites/panel', :locals => {panel: panel} %>
+      </div>
     </div>
   <% end %>
 

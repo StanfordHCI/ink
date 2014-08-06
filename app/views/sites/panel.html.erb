@@ -1,0 +1,9 @@
+<% if panel.type == "TextPanel" %>
+  <%= render 'sites/text_panel', panel: panel %>
+<% elsif panel.type == "Picture" %>
+  <%= render 'sites/picture_panel', panel: panel %>
+<% elsif panel.type == "SSelectpanel" %>
+  <%= render 'sites/s_selectpanel', panel: panel %>
+<% else %>
+  <%= render 'sites/m_selectpanel', panel: panel %>
+<% end %>

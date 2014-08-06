@@ -22,6 +22,7 @@ Project4::Application.routes.draw do
   resources :sites do
     collection do
       get 'select'
+      get 'panel'
     end
   end
 
