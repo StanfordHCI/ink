@@ -16,24 +16,35 @@ window.onload = function() {
     if (children.length == 7) {
       var lastSelected = document.getElementById("selected");
       console.log("Selecting single" + lastSelected);
-      if (lastSelected) {
+      if (e.target.id == "selected") {
+        console.log("De-selecting");
         var index = selected_tags.indexOf(lastSelected.children[1].innerHTML);
         lastSelected.id = "";
         if (index > -1) {
           selected_tags.splice(index, 1);
         }
+        $('.service-block').css("background-color", "#D3D3D3");
+        display_panels();
+      } else {
+        if (lastSelected) {
+          var index = selected_tags.indexOf(lastSelected.children[1].innerHTML);
+          lastSelected.id = "";
+          if (index > -1) {
+            selected_tags.splice(index, 1);
+          }
+        }
+
+        var tag = children[3];
+        selected = tag.innerHTML;
+        selected_tags.push(selected);
+        console.log("Updated single" + selected_tags);
+
+        $('.service-block').css("background-color", "#D3D3D3");
+        e.target.style.background = "#000000";
+        e.target.id = "selected";
+
+        display_panels();
       }
-
-      var tag = children[3];
-      selected = tag.innerHTML;
-      selected_tags.push(selected);
-      console.log("Updated single" + selected_tags);
-
-      $('.service-block').css("background-color", "#D3D3D3");
-      e.target.style.background = "#000000";
-      e.target.id = "selected";
-
-      display_panels();
     }
   });
 
