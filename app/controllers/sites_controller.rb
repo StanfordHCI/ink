@@ -25,17 +25,12 @@ class SitesController < ApplicationController
     selected = params[:selected]
     for panel in @page.panels 
       if (find_selected(panel, selected) == 1)
-        @panels.push(panel);  
+        @panels.push([panel, 1]);  
+      else
+        @panels.push([panel, 0]);
       end
     end
-    respond_to do |format|
-      @preview = render_to_string(:action => 'select', :locals => {:panels => @panels})
-      format.json {
-        render :json => {
-        :results => @preview
-      }
-      }
-    end
+    render :json => @panels
   end
 
   private

@@ -1,8 +1,5 @@
 window.onload = function() {
-  display_panels();
-}
 
-function allow_select() {
   $('body').click(function(e){  
     if (e.target.id == 'go') {
       console.log(document.body.children[4].id);
@@ -10,15 +7,11 @@ function allow_select() {
       $('html,body').animate({scrollTop:$(first).offset().top}, 1000);
     }
   });
+
   $('.single-select').on("click", function(e) {
     var selected;
     var service_blocks = $(".service-block");
     var children = e.target.childNodes;
-
-    //Debugging 
-    //console.log(e.target);
-    //console.log(children);
-    //console.log(children.length); 
 
     if (children.length == 7) {
       var lastSelected = document.getElementById("selected");
@@ -59,7 +52,7 @@ function allow_select() {
           selected_tags.splice(index, 1);
         }
         console.log("One less multi" + selected_tags);
-        e.target.style.background = "#3598db";
+        e.target.style.background = "#3598db"; //Fix this color
       } else {
         selected_tags.push(selected);
         console.log("Selecting multi" + selected_tags);
@@ -81,29 +74,14 @@ function display_panels() {
   select_request.send();
   select_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {
-      var div = document.getElementById("site_panels");
-      var display = JSON.parse(this.responseText);
-      div.innerHTML = display.results; 
-
-      var single_targets = $(".service-block");
-      for (i=0; i < single_targets.length; i++) {
-        block = single_targets[i];
-        if ((selected_tags.indexOf(block.childNodes[3].innerHTML)) != -1) {
-          block.id = "selected";
-          //block.css("background-color", "#D3D3D3");
-          block.style.background = "#000000";
+      var panels = JSON.parse(this.responseText);
+      for (i=0; i < panels.length; i++) {
+        if(panels[i][1] == 1) {
+          ($(document.getElementById("panel_" + panels[i][0].id))).show();
+        } else {
+          ($(document.getElementById("panel_" + panels[i][0].id))).hide();
         }
       }
-      var multi_targets = $(".hi-icon");
-      for (i=0; i < multi_targets.length; i++) {
-        icon = multi_targets[i];
-        block = $(icon).parent().parent();
-        title = block[0].children[1].children[0].innerHTML;
-        if ((selected_tags.indexOf(title)) != -1) {
-          icon.style.background = "blue";
-        }
-      }
-      allow_select();
     }
   }
 };

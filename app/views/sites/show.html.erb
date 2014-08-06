@@ -52,42 +52,50 @@
   </section>
 
   <div id="site_panels">
-    <% for panel in @panels %>
-      <% if panel.type == "TextPanel" %>
-        <%= render 'text_panel', panel: panel %>
-      <% elsif panel.type == "Picture" %>
-        <%= render 'picture_panel', panel: panel %>
-      <% elsif panel.type == "SSelectpanel" %>
-        <%= render 's_selectpanel', panel: panel %>
-      <% else %>
-        <%= render 'm_selectpanel', panel: panel %>
+    <% for panel in @page.panels %>
+      <div id="panel_<%=panel.id%>">
+        <% if panel.type == "TextPanel" %>
+          <%= render 'text_panel', panel: panel %>
+        <% elsif panel.type == "Picture" %>
+          <%= render 'picture_panel', panel: panel %>
+        <% elsif panel.type == "SSelectpanel" %>
+          <%= render 's_selectpanel', panel: panel %>
+        <% else %>
+          <%= render 'm_selectpanel', panel: panel %>
+        <% end %>
+      </div>
+      <% if !(@panels.include?(panel)) %>
+        <script type="text/javascript">
+          var panel = document.getElementById("panel_" + <%= j panel.id.to_s%>);
+          $(panel).hide();
+          </script>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
-  <!-- welcome begins -->
-  <!-- Nav starts -->
-  <!--
-  <div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Breaking News</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav nav-effect" id="main-menu">
-          <li><a href="#page-welcome"><span data-hover="b">Home</span></a></li>
-          <li><a href="#page-services"><span data-hover="Services">Type</span></a></li>
-          <li><a href="#page-about"><span data-hover="About">Preference</span></a></li>
-          <li><a href="#page-portfolio-controls"><span data-hover="Portfolio">Portfolio</span></a></li>
-          <li><a href="#page-contact"><span data-hover="Contact">Contact</span></a></li>
-        </ul>
-      </div>
     </div>
-    -->
-  </body>
-</html>
+    <!-- welcome begins -->
+    <!-- Nav starts -->
+    <!--
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Breaking News</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav nav-effect" id="main-menu">
+            <li><a href="#page-welcome"><span data-hover="b">Home</span></a></li>
+            <li><a href="#page-services"><span data-hover="Services">Type</span></a></li>
+            <li><a href="#page-about"><span data-hover="About">Preference</span></a></li>
+            <li><a href="#page-portfolio-controls"><span data-hover="Portfolio">Portfolio</span></a></li>
+            <li><a href="#page-contact"><span data-hover="Contact">Contact</span></a></li>
+          </ul>
+        </div>
+      </div>
+      -->
+    </body>
+  </html>
