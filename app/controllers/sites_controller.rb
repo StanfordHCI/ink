@@ -4,23 +4,19 @@ class SitesController < ApplicationController
   end
 
   def show
-    @session_user = User.find(session[:user_id])
-    @page = @session_user.page
-    @site = @page.site
+    @site = Site.find(params[:id])
+    @page = @site.page
     @panels = Array.new
     for panel in @page.panels
       if(find_selected(panel, []) == 1)
         @panels.push(panel);
       end
     end
-    #@site = Site.find(params[:id])
-    #@page = Page.find(@site.page.id)
   end
 
   def select
-    @session_user = User.find(session[:user_id])
-    @page = @session_user.page
-    @site = @page.site
+    @site = Site.find(params[:id])
+    @page = @site.page
     @panels = Array.new
     selected = params[:selected]
     for panel in @page.panels 

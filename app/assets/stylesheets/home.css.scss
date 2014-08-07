@@ -5,8 +5,8 @@
 .outside
 {
   margin: 0;
-  padding: 100px 100px 500px 100px;
-  background-color: #6666FF;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .button
@@ -34,4 +34,12 @@
 {
   padding: 75px;
   float: right;
+}
+
+p
+{
+  text-align: center;
+  font-size: 20px;
+  padding-top: 50px;
+  padding-bottom: 25px;
 }

@@ -1,3 +1,6 @@
+<!-- Color option -->
+<%= stylesheet_link_tag "blue", media: "all" %>
+
 <% content_for :head do %>
   <% for picture_panel in @page.pictures %>
     <%= render 'sites/picture_panel_head', panel: picture_panel %>
@@ -14,19 +17,15 @@
   <% end %>
 <% end %>
 
-<nav class="panel_menu navbar navbar-default navbar-left" role="navigation">
+<nav class="panel_menu navbar-right" role="navigation">
 <div class="navbar-header">Panels</div>
-<div class="container">
+<br/>
   <ul>
     <% for panel in @page.panels %>
-      <li class="icon-bar"><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
+      <li><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
     <% end %>
   </ul>
-</div>
 </nav>
-
-<!-- For previewing the page beside the form. -->
-<!--<iframe style="float:right" width="650" height="1500" src=/sites/panel<%=@page.site.id%>></iframe>-->
 
 <%= form_for @page do |f| %>
   <div id="site_info" class="input-group-addon">

@@ -80,7 +80,8 @@ $(document).ready(function() {
 
 function display_panels() {
   var select_request = new XMLHttpRequest();
-  var URL = "/sites/select?selected=" + selected_tags;
+  var page_id = $(".page_id")[0].id;
+  var URL = "/sites/select?selected=" + selected_tags + "&id=" + page_id;
   select_request.open("GET", URL, true);
   select_request.send();
   select_request.onreadystatechange = function() {

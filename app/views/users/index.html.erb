@@ -1,5 +1,14 @@
 <h1>Users</h1>
+<% sites = Array.new %>
 <% for user in @all_users %>
   <% name = user.first_name + " " + user.last_name%>
-  <li><%= link_to name, user.page.site%></li>
+  <% if !((user.page).nil?) %>
+    <li><%= link_to name, user.page.site%></li>
+    <% sites.push(user.page.site) %>
+  <% end %>
+<% end %>
+<br/>
+<h1>Sites</h1>
+<% for site in sites %> 
+  <li><%= link_to site.page.site_name, site %></li>
 <% end %>

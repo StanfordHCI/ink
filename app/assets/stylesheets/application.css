@@ -20,11 +20,11 @@
 
 #header
 {
-  margin: 0 auto;
+  margin: 0;
+  position: fixed;
   font-family: Lucida Grande;
   font-size: 90px;
   text-align: center;
-  position: fixed;
   top:0;
   left:0;
   right:0;

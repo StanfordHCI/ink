@@ -58,5 +58,17 @@ body
   text-align: left;
   font-family: Helvetica;
   margin: 0px;
-  padding: 125px 0px 0px 0px;
+}
+
+h1
+{
+  font-size: 25px;
+}
+
+.panel_menu
+{
+  background: rgba(0,0,0,0.85);
+  position: fixed;
+  right: 0px;
+  z-index: 100;
 }
