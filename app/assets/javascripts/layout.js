@@ -17,15 +17,6 @@ $(document).ready(function(){
 
   $("body").fadeIn('slow')
 
-  /* ==========================================================================
-     Scroll about page
-     ========================================================================== */
-    $(".learn-more").click(function(event){   
-      console.log('scrolling');
-      event.preventDefault();
-      $('html,body').animate({scrollTop:$(this.hash).offset().top}, 1000);
-    });
-
 
 /* ==========================================================================
    For Bootstrap current state on portfolio sorting

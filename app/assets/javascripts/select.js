@@ -3,8 +3,7 @@ window.onload = function() {
   //Scrolls to the first panel when Begin button is clicked
   $('body').click(function(e){  
     if (e.target.id == 'go') {
-      var first = '#' + document.body.children[13].id;
-      $('html,body').animate({scrollTop:$(first).offset().top}, 1000);
+      $('html,body').animate({scrollTop:$("#site_panels").offset().top}, 1000);
     }
   });
 
@@ -55,7 +54,7 @@ window.onload = function() {
       var selected = container.children[1].children[0].innerHTML;
       console.log(selected);
 
-      if (e.target.style.background == "blue") {
+      if (e.target.style.background == "red") {
         var index = selected_tags.indexOf(selected);
         console.log("Deselecting" + index);
         if (index > -1) {
@@ -63,11 +62,11 @@ window.onload = function() {
           selected_tags.splice(index, 1);
         }
         console.log("One less multi" + selected_tags);
-        e.target.style.background = "#3598db"; //Fix this color
+        e.target.style.background = "#e84c3d"; //Fix this color
       } else {
         selected_tags.push(selected);
         console.log("Selecting multi" + selected_tags);
-        e.target.style.background = "blue";
+        e.target.style.background = "red";
       }
       display_panels();
     }

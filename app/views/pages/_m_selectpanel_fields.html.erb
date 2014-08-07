@@ -1,11 +1,11 @@
 <div id="panel<%=panel_id%>">
   <span class="input-group-addon">
-    <%= f.label :panel_name, "Panel Name*:" %><br/>
+    <%= f.label :panel_name, "Panel Name*:" %>
     <%= f.text_field :panel_name %><br/>
     <%= f.check_box :display %>
-    <%= f.label :display, "Display panel name?" %><br/>
-    <%= f.label :info, "User Prompt*:" %><br/>
-    <%= f.text_area :info %><br/>
+    <%= "Display panel name?" %><br/><br/>
+    <%= f.label :info, "User Prompt*:" %>
+    <%= f.text_area :info %><br/><br/>
     <%= f.fields_for :options do |builder| %>
       <%= render 'option_fields', f: builder, panel_id: panel_id %>
     <% end %>
@@ -26,7 +26,7 @@
         <% end %>
       <% end %>
     </div>
-
+    <br/>
     <%= f.hidden_field :_destroy %>
     <%= link_to "remove", "#", class: "remove_fields" %>
   </span>
