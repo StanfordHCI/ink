@@ -1,9 +1,9 @@
 window.onload = function() {
 
+  //Scrolls to the first panel when Begin button is clicked
   $('body').click(function(e){  
     if (e.target.id == 'go') {
-      console.log(document.body.children[4].id);
-      var first = '#' + document.body.children[4].id;
+      var first = '#' + document.body.children[13].id;
       $('html,body').animate({scrollTop:$(first).offset().top}, 1000);
     }
   });
