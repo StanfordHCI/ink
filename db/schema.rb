@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140723231633) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "m_selectpanels", force: true do |t|
     t.integer  "page_id"
     t.string   "panel_name"
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140723231633) do
     t.datetime "updated_at"
   end
 
-  add_index "m_selectpanels", ["page_id"], name: "index_m_selectpanels_on_page_id"
+  add_index "m_selectpanels", ["page_id"], name: "index_m_selectpanels_on_page_id", using: :btree
 
   create_table "options", force: true do |t|
     t.integer  "selectpanel_id"
@@ -54,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140723231633) do
     t.datetime "updated_at"
   end
 
-  add_index "panels", ["page_id"], name: "index_panels_on_page_id"
+  add_index "panels", ["page_id"], name: "index_panels_on_page_id", using: :btree
 
   create_table "pictures", force: true do |t|
     t.integer  "page_id"
@@ -66,7 +69,7 @@ ActiveRecord::Schema.define(version: 20140723231633) do
     t.datetime "updated_at"
   end
 
-  add_index "pictures", ["page_id"], name: "index_pictures_on_page_id"
+  add_index "pictures", ["page_id"], name: "index_pictures_on_page_id", using: :btree
 
   create_table "s_selectpanels", force: true do |t|
     t.integer  "page_id"
@@ -77,7 +80,7 @@ ActiveRecord::Schema.define(version: 20140723231633) do
     t.datetime "updated_at"
   end
 
-  add_index "s_selectpanels", ["page_id"], name: "index_s_selectpanels_on_page_id"
+  add_index "s_selectpanels", ["page_id"], name: "index_s_selectpanels_on_page_id", using: :btree
 
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
@@ -86,8 +89,8 @@ ActiveRecord::Schema.define(version: 20140723231633) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "sites", force: true do |t|
     t.integer  "page_id"
@@ -114,7 +117,7 @@ ActiveRecord::Schema.define(version: 20140723231633) do
     t.datetime "updated_at"
   end
 
-  add_index "text_panels", ["page_id"], name: "index_text_panels_on_page_id"
+  add_index "text_panels", ["page_id"], name: "index_text_panels_on_page_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "first_name"
