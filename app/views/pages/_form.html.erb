@@ -39,7 +39,7 @@
       <%= "Display description on page?" %><br/>
     </div>
 
-    <% for panel in @page.panels %>
+    <% for panel in @page.panels.reverse_each %>
       <div>
         <% if panel.type == "TextPanel" %>
           <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
@@ -63,6 +63,7 @@
         </div>
       </div>
     <% end %>
+    <%= panel_id %>
 
     <table id="menu">
       <td><%= link_to_add_panels "text.png", f, :text_panels %></td>
