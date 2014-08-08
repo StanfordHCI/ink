@@ -49,3 +49,5 @@ production:
   pool: 5
   username: qmogqcjwlsofuv
   password: _a-8ceANX00CzM_JdGY6On_bBs
+  host: ec2-23-21-101-129.compute-1.amazonaws.com
+  port: 5432
