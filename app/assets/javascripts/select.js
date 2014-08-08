@@ -86,13 +86,37 @@ function display_panels() {
   select_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {
       var panels = JSON.parse(this.responseText);
+      var first_displayed;
+      var counter = 0;
+      console.log(first_displayed);
       for (i=0; i < panels.length; i++) {
         if(panels[i][1] == 1) {
           ($(document.getElementById("panel_" + panels[i][0].id))).show();
+          //Code to keep track of what panel should be scrolled to after option is selected
+          //if (counter == 1) {
+          //  first_displayed = panels[i][0].id;
+          //}
+          //counter++;
         } else {
           ($(document.getElementById("panel_" + panels[i][0].id))).hide();
+          //If this is a single-select/multi-select panel, remove tags from selected_tags
+          console.log(panels[i][0]);//.type); //For some reason, doesn't have a type
+          /*
+             if ((panels[i][0].type == "SSelectpanel") || (panels[i][0].type == "MSelectpanel")) {
+             tags = panels[i][0].tags;
+             for (i=0; i<tags.length; i++) {
+             var index = selected_tags.indexOf(tags[i].name);
+             if (index > -1) {
+             selected_tags.splice(index, 1);
+             }
+             }
+             }
+           */
         }
       }
+      //Scroll to the first newly displayed panel
+      //console.log(first_displayed);
+      //$('html,body').animate({scrollTop:$("#panel_" + first_displayed).offset().top}, 1000); //Scroll to the first newly displayed panel
     }
   }
 };

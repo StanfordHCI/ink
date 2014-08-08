@@ -60,14 +60,16 @@ class PagesController < ApplicationController
 
     #Deletes tags whose panels have been deleted and whose options have been deleted/edited
     panel_ids = Array.new
+    tags = Array.new
     for panel in @page.panels
       panel_ids.push(panel.id)
+      for tag in panel.tags
+        tags.push(tag)
+      end
     end
-    for tag in Tag.find(:all)
-      if tag.page_id = @page.id
-        if !(panel_ids.include?(tag.panel_id)) || !(@options.include?(tag.name))
-          tag.destroy
-        end
+    for tag in tags
+      if !(panel_ids.include?(tag.panel_id)) || !(@options.include?(tag.name))
+        tag.destroy
       end
     end
   end
