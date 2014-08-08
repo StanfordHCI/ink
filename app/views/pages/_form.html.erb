@@ -21,7 +21,7 @@
 <div class="navbar-header">Panels</div>
 <br/>
 <ul>
-  <% for panel in @page.panels %>
+  <% for panel in @page.panels.reverse_each %>
     <li><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
   <% end %>
 </ul>
