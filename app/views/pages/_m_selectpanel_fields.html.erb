@@ -1,4 +1,5 @@
 <div id="panel<%=panel_id%>">
+  <span class="input-group-addon">
     <%= f.label :panel_name, "Panel Name*:" %>
     <%= f.text_field :panel_name %><br/>
     <%= f.check_box :display %>
@@ -28,4 +29,10 @@
     <br/>
     <%= f.hidden_field :_destroy %>
     <%= link_to "remove", "#", class: "remove_fields" %>
+    <div class="preview">
+      <% if !((@page.panels.last).nil?) && (panel_id <= @page.panels.first.id)%>
+        <%= render template: 'sites/panel', :locals => {panel: Panel.find(panel_id)} %>
+      <% end %>
+    </div>
+  </span>
 </div>

@@ -1,29 +1,36 @@
 <div id="panel<%=panel_id%>">
-  <%= f.label :panel_name, "Panel Name*:" %>
-  <%= f.text_field :panel_name %><br/>
-  <%= f.check_box :display %>
-  <%= "Display panel name?"%><br/><br/>
-  <%= f.label :info, "Panel Info:"%>
-  <%= f.text_area :info %><br/><br/>
-  <%= f.label :photo, "Upload file*: " %>
-  <%= f.file_field :photo %><br/>
+  <span class="input-group-addon">
+    <%= f.label :panel_name, "Panel Name*:" %>
+    <%= f.text_field :panel_name %><br/>
+    <%= f.check_box :display %>
+    <%= "Display panel name?"%><br/><br/>
+    <%= f.label :info, "Panel Info:"%>
+    <%= f.text_area :info %><br/><br/>
+    <%= f.label :photo, "Upload file*: " %>
+    <%= f.file_field :photo %><br/>
 
-  <div id="tags<%= panel_id %>">
-    Panel present when user selects...
-    <% if !((@page.panels.last).nil?) && (panel_id <= @page.panels.first.id)%>
-      <% panel=Panel.find(panel_id) %>
-      <% for option in panel.tags %>
-        <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
-          <%= render 'tag_fields', f: builder, option_name: option.name %>
+    <div id="tags<%= panel_id %>">
+      Panel present when user selects...
+      <% if !((@page.panels.last).nil?) && (panel_id <= @page.panels.first.id)%>
+        <% panel=Panel.find(panel_id) %>
+        <% for option in panel.tags %>
+          <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
+            <%= render 'tag_fields', f: builder, option_name: option.name %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% for option in @options %>
+          <%= add_tags f, :tags, option, @page.id, "Picture" %>
         <% end %>
       <% end %>
-    <% else %>
-      <% for option in @options %>
-        <%= add_tags f, :tags, option, @page.id, "Picture" %>
+    </div>
+    <br/>
+    <%= f.hidden_field :_destroy %>
+    <%= link_to "remove", "#", class: "remove_fields" %>
+    <div class="preview">
+      <% if !((@page.panels.last).nil?) && (panel_id <= @page.panels.first.id)%>
+        <%= render template: 'sites/panel', :locals => {panel: Panel.find(panel_id)} %>
       <% end %>
-    <% end %>
-  </div>
-  <br/>
-  <%= f.hidden_field :_destroy %>
-  <%= link_to "remove", "#", class: "remove_fields" %>
+    </div>
+  </span>
 </div>
