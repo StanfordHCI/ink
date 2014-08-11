@@ -41,26 +41,28 @@
 
     <% for panel in @page.panels.reverse_each %>
       <div>
-        <% if panel.type == "TextPanel" %>
-          <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
-            <%= render 'text_panel_fields', f: builder, panel_id: panel.id %>
+        <span class="input-group-addon">
+          <% if panel.type == "TextPanel" %>
+            <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
+              <%= render 'text_panel_fields', f: builder, panel_id: panel.id %>
+            <% end %>
+          <% elsif panel.type == "Picture" %>
+            <%= f.fields_for :pictures, panel, child_index: panel.id do |builder| %>
+              <%= render 'picture_fields', f: builder, panel_id: panel.id %>
+            <% end %>
+          <% elsif panel.type == "SSelectpanel" %>
+            <%= f.fields_for :s_selectpanels, panel, child_index: panel.id do |builder| %>
+              <%= render 's_selectpanel_fields', f: builder, panel_id: panel.id %>
+            <% end %>
+          <% else %> 
+            <%= f.fields_for :m_selectpanels, panel, child_index: panel.id do |builder| %>
+              <%= render 'm_selectpanel_fields', f: builder, panel_id: panel.id %>
+            <% end %>
           <% end %>
-        <% elsif panel.type == "Picture" %>
-          <%= f.fields_for :pictures, panel, child_index: panel.id do |builder| %>
-            <%= render 'picture_fields', f: builder, panel_id: panel.id %>
-          <% end %>
-        <% elsif panel.type == "SSelectpanel" %>
-          <%= f.fields_for :s_selectpanels, panel, child_index: panel.id do |builder| %>
-            <%= render 's_selectpanel_fields', f: builder, panel_id: panel.id %>
-          <% end %>
-        <% else %> 
-          <%= f.fields_for :m_selectpanels, panel, child_index: panel.id do |builder| %>
-            <%= render 'm_selectpanel_fields', f: builder, panel_id: panel.id %>
-          <% end %>
-        <% end %>
-        <div class="preview">
-          <%= render template: 'sites/panel', :locals => {panel: panel} %>
-        </div>
+          <div class="preview">
+            <%= render template: 'sites/panel', :locals => {panel: panel} %>
+          </div>
+        </span>
       </div>
     <% end %>
 
