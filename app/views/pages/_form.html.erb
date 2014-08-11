@@ -1,5 +1,5 @@
 <!-- Color option -->
-<%= asset_path "red.css" %>
+<%= stylesheet_link_tag asset_path "red.css", media: "all" %>
 
 <% content_for :head do %>
   <% for picture_panel in @page.pictures %>
