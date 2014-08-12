@@ -8,8 +8,8 @@ class SitesController < ApplicationController
     @page = @site.page
     @panels = Array.new
     for panel in @page.panels
-      if(find_selected(panel, [])[0] == 1)
-        @panels.push(panel);
+      if(find_selected(panel, []) == 1)
+        @panels.push(panel)
       end
     end
   end
@@ -20,15 +20,13 @@ class SitesController < ApplicationController
     @panels = Array.new
     selected = params[:selected]
     for panel in @page.panels.reverse_each 
-      test = Array.new
-      test = find_selected(panel, selected);
-      if (test[0] == 1)
-        options = Array.new
+      options = Array.new
+      if (find_selected(panel, selected) == 1)
+        @panels.push([panel, 1, panel.type, options])  
+      else
         if (panel.type == "SSelectpanel" || panel.type == "MSelectpanel") 
           options = panel.options
         end
-        @panels.push([panel, 1, panel.type, options, test[1]])  
-      else
         @panels.push([panel, 0, panel.type, options])
       end
     end
@@ -42,13 +40,13 @@ class SitesController < ApplicationController
     for tag in panel.tags
       if tag.value == 1 #if the tag has a value of 1
         if tag.name == "Always"
-          return [1, tag.name]
+          return 1
         end
         if selected.include?(tag.name)
-          return [1, tag.name]
+          return 1
         end
       end
     end
-    return [0, ""]
+    return 0
   end
 end
