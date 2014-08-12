@@ -31,6 +31,15 @@ class PagesController < ApplicationController
         end
       end
     end
+    if !((params[:page][:m_selectpanels_attributes]).nil?)
+      for panel in params[:page][:m_selectpanels_attributes]
+        for select_panel in @page.m_selectpanels
+          if select_panel.panel_name == panel[1][:panel_name]
+            file_upload(panel[1][:options_attributes], select_panel.options)
+          end
+        end
+      end
+    end
     if @page.save
       @session_user.page = @page
       @page.site = Site.new
@@ -82,6 +91,15 @@ class PagesController < ApplicationController
     if !((params[:page][:s_selectpanels_attributes]).nil?)
       for panel in params[:page][:s_selectpanels_attributes]
         for select_panel in @page.s_selectpanels
+          if select_panel.panel_name == panel[1][:panel_name]
+            file_upload(panel[1][:options_attributes], select_panel.options)
+          end
+        end
+      end
+    end
+    if !((params[:page][:m_selectpanels_attributes]).nil?)
+      for panel in params[:page][:m_selectpanels_attributes]
+        for select_panel in @page.m_selectpanels
           if select_panel.panel_name == panel[1][:panel_name]
             file_upload(panel[1][:options_attributes], select_panel.options)
           end

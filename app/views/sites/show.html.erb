@@ -25,7 +25,7 @@
     <% end %>
     <% for m_selectpanel in @page.m_selectpanels %>
       <% for option in m_selectpanel.options %>
-        <%= render 'options_head', option: option %>
+        <%= render 'options_multi_head', option: option %>
       <% end %>
     <% end %>
   <% end %>
