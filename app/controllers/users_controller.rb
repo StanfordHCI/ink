@@ -16,7 +16,8 @@ class UsersController < ApplicationController
       redirect_to action: 'login', alert: "Invalid login."
     else
       session[:user_id] = @session_user.id
-      redirect_to @session_user
+      #redirect_to @session_user
+      redirect_to controller: 'home' 
     end
   end
 

@@ -39,7 +39,7 @@
       <%= "Display description on page?" %><br/>
     </div>
 
-    <% for panel in @page.panels.reverse_each %>
+    <% for panel in @page.panels %>
       <div>
         <% if panel.type == "TextPanel" %>
           <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
