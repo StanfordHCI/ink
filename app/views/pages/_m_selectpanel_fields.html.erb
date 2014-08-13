@@ -13,7 +13,7 @@
 
     <div id="tags<%= panel_id %>">
       Panel present when user selects...
-      <% if !((@page.panels.last).nil?) && (panel_id <= @page.panels.first.id)%>
+      <% if @page.panels && (panel_id <= @page.panels.last.id)%>
         <% panel=Panel.find(panel_id) %>
         <% for option in panel.tags %>
           <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
@@ -30,7 +30,7 @@
     <%= f.hidden_field :_destroy %>
     <%= link_to "remove", "#", class: "remove_fields" %>
     <div class="preview">
-      <% if !((@page.panels.last).nil?) && (panel_id <= @page.panels.first.id)%>
+      <% if @page.panels && (panel_id <= @page.panels.last.id)%>
         <%= render template: 'sites/panel', :locals => {panel: Panel.find(panel_id)} %>
       <% end %>
     </div>
