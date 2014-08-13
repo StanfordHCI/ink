@@ -70,9 +70,9 @@ class PagesController < ApplicationController
     #Deletes tags whose panels have been deleted and whose options have been deleted/edited
     panel_ids = Array.new
     tags = Array.new
-    for panel in @page.panels.reverse_each
+    for panel in @page.panels.order(:created_at)
       panel_ids.push(panel.id)
-      for tag in panel.tags.reverse_each
+      for tag in panel.tags.order(:created_at)
         tags.push(tag)
       end
     end
@@ -119,7 +119,7 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
     @tags = Array.new 
-    for panel in @page.panels.reverse_each
+    for panel in @page.panels.order(:created_at)
       if panel.id > (params[:panelid]).to_i 
         tag = Tag.new
         tag.name = params[:tagname]
