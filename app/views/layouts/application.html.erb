@@ -17,6 +17,11 @@
           <%= link_to "New User", controller: "users", action: "new" %>
         <% end %>
       </div>
+      <% if session[:user_id] && session_user.page.site %>
+        <div ID="edit_page">
+          <%= link_to "Edit your page", controller: "pages", action: "show", id: session_user.page.id %>
+        </div>
+      <% end %>
       <%= link_to "Ink", controller: "home" %>
     </div>
   </head>
