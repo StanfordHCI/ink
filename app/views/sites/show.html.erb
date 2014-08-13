@@ -53,7 +53,7 @@
   </section>
 
   <div id="site_panels">
-    <% for panel in @page.panels%>
+    <% for panel in @page.panels.reverse_each %>
       <div id="panel_<%=panel.id%>">
         <% if panel.type == "TextPanel" %>
           <%= render 'text_panel', panel: panel %>
