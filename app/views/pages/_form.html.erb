@@ -39,7 +39,7 @@
       <%= "Display description on page?" %><br/>
     </div>
 
-    <% for panel in @page.panels.order(created_at: :asc)%>
+    <% for panel in @page.panels.order(:created_at)%>
       <div>
         <% if panel.type == "TextPanel" %>
           <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
