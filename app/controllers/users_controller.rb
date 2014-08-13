@@ -35,6 +35,7 @@ class UsersController < ApplicationController
     @new_user.first_name = params[:first]
     @new_user.last_name = params[:last]
     @new_user.login = params[:login]
+    @new_user.email = params[:email]
     @new_user.password = params[:password]
     @new_user.password_confirmation = params[:password_confirmation]
 
