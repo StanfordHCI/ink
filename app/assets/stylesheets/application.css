@@ -20,9 +20,8 @@
 
 #header
 {
-  //position: fixed;
   font-family: Lucida Grande;
-  font-size: 90px;
+  font-size: 80px;
   text-align: center;
   top:0;
   left:0;
@@ -51,7 +50,6 @@
 {
   font-size: 12px;
   text-align: right;
-  float: right;
   text-decoration: none;
 }
 
