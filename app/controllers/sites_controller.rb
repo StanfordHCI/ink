@@ -1,11 +1,13 @@
 class SitesController < ApplicationController
 
   def create
+    
   end
 
   def show
     @site = Site.find(params[:id])
     @page = @site.page
+    @site.name = @page.site_name
     @panels = Array.new
     for panel in @page.panels
       if(find_selected(panel, []) == 1)
@@ -30,7 +32,7 @@ class SitesController < ApplicationController
         @panels.push([panel, 0, panel.type, options])
       end
     end
-    render :json => @panels
+    render json: @panels
   end
 
   private

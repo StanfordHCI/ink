@@ -3,12 +3,14 @@
 <% for user in @all_users %>
   <% name = user.first_name + " " + user.last_name%>
   <% if !((user.page).nil?) %>
-    <li><%= link_to name, user.page.site%></li>
+  <% site_url = "/sites/" + user.page.site.id.to_s + "-" + user.page.site_name %>
+    <li><%= link_to name, site_url %></li>
     <% sites.push(user.page.site) %>
   <% end %>
 <% end %>
 <br/>
 <h1>Sites</h1>
 <% for site in sites %> 
-  <li><%= link_to site.page.site_name, site %></li>
+  <% site_url = "/sites/" + site.id.to_s + "-" + site.page.site_name %>
+  <li><%= link_to site.page.site_name, site_url %></li>
 <% end %>
