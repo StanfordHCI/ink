@@ -11,18 +11,30 @@
     <% end %>
     <%= link_to_add_option "Add option", f, :options, panel_id %>
 
+    <div>Panel present when user selects...</div>
+    <br/>
     <div id="tags<%= panel_id %>">
-      Panel present when user selects...
+      <% counter = 0 %>
       <% if @page.panels.last && (panel_id <= @page.panels.last.id)%>
         <% panel=Panel.find(panel_id) %>
         <% for option in panel.tags %>
           <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
             <%= render 'tag_fields', f: builder, option_name: option.name %>
           <% end %>
+          <% counter = counter + 1 %>
+          <% if counter%7 === 0 %>
+            <br/>
+            <br/>
+          <% end %>
         <% end %>
       <% else %>
         <% for option in @options %>
           <%= add_tags f, :tags, option, @page.id, "MSelectpanel" %>
+          <% counter = counter + 1 %>
+          <% if counter%7 === 0 %>
+            <br/>
+            <br/>
+          <% end %>
         <% end %>
       <% end %>
     </div>
