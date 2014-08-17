@@ -52,4 +52,4 @@ gem 'rails_12factor', group: :production
 ruby "2.1.1"
 
 #Amazon Ruby SDK
-gem 'aws-sdk'
+gem 'aws-sdk', require: 'aws/s3'
