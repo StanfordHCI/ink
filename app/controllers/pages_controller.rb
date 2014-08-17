@@ -16,6 +16,7 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = Page.new
     @options = Array.new
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
   end
 
   def create
@@ -51,6 +52,7 @@ class PagesController < ApplicationController
   end
 
   def edit
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
     @session_user = User.find(session[:user_id])
     @page = @session_user.page
 

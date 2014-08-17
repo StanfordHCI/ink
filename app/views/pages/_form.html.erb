@@ -28,7 +28,7 @@
 </nav>
 
 <div class="formoid-default-red">
-  <%= form_for @page do |f| %>
+  <%= form_for(@page, html:{class: "directUpload"}) do |f| %>
     <div id="site_info" class="input-group-addon">
       <%= f.label :site_name, "Site Name*:" %>
       <%= f.text_field :site_name %><br/>
@@ -75,3 +75,25 @@
     <div id="submit"> <%= f.submit "Publish" %></div>
   <% end %>
 </div>
+<script>
+  $(function() {
+    $('.directUpload').find("input:file").each(function(i, elem) {
+      var fileInput    = $(elem);
+      var form         = $(fileInput.parents('form:first'));
+      var submitButton = form.find('input[type="submit"]');
+      var progressBar  = $("<div class='bar'></div>");
+      var barContainer = $("<div class='progress'></div>").append(progressBar);
+      fileInput.after(barContainer);
+      fileInput.fileupload({
+        fileInput:       fileInput,
+        url:             '<%= @s3_direct_post.url %>',
+        type:            'POST',
+        autoUpload:       true,
+        formData:         <%= @s3_direct_post.fields.to_json.html_safe %>,
+        paramName:        'file', // S3 does not like nested name fields i.e. name="user[avatar_url]"
+        dataType:         'XML',  // S3 returns XML if success_action_status is set to 201
+        replaceFileInput: false
+      });
+    });
+  }); 
+</script>
