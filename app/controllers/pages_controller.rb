@@ -164,7 +164,7 @@ class PagesController < ApplicationController
           File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
             file.write(uploaded.read)
           end
-          AWS::S3::S3Object.store(uploaded, uploaded.read, ENV['S3_BUCKET'], :access=> :public_read)
+          #AWS::S3::S3Object.store(uploaded, uploaded.read, ENV['S3_BUCKET'], :access=> :public_read)
           for panel in array
             if array == @page.pictures
               if panel.panel_name == attribute[1][:panel_name]
