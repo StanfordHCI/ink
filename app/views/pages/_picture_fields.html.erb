@@ -1,12 +1,12 @@
 <div id="panel<%=panel_id%>">
   <span class="input-group-addon">
-    <%= f.label :panel_name, "Panel Name*:" %>
+    <%= f.label :panel_name, "Panel Name*" %>
     <%= f.text_field :panel_name %><br/>
     <%= f.check_box :display %>
     <%= "Display panel name?"%><br/><br/>
-    <%= f.label :info, "Panel Info:"%>
+    <%= f.label :info, "Panel Info"%>
     <%= f.text_area :info %><br/><br/>
-    <%= f.label :photo, "Upload file: " %>
+    <%= f.label :photo, "Upload file" %>
     <%= f.file_field :photo %><br/>
 
     <div>Panel present when user selects...</div>

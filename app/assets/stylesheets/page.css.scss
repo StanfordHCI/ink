@@ -68,3 +68,8 @@ h1
   top: 125px;
   z-index: 100;
 }
+
+//Puts : after all form field labels
+label::after {
+  content: ":";
+}
