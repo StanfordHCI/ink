@@ -43,19 +43,19 @@
       <div>
         <% if panel.type == "TextPanel" %>
           <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
-            <%= render 'text_panel_fields', f: builder, panel_id: panel.id %>
+            <%= render 'text_panel_fields', f: builder, panel: panel %>
           <% end %>
         <% elsif panel.type == "Picture" %>
           <%= f.fields_for :pictures, panel, child_index: panel.id do |builder| %>
-            <%= render 'picture_fields', f: builder, panel_id: panel.id %>
+            <%= render 'picture_fields', f: builder, panel: panel %>
           <% end %>
         <% elsif panel.type == "SSelectpanel" %>
           <%= f.fields_for :s_selectpanels, panel, child_index: panel.id do |builder| %>
-            <%= render 's_selectpanel_fields', f: builder, panel_id: panel.id %>
+            <%= render 's_selectpanel_fields', f: builder, panel: panel %>
           <% end %>
         <% else %> 
           <%= f.fields_for :m_selectpanels, panel, child_index: panel.id do |builder| %>
-            <%= render 'm_selectpanel_fields', f: builder, panel_id: panel.id %>
+            <%= render 'm_selectpanel_fields', f: builder, panel: panel %>
           <% end %>
         <% end %>
       </div>

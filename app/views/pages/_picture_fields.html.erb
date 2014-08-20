@@ -1,4 +1,4 @@
-<div id="panel<%=panel_id%>">
+<div id="panel<%=panel.id%>">
   <span class="input-group-addon">
     <%= f.label :panel_name, "Panel Name*" %>
     <%= f.text_field :panel_name %><br/>
@@ -11,10 +11,9 @@
 
     <div>Panel present when user selects...</div>
     <br/>
-    <div id="tags<%= panel_id %>">
+    <div id="tags<%= panel.id %>">
       <% counter = 0 %>
-      <% if @page.panels.last && (panel_id <= @page.panels.last.id)%>
-        <% panel=Panel.find(panel_id) %>
+      <% if (panel.persisted?) %>
         <% for option in panel.tags %>
           <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
             <%= render 'tag_fields', f: builder, option_name: option.name %>
@@ -40,8 +39,8 @@
     <%= f.hidden_field :_destroy %>
     <%= link_to "remove", "#", class: "remove_fields" %>
     <div class="preview">
-      <% if @page.panels.last && (panel_id <= @page.panels.last.id)%>
-        <%= render template: 'sites/panel', :locals => {panel: Panel.find(panel_id)} %>
+      <% if (panel.persisted?) %>
+        <%= render template: 'sites/panel', :locals => {panel: panel} %>
       <% end %>
     </div>
   </span>
