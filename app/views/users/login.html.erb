@@ -1,7 +1,13 @@
-<%= form_tag("post_login", method: "post") do %>
-  <%= label_tag(:login, "Username:") %>
-  <%= text_field_tag(:login) %><br/>
-  <%= label_tag(:password, "Password:") %>
-  <%= password_field_tag(:password) %><br/>
-  <%= submit_tag("Login") %>
-<% end %>
+<div>
+  <%= form_tag("post_login", method: "post") do %>
+    <%= label_tag(:login, "Username:") %>
+    <%= text_field_tag(:login) %><br/>
+    <%= label_tag(:password, "Password:") %>
+    <%= password_field_tag(:password) %><br/>
+    <%= submit_tag("Login") %>
+  <% end %>
+</div>
+<br/> <!--FIXME: do this with CSS later-->
+<div>
+  New to the site? <%= link_to("Create an account.", action: :new) %> 
+</div>

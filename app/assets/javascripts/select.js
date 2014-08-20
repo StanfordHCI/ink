@@ -23,7 +23,7 @@ window.onload = function() {
           selected_tags.splice(index, 1);
         }
         $('.service-block').css("background-color", "#D3D3D3");
-        display_panels();
+        display_panels(e.target);
       } else {
         if (lastSelected) {
           var index = selected_tags.indexOf(lastSelected.children[1].innerHTML);
@@ -42,7 +42,7 @@ window.onload = function() {
         e.target.style.background = "#000000";
         e.target.id = "selected";
 
-        display_panels();
+        display_panels(e.target);
       }
     }
   });
@@ -66,7 +66,7 @@ window.onload = function() {
         console.log("Selecting multi" + selected_tags);
         e.target.style.background = "red";
       }
-      display_panels();
+      display_panels(e.target);
     }
   });
 };
@@ -75,7 +75,7 @@ $(document).ready(function() {
   selected_tags = [];
 });
 
-function display_panels() {
+function display_panels(current_panel) {
   var select_request = new XMLHttpRequest();
   var page_id = $(".page_id")[0].id;
   var URL = "/sites/select?selected=" + selected_tags + "&id=" + page_id;
@@ -89,11 +89,6 @@ function display_panels() {
       for (i=0; i < panels.length; i++) {
         if (panels[i][1] == 1) {
           ($(document.getElementById("panel_" + panels[i][0].id))).show();
-          //Code to keep track of what panel should be scrolled to after option is selected
-          //if (counter == 1) {
-          //  first_displayed = panels[i][0].id;
-          //}
-          //counter++;
         } else { //panel should be hidden
           ($(document.getElementById("panel_" + panels[i][0].id))).hide();
           //If this is a single-select/multi-select panel, remove tags from selected_tags
@@ -104,15 +99,15 @@ function display_panels() {
               if (index > -1) {
                 $(".fa-"+tags[j].id).css("background", "#e84c3d"); //Fix this color
                 selected_tags.splice(index, 1);
-                display_panels();
+                display_panels(current_panel);
               }
             }
           }
         }
       }
       //Scroll to the first newly displayed panel
-      //console.log(first_displayed);
-      //$('html,body').animate({scrollTop:$("#panel_" + first_displayed).offset().top}, 1000); //Scroll to the first newly displayed panel
+      var panel_top = $(current_panel).parent().parent().parent().parent(); //get parent panel
+      $('html,body').animate({scrollTop:panel_top.offset().top + panel_top.height()}, 1000); 
     }
   }
 };
