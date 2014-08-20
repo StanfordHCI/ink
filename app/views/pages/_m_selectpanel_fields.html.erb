@@ -1,10 +1,10 @@
 <div id="panel<%=panel.id%>">
   <span class="input-group-addon">
-    <%= f.label :panel_name, "Panel Name*" %>
+    <%= f.label :panel_name, "Panel title*" %>
     <%= f.text_field :panel_name %><br/>
     <%= f.check_box :display %>
     <%= "Display panel name?" %><br/><br/>
-    <%= f.label :info, "User Prompt*" %>
+    <%= f.label :info, "User prompt for select options*" %>
     <%= f.text_area :info %><br/><br/>
     <%= f.fields_for :options do |builder| %>
       <%= render 'option_fields', f: builder, panel_id: panel.id %>

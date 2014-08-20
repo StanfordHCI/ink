@@ -1,11 +1,11 @@
 <!--Text panel form fields -->
 <div id="panel<%=panel.id%>">
   <span class="input-group-addon">
-    <%= f.label :panel_name, "Panel Name*" %>
+    <%= f.label :panel_name, "Panel title*" %>
     <%= f.text_field :panel_name %><br/>
     <%= f.check_box :display %>
     <%= "Display panel name?" %><br/><br/>
-    <%= f.label :info, "Content" %>
+    <%= f.label :info, "Panel text" %>
     <%= f.text_area :info %><br/><br/>
 
     <div>Panel present when user selects...</div>
