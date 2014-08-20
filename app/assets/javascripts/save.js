@@ -1,6 +1,6 @@
 function Save() {
+  $("#pageform").unbind("submit"); //not doing anything
   $("#pageform").one("submit", function(e) {
-    $(".add_panel").off("submit"); //not doing anything
     var form = $(this);
     var formURL = form.attr("action");
     var formData = new FormData(this); 

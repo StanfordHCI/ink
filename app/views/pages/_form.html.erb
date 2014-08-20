@@ -69,10 +69,11 @@
     </table>
 
     <div id="panel_button">
-      <%= link_to("Add a panel", "#", class: "add_panel", :onclick => 'Save()') %>
+      <%= link_to("Add a panel", "#", class: "add_panel", onclick: 'Save()') %>
     </div>
 
-    <div id="submitform"> <%= f.submit "Publish" %></div>
+    <div id="saveform"> <%= f.submit "Save" %></div>
+    <div id="publishform"><%= f.submit "Publish" %></div>
   <% end %>
 </div>
 

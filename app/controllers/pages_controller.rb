@@ -109,8 +109,11 @@ class PagesController < ApplicationController
       end
     end
     if @page.update(page_params)
-      redirect_to @page.site
-      #redirect_to @session_user, alert: "Successfully updated page."
+      if params[:commit] == 'Publish'
+        redirect_to @page.site
+      else #Called when 'Save' button is hit or form saves dynamically
+        redirect_to action: 'edit', alert: "Successfully updated page."
+      end
     else
       redirect_to action: 'edit', alert: "Could not update. Please try again."
     end
