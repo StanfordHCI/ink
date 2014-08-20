@@ -42,12 +42,5 @@ function display_tag(tag) {
   tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_value" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][value]" type="checkbox" value = "1">';
   tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_name" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][page_id]" type="hidden" value="' + tag[0].page_id + '">';
 
-  tag_div.innerHTML += tag[0].name; //Figure out how to make the HTML for the form fields
-
-  //var divs = document.getElementsByTagName('*'), i;
-  //for (i in divs) {
-  //  if ((' ' + divs[i].className + ' ' ).indexOf(' ' + div_class + ' ') > -1) {
-  //    divs[i].innerHTML += "<%= add_tags f, :tags, " + tag_name + "%>";
-  //  }
-  //}
+  tag_div.innerHTML += tag[0].name;
 } 

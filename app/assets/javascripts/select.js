@@ -87,7 +87,7 @@ function display_panels() {
       var first_displayed;
       var counter = 0;
       for (i=0; i < panels.length; i++) {
-        if(panels[i][1] == 1) {
+        if (panels[i][1] == 1) {
           ($(document.getElementById("panel_" + panels[i][0].id))).show();
           //Code to keep track of what panel should be scrolled to after option is selected
           //if (counter == 1) {

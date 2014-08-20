@@ -28,7 +28,7 @@
 </nav>
 
 <div class="formoid-default-red">
-  <%= form_for(@page, html:{class: "directUpload"}) do |f| %>
+  <%= form_for(@page, html:{class: "directUpload", id: "pageform"}) do |f| %>
     <div id="site_info" class="input-group-addon">
       <%= f.label :site_name, "Site Name*" %>
       <%= f.text_field :site_name %><br/>
@@ -69,10 +69,10 @@
     </table>
 
     <div id="panel_button">
-      <%= link_to("Add a panel", "#", class: "add_panel") %>
+      <%= link_to("Add a panel", "#", class: "add_panel", :onclick => 'Save()') %>
     </div>
 
-    <div id="submit"> <%= f.submit "Publish" %></div>
+    <div id="submitform"> <%= f.submit "Publish" %></div>
   <% end %>
 </div>
 
