@@ -1,9 +1,9 @@
 function Save() {
-  $("#pageform").off('submit'); //eliminates extra submit events
   $("#pageform").submit(function(e) {
     var form = $(this);
     var formURL = form.attr("action");
     var formData = new FormData(this); 
+    var toParse = $(this).serialize();
 
     $.ajax({
       type: "POST",
@@ -14,11 +14,13 @@ function Save() {
       cache: false,
       processData: false,
       success: function(data){
-        console.log("Saved form: " + data);
+        console.log(toParse);
+        //console.log("Saved form: " + data);
         //Refresh panels and preview here
       }
     });
     e.preventDefault();
+    $("#pageform").off('submit'); //eliminates extra submit events
   });
 
   $("#pageform").submit();
