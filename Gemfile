@@ -53,3 +53,6 @@ ruby "2.1.1"
 
 #Amazon Ruby SDK
 gem 'aws-sdk', require: 'aws/s3'
+
+#Nested forms
+gem "nested_form"

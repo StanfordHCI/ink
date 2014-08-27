@@ -11,26 +11,15 @@
     <div>Panel present when user selects...</div>
     <br/>
     <div id="tags<%= panel.id %>">
-      <% counter = 0 %>
       <% if (panel.persisted?) %>
         <% for option in panel.tags %>
           <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
             <%= render 'tag_fields', f: builder, option_name: option.name %>
           <% end %>
-          <% counter = counter + 1 %>
-          <% if counter%7 === 0 %>
-            <br/>
-            <br/>
-          <% end %>
         <% end %>
       <% else %> <!-- if the panel is just created -->
         <% for option in @options %>
           <%= add_tags f, :tags, option, @page.id, "TextPanel" %>
-          <% counter = counter + 1 %>
-          <% if counter%7 === 0 %>
-            <br/>
-            <br/>
-          <% end %>
         <% end %>
       <% end %>
     </div>
