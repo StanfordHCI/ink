@@ -110,37 +110,23 @@ class PagesController < ApplicationController
     end
 
     if @page.update(page_params)
+      puts("DEBUGGING")
+      puts(page_params)
       if request.xhr? #Called by AJAX; breaks without this?
-        redirect_to action: 'edit', alert: "Successfully updated page."
-=begin
         panel = @page.panels(:created_at).last #Get the most recently created panel
-        
-        #Determine panel type and corresponding partial 
-        if (panel.type) == 'TextPanel'
-          partial = :text_panels
-        elsif (panel.type) == 'Picture'
-          partial = :pictures
-        elsif (panel.type) == 'SSelectpanel'
-          partial = :s_selectpanels
-        else #panel is multi-select
-          partial = :m_selectpanels
-        end
-        
-        fields = fields_for(partial, panel, child_index: panel.id) do |builder|
-          render(partial.to_s.singularize + "_fields", f: builder, panel: panel)
-        end
-
-        #fields = render_to_string(partial: partial, locals: {panel: panel})
+        id = panel.id
         respond_to do |format|
-          format.json {render json: {results: fields}}
+          format.json {render json: id} #returns the most recently created panel's id
         end
-=end
       elsif params[:commit] == 'Publish' #Called when 'Publish' button is hit
         redirect_to @page.site
       elsif params[:commit] == 'Save' #Called when 'Save' button is hit
         redirect_to action: 'edit', alert: "Successfully updated page."
       end
     else
+      puts("DEBUGGING")
+      puts("GET")
+      puts(page_params)
       redirect_to action: 'edit', alert: "Could not update. Please try again."
     end
   end

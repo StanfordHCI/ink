@@ -18,13 +18,13 @@
 <% end %>
 
 <nav class="panel_menu navbar-right" role="navigation">
-<div class="navbar-header">Panels</div>
-<br/>
-<ul>
-  <% for panel in @page.panels.order(:created_at)%>
-    <li><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
-  <% end %>
-</ul>
+  <div class="navbar-header">Panels</div>
+  <br/>
+  <ul>
+    <% for panel in @page.panels.order(:created_at)%>
+      <li><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
+    <% end %>
+  </ul>
 </nav>
 
 <div class="formoid-default-red">
@@ -41,47 +41,67 @@
 
     <div id="panels">
     <% for panel in @page.panels.order(:created_at)%>
-      <div>
-        <% if panel.type == "TextPanel" %>
-          <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
-            <%= render 'text_panel_fields', f: builder, panel: panel%>
-          <% end %>
-        <% elsif panel.type == "Picture" %>
-          <%= f.fields_for :pictures, panel, child_index: panel.id do |builder| %>
-            <%= render 'picture_fields', f: builder, panel: panel%>
-          <% end %>
-        <% elsif panel.type == "SSelectpanel" %>
-          <%= f.fields_for :s_selectpanels, panel, child_index: panel.id do |builder| %>
-            <%= render 's_selectpanel_fields', f: builder, panel: panel%>
-          <% end %>
-        <% else %> 
-          <%= f.fields_for :m_selectpanels, panel, child_index: panel.id do |builder| %>
-            <%= render 'm_selectpanel_fields', f: builder, panel: panel%>
-          <% end %>
+      <% if panel.type == "TextPanel" %>
+        <%= f.fields_for :text_panels, panel, child_index: panel.id do |builder| %>
+          <%= render 'text_panel_fields', f: builder, panel: panel%>
         <% end %>
-      </div>
+      <% elsif panel.type == "Picture" %>
+        <%= f.fields_for :pictures, panel, child_index: panel.id do |builder| %>
+          <%= render 'picture_fields', f: builder, panel: panel%>
+        <% end %>
+      <% elsif panel.type == "SSelectpanel" %>
+        <%= f.fields_for :s_selectpanels, panel, child_index: panel.id do |builder| %>
+          <%= render 's_selectpanel_fields', f: builder, panel: panel%>
+        <% end %>
+      <% else %> 
+        <%= f.fields_for :m_selectpanels, panel, child_index: panel.id do |builder| %>
+          <%= render 'm_selectpanel_fields', f: builder, panel: panel%>
+        <% end %>
+      <% end %>
     <% end %>
-  </div>
+    </div>
 
-  <table id="menu">
-  <td><%= f.link_to_add image_tag("text.png"), :text_panels, data: {target: "#panels"} %></td>
-  <td><%= f.link_to_add image_tag("picture.png"), :pictures, data: {target: "#panels"} %></td>
-  <td><%= f.link_to_add image_tag("single.png"), :s_selectpanels, data: {target: "#panels"} %></td>
-  <td><%= f.link_to_add image_tag("multi.png"), :m_selectpanels, data: {target: "#panels"} %></td>
-  <!--
-  <td><#%= link_to_add_panels "text.png", f, :text_panels %></td>
-  <td><#%= link_to_add_panels "picture.png", f, :pictures %></td>
-  <td><#%= link_to_add_panels "single.png", f, :s_selectpanels %></td>
-  <td><#%= link_to_add_panels "multi.png", f, :m_selectpanels %></td>  
-  -->
-</table>
+    <!--Needed for nested_form gem to use add/remove fields if panels don't exist-->
+    <% if @page.text_panels.empty? %>
+      <%= f.fields_for :text_panels do |builder| %>
+        <%= render 'text_panel_fields', f: builder, panel: nil %>
+      <% end %>
+    <% end %> 
+    <% if @page.pictures.empty? %>
+      <%= f.fields_for :pictures do |builder| %>
+        <%= render 'picture_fields', f: builder, panel: nil %>
+      <% end %>
+    <% end %> 
+    <% if @page.m_selectpanels.empty? %>
+      <%= f.fields_for :m_selectpanels do |builder| %>
+        <%= render 'm_selectpanel_fields', f: builder, panel: nil %>
+      <% end %>
+    <% end %> 
+    <% if @page.s_selectpanels.empty? %>
+      <%= f.fields_for :s_selectpanels do |builder| %>
+        <%= render 's_selectpanel_fields', f: builder, panel: nil %>
+      <% end %>
+    <% end %> 
 
-<div id="panel_button">
-<%= link_to("Add a panel", "#", class: "add_panel")%>
-</div>
+    <table id="menu">
+      <td><%= f.link_to_add image_tag("text.png"), :text_panels, data: {target: "#panels"} %></td>
+      <td><%= f.link_to_add image_tag("picture.png"), :pictures, data: {target: "#panels"} %></td>
+      <td><%= f.link_to_add image_tag("single.png"), :s_selectpanels, data: {target: "#panels"} %></td>
+      <td><%= f.link_to_add image_tag("multi.png"), :m_selectpanels, data: {target: "#panels"} %></td>
+      <!--
+      <td><#%= link_to_add_panels "text.png", f, :text_panels %></td>
+      <td><#%= link_to_add_panels "picture.png", f, :pictures %></td>
+      <td><#%= link_to_add_panels "single.png", f, :s_selectpanels %></td>
+      <td><#%= link_to_add_panels "multi.png", f, :m_selectpanels %></td>  
+      -->
+    </table>
 
-<div id="saveform"> <%= f.submit "Save" %></div>
-<div id="publishform"><%= f.submit "Publish" %></div>
+    <div id="panel_button">
+      <%= link_to("Add a panel", "#", class: "add_panel")%>
+    </div>
+
+    <div id="saveform"> <%= f.submit "Save" %></div>
+    <div id="publishform"><%= f.submit "Publish" %></div>
   <% end %>
 </div>
 

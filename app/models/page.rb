@@ -16,7 +16,7 @@ class Page < ActiveRecord::Base
   accepts_nested_attributes_for :m_selectpanels, allow_destroy: true
 
   validates :site_name, presence: true
-  validate :require_panel_names
+  #validate :require_panel_names #Is there a way to only validate this when a submit button is pushed? (Not on AJAX)
 
   private
   def require_panel_names

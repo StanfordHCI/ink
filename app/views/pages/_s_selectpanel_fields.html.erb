@@ -13,7 +13,9 @@
       <%= f.fields_for :options do |builder| %>
         <%= render 'option_fields', f: builder, panel_id: panel.id %>
       <% end %>
-      <%= link_to_add_option "Add option", f, :options, panel.id %>
+      <% if panel %><!--Only called if the page has an s_selectpanel-->
+        <%= link_to_add_option "Add option", f, :options, panel.id %>
+      <% end %>
 
       <div>Panel present when user selects...</div>
       <br/>
