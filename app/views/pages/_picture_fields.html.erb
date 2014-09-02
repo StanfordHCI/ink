@@ -1,36 +1,42 @@
-<div id="panel<%=panel.id%>">
-  <span class="input-group-addon">
-    <%= f.label :panel_name, "Panel title*" %>
-    <%= f.text_field :panel_name %><br/>
-    <%= f.check_box :display %>
-    <%= "Display panel name?"%><br/><br/>
-    <%= f.label :info, "Panel text"%>
-    <%= f.text_area :info %><br/><br/>
-    <%= f.label :photo, "Upload file" %>
-    <%= f.file_field :photo %><br/>
+<% if f.object.new_record? %>
+  <div id="panel">
+  <% else %>
+    <div id="panel<%=panel.id%>">
+    <% end %>
+    <span class="input-group-addon">
+      <%= f.label :panel_name, "Panel title*" %>
+      <%= f.text_field :panel_name %><br/>
+      <%= f.check_box :display %>
+      <%= "Display panel name?"%><br/><br/>
+      <%= f.label :info, "Panel text"%>
+      <%= f.text_area :info %><br/><br/>
+      <%= f.label :photo, "Upload file" %>
+      <%= f.file_field :photo %><br/>
 
-    <div>Panel present when user selects...</div>
-    <br/>
-    <div id="tags<%= panel.id %>">
-      <% if (panel.persisted?) %>
-        <% for option in panel.tags %>
-          <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
-            <%= render 'tag_fields', f: builder, option_name: option.name %>
+      <div>Panel present when user selects...</div>
+      <br/>
+      <% if !(f.object.new_record?) %>
+        <div id="tags<%= panel.id %>">
+          <% for option in panel.tags %>
+            <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
+              <%= render 'tag_fields', f: builder, option_name: option.name %>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       <% else %>
-        <% for option in @options %>
-          <%= add_tags f, :tags, option, @page.id, "Picture" %>
+        <div id="tags">
+          <% for option in @options %>
+            <%= add_tags f, :tags, option, @page.id, "Picture" %>
+          <% end %>
+        </div>
+      <% end %>
+      <br/>
+      <%= f.hidden_field :_destroy %>
+      <%= link_to "remove", "#", class: "remove_fields" %>
+      <div class="preview">
+        <% if !(f.object.new_record?) %>
+          <%= render template: 'sites/panel', :locals => {panel: panel} %>
         <% end %>
-      <% end %>
-    </div>
-    <br/>
-    <%= f.hidden_field :_destroy %>
-    <%= link_to "remove", "#", class: "remove_fields" %>
-    <div class="preview">
-      <% if (panel.persisted?) %>
-        <%= render template: 'sites/panel', :locals => {panel: panel} %>
-      <% end %>
-    </div>
-  </span>
-</div>
+      </div>
+    </span>
+  </div>
