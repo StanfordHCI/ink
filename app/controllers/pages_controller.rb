@@ -126,7 +126,7 @@ class PagesController < ApplicationController
         panel = @page.panels(:created_at).last #Get the most recently created panel
         id = panel.id
         respond_to do |format|
-          format.json {render json: id} #returns the most recently created panel's id
+          format.json {render json: [id, panel.tags]} #returns the most recently created panel's id
         end
       elsif params[:commit] == 'Publish' #Called when 'Publish' button is hit
         redirect_to @page.site
@@ -137,6 +137,7 @@ class PagesController < ApplicationController
       puts("DEBUGGING")
       puts("GET")
       puts(page_params)
+      #Need to add a case for AJAX here
       redirect_to action: 'edit', alert: "Could not update. Please try again."
     end
   end

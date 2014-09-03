@@ -1,6 +1,8 @@
 $(document).on('nested:fieldAdded', function(event) {
+  $('table').hide();
+  $('#panel_button').show();
   var panel = event.field;
-  console.log(panel);
+
   $("#pageform").submit(function(e) {
     var form = $(this);
     var formURL = form.attr("action");
@@ -17,13 +19,13 @@ $(document).on('nested:fieldAdded', function(event) {
       cache: false,
       processData: false,
       success: function(data){
-        console.log("Form submitted");
-        var id = JSON.parse(data); //Get new panel's ID from controller
-        panel.children()[0].id = "panel" + id; 
-        panel_fields_id = panel.children()[0].id;
-        var fields = $(panel.children()[0]).children().children();
+        var id = JSON.parse(data)[0]; //Get new panel's ID from controller
+        panel_tags = JSON.parse(data)[1];
+        panel.children()[0].id = "panel" + id; //Resetting ID of panel div
+        panel_fields_id = panel.children()[0].id; //Store panel ID
+        var fields = $(panel.children()[0]).children().children(); //Form fields for the panel
         var panel_type = undefined;
-        
+
         //Changes all temporarily generated IDs to actual panel ID
         for (i=0; i<fields.length; i++) {
           //Storing panel type if not yet defined
@@ -46,25 +48,32 @@ $(document).on('nested:fieldAdded', function(event) {
           }
           if (fields[i].name != undefined) {
             fields[i].name = fields[i].name.replace(/\d{13}/g, id);
+
           }
-          tags = $($(fields[i]).children()[0]).children();
-          for (j=0; j<tags.length; j++) {
-            relabel(tags[j], id);
+          tags = $(fields[i]).children();
+          for (k=0; k<tags.length; k++) {
+            tag_fields = $(tags[k]).children(); 
+            for (j=0; j<tag_fields.length; j++) {
+              relabel(tag_fields[j], id, panel_tags[k].id);
+            }
+            $(document.getElementById("tags")).children()[k].innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_tags_attributes_'+panel_tags[k].id+'_id" name="page['+panel_type+'_attributes]['+id+'][tags_attributes]['+panel_tags[k].id+'][id]" type="hidden" value="'+panel_tags[k].id+'">';
           }
-          console.log(fields[i]);
         }
         document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
+        console.log("Form submitted");
       }
     });
     e.preventDefault();
-    $("#pageform").off('submit'); //eliminates extra submit events
+    $("#pageform").off('submit'); //Eliminates extra submit events
   });
 
   $("#pageform").submit(); //Calls above submit function
 });
 
-function relabel(tag, id ) {
+//Resets ID and name for tag form fields
+function relabel(tag, id, tag_id) {
   tag.id = tag.id.replace(/\d{13}/g, id);
+  tag.id = tag.id.replace(/\d{10}/g, tag_id);
   tag.name = tag.name.replace(/\d{13}/g, id);
-  console.log(tag);
+  tag.name = tag.name.replace(/\d{10}/g, tag_id);
 }

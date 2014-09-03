@@ -14,6 +14,7 @@ ready = ->
     $(this).closest('fieldset').hide()
     event.preventDefault()
 
+#This one isn't really necessary any more
   $('form').on 'click', '.add_fields', (event) ->
     $('table').hide()  
     $('#panel_button').show()
