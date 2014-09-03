@@ -53,7 +53,7 @@ $(document).on('nested:fieldAdded', function(event) {
           }
           console.log(fields[i]);
         }
-        document.getElementById(panel_fields_id).innerHTML += '<input id="page_text_panels_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
+        document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
       }
     });
     e.preventDefault();
