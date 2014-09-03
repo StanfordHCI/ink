@@ -83,6 +83,15 @@ class PagesController < ApplicationController
         tag.destroy
       end
     end
+
+    #Removes panels without a name
+=begin
+    for panel in @page.panels
+      if panel.panel_name.blank?
+        panel.destroy
+      end
+    end
+=end
   end
 
   def update
@@ -112,6 +121,7 @@ class PagesController < ApplicationController
     if @page.update(page_params)
       puts("DEBUGGING")
       puts(page_params)
+
       if request.xhr? #Called by AJAX; breaks without this?
         panel = @page.panels(:created_at).last #Get the most recently created panel
         id = panel.id

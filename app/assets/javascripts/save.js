@@ -18,12 +18,27 @@ $(document).on('nested:fieldAdded', function(event) {
       processData: false,
       success: function(data){
         console.log("Form submitted");
-        var id = JSON.parse(data);
-        console.log(id);
+        var id = JSON.parse(data); //Get new panel's ID from controller
         panel.children()[0].id = "panel" + id; 
+        panel_fields_id = panel.children()[0].id;
         var fields = $(panel.children()[0]).children().children();
+        var panel_type = undefined;
+        
+        //Changes all temporarily generated IDs to actual panel ID
         for (i=0; i<fields.length; i++) {
+          //Storing panel type if not yet defined
           if(fields[i].htmlFor != undefined) {
+            if (panel_type == undefined) {
+              if(fields[i].htmlFor.match('text_panels_attributes')){
+                panel_type = 'text_panels';
+              } else if(fields[i].htmlFor.match('pictures_attributes')){
+                panel_type = 'pictures';
+              } else if(fields[i].htmlFor.match('s_selectpanels_attributes')){
+                panel_type = 's_selectpanels';
+              } else if(fields[i].htmlFor.match('m_selectpanels_attributes')){
+                panel_type = 'm_selectpanels';
+              }
+            }
             fields[i].htmlFor = fields[i].htmlFor.replace(/\d{13}/g, id);
           }
           if (fields[i].id != undefined) {
@@ -38,7 +53,7 @@ $(document).on('nested:fieldAdded', function(event) {
           }
           console.log(fields[i]);
         }
-
+        document.getElementById(panel_fields_id).innerHTML += '<input id="page_text_panels_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
       }
     });
     e.preventDefault();
