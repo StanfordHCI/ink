@@ -33,10 +33,10 @@
       <br/>
       <%= f.hidden_field :_destroy %>
       <%= link_to "remove", "#", class: "remove_fields" %>
-      <div class="preview">
-        <% if !(f.object.new_record?) %>
+      <% if !(f.object.new_record?) %>
+        <div class="preview">
           <%= render template: 'sites/panel', :locals => {panel: panel} %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </span>
   </div>

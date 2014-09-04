@@ -4,14 +4,10 @@ function update_previews() {
   url: "/pages/previews",
   datatype: "json",
   success: function(data){
-    console.log(data);
-    //Check if data is empty first
+    //console.log(data);
     //var panels = JSON.parse(data);
     var previews = $(".preview");
-    console.log(previews);
-    for (i=0; i<previews.length; i++) {
-      console.log(data[i]);
-      console.log(previews[i].innerHTML);
+    for (i=0; i<data.length; i++) {
       previews[i].innerHTML = data[i];
     }
   }
