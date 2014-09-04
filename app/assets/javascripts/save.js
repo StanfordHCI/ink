@@ -67,7 +67,7 @@ function get_panel_type(label) {
   if(label.match('pictures_attributes')){return 'pictures';}
   if(label.match('s_selectpanels_attributes')){return 's_selectpanels';}
   if(label.match('m_selectpanels_attributes')){return 'm_selectpanels';}
-  return undefined; //Should never reach here...
+  return undefined; //Should never reach here
 }
 
 //Resets ID and name for tag form fields

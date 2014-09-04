@@ -123,20 +123,11 @@ class PagesController < ApplicationController
       puts(page_params)
 
       if request.xhr? #Called by AJAX; breaks without this?
-        panel = @page.panels(:created_at).last #Get the most recently created panel
+        panel = @page.panels.order(:created_at).last #Get the most recently created panel
+        puts panel
         id = panel.id
 
-        #Determine panel type and corresponding partial 
-        if (panel.type) == 'TextPanel'
-          partial = 'text_panel'
-        elsif (panel.type) == 'Picture'
-          partial = 'picture_panel'
-        elsif (panel.type) == 'SSelectpanel'
-          partial = 's_selectpanel'
-        else #panel is multi-select
-          partial = 'm_selectpanel'
-        end
-        fields = render_to_string(partial: '/sites/'+partial, locals: {panel: panel})
+        fields = get_panel_preview(panel) 
 
         respond_to do |format|
           format.json {render json: [id, panel.tags, fields]} #returns the most recently created panel's id, its tags, and its preview
@@ -172,7 +163,19 @@ class PagesController < ApplicationController
       end
     end
 
-    render :json => @tags
+    render json: @tags
+  end
+
+  #Returns all panel previews as JSON
+  def previews
+    @session_user = User.find(session[:user_id])
+    @page = @session_user.page
+    panels = Array.new
+    for panel in @page.panels.order(:created_at)
+      fields = get_panel_preview(panel) 
+      panels.push(fields)
+    end
+    render json: panels
   end
 
   private
@@ -219,4 +222,19 @@ class PagesController < ApplicationController
       end
     end
   end
+
+  def get_panel_preview(panel)
+    #Determine panel type and corresponding partial 
+    if (panel.type) == 'TextPanel'
+      partial = 'text_panel'
+    elsif (panel.type) == 'Picture'
+      partial = 'picture_panel'
+    elsif (panel.type) == 'SSelectpanel'
+      partial = 's_selectpanel'
+    else #panel is multi-select
+      partial = 'm_selectpanel'
+    end
+    return render_to_string(partial: '/sites/'+partial, locals: {panel: panel})
+  end
+
 end

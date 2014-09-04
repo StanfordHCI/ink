@@ -16,6 +16,7 @@ Project4::Application.routes.draw do
     collection do
       get 'tag'
       get 'demo'
+      get 'previews'
     end
   end
 

@@ -21,7 +21,7 @@
       <br/>
       <% if !(f.object.new_record?) %>
         <div id="tags<%= panel.id %>">
-          <% for option in panel.tags %>
+          <% for option in panel.tags.order(:created_at) %>
             <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
               <%= render 'tag_fields', f: builder, option_name: option.name %>
             <% end %>
