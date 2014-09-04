@@ -1,4 +1,7 @@
 class Page < ActiveRecord::Base
+  #before_update:
+  #after_save:
+    
   belongs_to :user
 
   has_one :site

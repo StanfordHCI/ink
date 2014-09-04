@@ -34,7 +34,7 @@
       <%= link_to "remove", "#", class: "remove_fields" %>
       <div class="preview">
         <% if !(f.object.new_record?) %>
-          <%= render template: 'sites/panel', :locals => {panel: panel} %>
+          <%= render template: 'sites/panel', locals: {panel: panel} %>
         <% end %>
       </div>
     </span>

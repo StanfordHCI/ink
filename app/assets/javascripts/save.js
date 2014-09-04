@@ -50,6 +50,7 @@ $(document).on('nested:fieldAdded', function(event) {
           }
         }
         document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
+        $(document.getElementById(panel_fields_id)).children()[0].innerHTML += '<div class="preview">'+JSON.parse(data)[2]+'</div>'; //Add panel preview
         console.log("Form submitted");
       }
     });
@@ -66,7 +67,7 @@ function get_panel_type(label) {
   if(label.match('pictures_attributes')){return 'pictures';}
   if(label.match('s_selectpanels_attributes')){return 's_selectpanels';}
   if(label.match('m_selectpanels_attributes')){return 'm_selectpanels';}
-  return undefined;
+  return undefined; //Should never reach here...
 }
 
 //Resets ID and name for tag form fields

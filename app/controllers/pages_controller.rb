@@ -125,8 +125,21 @@ class PagesController < ApplicationController
       if request.xhr? #Called by AJAX; breaks without this?
         panel = @page.panels(:created_at).last #Get the most recently created panel
         id = panel.id
+
+        #Determine panel type and corresponding partial 
+        if (panel.type) == 'TextPanel'
+          partial = 'text_panel'
+        elsif (panel.type) == 'Picture'
+          partial = 'picture_panel'
+        elsif (panel.type) == 'SSelectpanel'
+          partial = 's_selectpanel'
+        else #panel is multi-select
+          partial = 'm_selectpanel'
+        end
+        fields = render_to_string(partial: '/sites/'+partial, locals: {panel: panel})
+
         respond_to do |format|
-          format.json {render json: [id, panel.tags]} #returns the most recently created panel's id
+          format.json {render json: [id, panel.tags, fields]} #returns the most recently created panel's id, its tags, and its preview
         end
       elsif params[:commit] == 'Publish' #Called when 'Publish' button is hit
         redirect_to @page.site
