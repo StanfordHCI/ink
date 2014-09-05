@@ -24,7 +24,7 @@ function display_tag(tag) {
   //find the correct div for the tag
   //insert the tag into the div
   var tag_div = document.getElementById("tags" + tag[0].panel_id);
- 
+
   var tag_id = new Date().getTime(); //ensures the number is different
 
   var panel_type = "text_panels";
