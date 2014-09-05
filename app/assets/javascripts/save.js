@@ -35,7 +35,10 @@ $(document).on('nested:fieldAdded', function(event) {
             fields[i].htmlFor = fields[i].htmlFor.replace(/\d{13}/g, id);
           }
           if (fields[i].id != undefined) {
-            fields[i].id = fields[i].id.replace(/\d{13}/g, id);
+            if (fields[i].id == "tags") {
+              fields[i].id = "tags" + id;
+            }
+              fields[i].id = fields[i].id.replace(/\d{13}/g, id);
           }
           if (fields[i].name != undefined) {
             fields[i].name = fields[i].name.replace(/\d{13}/g, id);
@@ -46,7 +49,7 @@ $(document).on('nested:fieldAdded', function(event) {
             for (j=0; j<tag_fields.length; j++) {
               relabel(tag_fields[j], id, panel_tags[k].id);
             }
-            $(document.getElementById("tags")).children()[k].innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_tags_attributes_'+panel_tags[k].id+'_id" name="page['+panel_type+'_attributes]['+id+'][tags_attributes]['+panel_tags[k].id+'][id]" type="hidden" value="'+panel_tags[k].id+'">'; //Add hidden field for tag id
+            $(document.getElementById("tags"+id)).children()[k].innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_tags_attributes_'+panel_tags[k].id+'_id" name="page['+panel_type+'_attributes]['+id+'][tags_attributes]['+panel_tags[k].id+'][id]" type="hidden" value="'+panel_tags[k].id+'">'; //Add hidden field for tag id
           }
         }
         document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
