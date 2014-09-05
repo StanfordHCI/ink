@@ -58,7 +58,6 @@ class PagesController < ApplicationController
 
     #Creates an array of existing select options
     @options = Array.new
-    @options.push("Always");
     for panel in Panel.find(:all) 
       if panel.page_id == @page.id
         if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
@@ -119,14 +118,12 @@ class PagesController < ApplicationController
     end
 
     if @page.update(page_params)
-      puts("DEBUGGING")
+      puts("PAGE_PARAMS")
       puts(page_params)
 
-      if request.xhr? #Called by AJAX; breaks without this?
+      if request.xhr? #Called by AJAX
         panel = @page.panels.order(:created_at).last #Get the most recently created panel
-        puts panel
         id = panel.id
-
         fields = get_panel_preview(panel) 
 
         respond_to do |format|
@@ -138,8 +135,7 @@ class PagesController < ApplicationController
         redirect_to action: 'edit', alert: "Successfully updated page."
       end
     else
-      puts("DEBUGGING")
-      puts("GET")
+      puts("PAGE_PARAMS: update failed")
       puts(page_params)
       #Need to add a case for AJAX here
       redirect_to action: 'edit', alert: "Could not update. Please try again."

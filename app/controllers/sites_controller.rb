@@ -10,7 +10,9 @@ class SitesController < ApplicationController
     @site.name = @page.site_name
     @panels = Array.new
     for panel in @page.panels
-      if(find_selected(panel, []) == 1)
+      if panel_not_tagged(panel)
+        @panels.push(panel)
+      elsif find_selected(panel, [])
         @panels.push(panel)
       end
     end
@@ -23,7 +25,7 @@ class SitesController < ApplicationController
     selected = params[:selected]
     for panel in @page.panels.reverse_each 
       options = Array.new
-      if (find_selected(panel, selected) == 1)
+      if find_selected(panel, selected)
         @panels.push([panel, 1, panel.type, options])  
       else
         if (panel.type == "SSelectpanel" || panel.type == "MSelectpanel") 
@@ -37,18 +39,28 @@ class SitesController < ApplicationController
 
   private
 
+  #Checks if a panel's tags are all set to 0
+  def panel_not_tagged(panel)
+    for tag in panel.tags
+      if tag.value == 1
+        return false 
+      end
+    end
+    return true 
+  end
+
   #Returns true if one of the panel's tags is in selected_tags
   def find_selected(panel, selected)
     for tag in panel.tags
       if tag.value == 1 #if the tag has a value of 1
         if tag.name == "Always"
-          return 1
+          return true 
         end
         if selected.include?(tag.name)
-          return 1
+          return true 
         end
       end
     end
-    return 0
+    return false 
   end
 end

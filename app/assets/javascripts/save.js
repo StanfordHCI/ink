@@ -96,7 +96,7 @@ function delete_panels() {
   var destroy_fields = $(".destroy");
   for (i=0; i<destroy_fields.length; i++) {
     if (destroy_fields[i].value == 1) {
-      $(destroy_fields[i]).parent().parent().remove();
+      $(destroy_fields[i]).parent().parent().parent().remove();
     } 
   }
 }

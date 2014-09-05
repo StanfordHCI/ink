@@ -64,22 +64,22 @@
     <!--Needed for nested_form gem to use add/remove fields if panels don't exist-->
     <% if @page.text_panels.empty? %>
       <%= f.fields_for :text_panels do |builder| %>
-        <%= render 'text_panel_fields', f: builder, panel: nil %>
+        <%= render 'text_panel_fields', f: builder%>
       <% end %>
     <% end %> 
     <% if @page.pictures.empty? %>
       <%= f.fields_for :pictures do |builder| %>
-        <%= render 'picture_fields', f: builder, panel: nil %>
+        <%= render 'picture_fields', f: builder%>
       <% end %>
     <% end %> 
     <% if @page.m_selectpanels.empty? %>
       <%= f.fields_for :m_selectpanels do |builder| %>
-        <%= render 'm_selectpanel_fields', f: builder, panel: nil %>
+        <%= render 'm_selectpanel_fields', f: builder%>
       <% end %>
     <% end %> 
     <% if @page.s_selectpanels.empty? %>
       <%= f.fields_for :s_selectpanels do |builder| %>
-        <%= render 's_selectpanel_fields', f: builder, panel: nil %>
+        <%= render 's_selectpanel_fields', f: builder%>
       <% end %>
     <% end %> 
 
