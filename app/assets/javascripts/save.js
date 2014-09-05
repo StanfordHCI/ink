@@ -50,15 +50,31 @@ function update_form(event) {
           if (fields[i].type == "file" ) {
             file_upload(fields[i]);
           }
+
+
+          //Relabel a panel's tags
           tags = $(fields[i]).children();
           for (k=0; k<tags.length; k++) {
             tag_fields = $(tags[k]).children(); 
             for (j=0; j<tag_fields.length; j++) {
-              relabel(tag_fields[j], id, panel_tags[k].id);
+              relabel_tags(tag_fields[j], id, panel_tags[k].id);
             }
             $(document.getElementById("tags"+id)).children()[k].innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_tags_attributes_'+panel_tags[k].id+'_id" name="page['+panel_type+'_attributes]['+id+'][tags_attributes]['+panel_tags[k].id+'][id]" type="hidden" value="'+panel_tags[k].id+'">'; //Add hidden field for tag id
           }
         }
+        
+        //Relabel a panel's options
+        var option_link = $(fields[0]).parent().find(".add_option");
+        console.log(option_link);
+        console.log(option_link.data("fields"));
+        var fields = option_link.data("fields").replace(/\d{13}/g, id);
+        option_link.data("fields", fields);
+        option_link.attr("data-fields", fields);
+        console.log(option_link.data("fields"));
+        console.log(option_link);
+        //var option_link_two = $(fields[0]).parent().find(".add_option");
+        //console.log(option_link_two.data("fields"));
+
         document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
         $(document.getElementById(panel_fields_id)).children()[0].innerHTML += '<div class="preview">'+JSON.parse(data)[2]+'</div>'; //Add panel preview
         $("nav").find("ul")[0].innerHTML += '<li><a href="#panel' + id + '">[New Panel]</a></li>'; 
@@ -84,7 +100,7 @@ function get_panel_type(label) {
 }
 
 //Resets ID and name for tag form fields
-function relabel(tag, id, tag_id) {
+function relabel_tags(tag, id, tag_id) {
   tag.id = tag.id.replace(/\d{13}/g, id);
   tag.id = tag.id.replace(/\d{10}/g, tag_id);
   tag.name = tag.name.replace(/\d{13}/g, id);
