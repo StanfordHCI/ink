@@ -13,3 +13,18 @@ function update_previews() {
   }
   });
 }
+
+/*
+//Called :onblur on panel title fields
+function update_panel_menu(panel_name, panel_id) {
+  var links = $("nav").find("a");
+  console.log(links);
+  for (i=0; i<links.length; i++) {
+    if links[i].href.match(panel_id) { //Find link for corresponding panel
+      console.log("Found panel link!");
+      //Change link text to panel_name
+      links[i].innerHTML = panel_name;
+    } 
+  }
+}
+*/

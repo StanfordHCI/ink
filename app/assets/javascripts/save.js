@@ -51,6 +51,8 @@ $(document).on('nested:fieldAdded', function(event) {
         }
         document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
         $(document.getElementById(panel_fields_id)).children()[0].innerHTML += '<div class="preview">'+JSON.parse(data)[2]+'</div>'; //Add panel preview
+        $("nav").find("ul")[0].innerHTML += '<li><a href="#panel' + id + '">[New Panel]</a></li>'; 
+        console.log($("nav").find("ul"));
         console.log("Form submitted");
       }
     });
