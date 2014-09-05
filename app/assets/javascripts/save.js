@@ -1,4 +1,8 @@
 $(document).on('nested:fieldAdded', function(event) {
+  update_form(event);
+});
+
+function update_form(event) {
   $('table').hide();
   $('#panel_button').show();
   var panel = event.field;
@@ -43,6 +47,9 @@ $(document).on('nested:fieldAdded', function(event) {
           if (fields[i].name != undefined) {
             fields[i].name = fields[i].name.replace(/\d{13}/g, id);
           }
+          if (fields[i].type == "file" ) {
+            file_upload(fields[i]);
+          }
           tags = $(fields[i]).children();
           for (k=0; k<tags.length; k++) {
             tag_fields = $(tags[k]).children(); 
@@ -64,7 +71,8 @@ $(document).on('nested:fieldAdded', function(event) {
   });
 
   $("#pageform").submit(); //Calls above submit function
-});
+  //Call function that deletes destroyed panels' fields
+};
 
 //Returns the panel type based on form label field
 function get_panel_type(label) {
