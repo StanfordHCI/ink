@@ -71,7 +71,7 @@ function update_form(event) {
   });
 
   $("#pageform").submit(); //Calls above submit function
-  //Call function that deletes destroyed panels' fields
+  delete_panels();
 };
 
 //Returns the panel type based on form label field
@@ -89,4 +89,14 @@ function relabel(tag, id, tag_id) {
   tag.id = tag.id.replace(/\d{10}/g, tag_id);
   tag.name = tag.name.replace(/\d{13}/g, id);
   tag.name = tag.name.replace(/\d{10}/g, tag_id);
+}
+
+//Deletes panels that have been destroyed in the database
+function delete_panels() {
+  var destroy_fields = $(".destroy");
+  for (i=0; i<destroy_fields.length; i++) {
+    if (destroy_fields[i].value == 1) {
+      $(destroy_fields[i]).parent().parent().remove();
+    } 
+  }
 }

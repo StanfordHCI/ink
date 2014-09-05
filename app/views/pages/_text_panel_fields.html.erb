@@ -34,7 +34,7 @@
       </div>
     <% end %>
     <br/>
-    <%= f.hidden_field :_destroy %>
+    <%= f.hidden_field :_destroy, class: "destroy" %>
     <%= link_to "remove", "#", class: "remove_fields" %>
     <% if !(f.object.new_record?) %>
       <div class="preview">
