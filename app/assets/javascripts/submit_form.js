@@ -51,8 +51,6 @@ function update_form(event) {
         if (panel.children()[0].id == "panel") {
           panel.children()[0].id = "panel" + id; //Resetting ID of panel div
           panel_fields_id = panel.children()[0].id; //Store panel ID
-        } else {
-          panel.children()[0].id = "options" + id;
         }
         var fields = $(panel.children()[0]).children().children(); //Form fields for the panel
         var panel_type = undefined;
@@ -143,6 +141,7 @@ function relabel_options(event, panel_id) {
       console.log(option_fields); 
       fields = $(option_fields).children().children();
       var panel_type = undefined;
+      option_fields.children()[0].id = "options" + data.id;
       for (i=0; i<fields.length; i++) {
         if(fields[i].htmlFor != undefined) {
           if (panel_type == undefined) { //Storing panel type if not yet defined
@@ -154,10 +153,12 @@ function relabel_options(event, panel_id) {
           fields[i].name = fields[i].name.replace(/\d{13}/g, data.id); 
         }
         if (fields[i].id!= undefined) {
-          fields[i].id = fields[i].id.replace(/\d{13}/g, data.id); 
+          if (fields[i].id != fields[i].id.match(/\d+/)) {
+            fields[i].id = fields[i].id.replace(/\d{13}/g, data.id); 
+          }
         }
       }
-      $(document.getElementById("options"+panel_id)).parent()[0].innerHTML += '<input id="page_' + panel_type +'_attributes_' + panel_id +'_options_attributes_' + data.id +'" name="page['+ panel_type + '_attributes][' + panel_id +'][options_attributes][' + data.id + '][id]" type="hidden" value="'+ data.id + '">'; //Add hidden fields to the option
+      $(document.getElementById("options"+data.id)).parent()[0].innerHTML += '<input id="page_' + panel_type +'_attributes_' + panel_id +'_options_attributes_' + data.id +'" name="page['+ panel_type + '_attributes][' + panel_id +'][options_attributes][' + data.id + '][id]" type="hidden" value="'+ data.id + '">'; //Add hidden fields to the option
     }
   });
 }

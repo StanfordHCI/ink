@@ -20,8 +20,7 @@ function Tag(tag_name, panel_id) {
 }
 
 function display_tag(tag) {
-  //find the correct div for the tag
-  //insert the tag into the div
+  //Find the correct div for the tag
   var tag_div = document.getElementById("tags" + tag[0].panel_id);
   var tag_id = new Date().getTime(); //ensures the number is different
   var panel_type = "text_panels";
@@ -34,6 +33,7 @@ function display_tag(tag) {
     panel_type = "m_selectpanels";
   }
 
+  //Insert the tag into the div
   tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_name" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][name]" type="hidden" value="' + tag[0].name + '">';
   tag_div.innerHTML += '<input id="page_' + panel_type + '_attributes_' + tag[0].panel_id + '_tags_attributes_' + tag_id + '_destroy" name="page[' + panel_type + '_attributes][' + tag[0].panel_id + '][tags_attributes][' + tag_id + '][_destroy]" type="hidden" value="false">';
   tag_div.innerHTML += '<input name=page[' + panel_type + '_attributes][' + tag[0].panel_id + '[tags_attributes][' + tag_id + '][value]" type="hidden" value="0">';

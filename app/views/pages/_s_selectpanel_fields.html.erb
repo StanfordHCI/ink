@@ -16,12 +16,19 @@
       <%= "Display panel name?" %><br/><br/>
       <%= f.label :info, "User prompt for select options*" %>
       <%= f.text_area :info %><br/><br/>
-      <%= f.fields_for :options do |builder| %>
-        <%= render 'option_fields', f: builder, panel_id: panel_id %>
+
+      <% if f.object.new_record? %>
+        <%= f.fields_for :options do |builder| %>
+          <%= render 'option_fields', f: builder, panel_id: panel_id %>
+        <% end %>
+      <% else %>
+        <%= f.fields_for :options, panel.options.order(:created_at) do |builder| %>
+          <%= render 'option_fields', f: builder, panel_id: panel_id %>
+        <% end %>
       <% end %>
+
       <% if f.object.new_record? %>
         <%= f.link_to_add "Add option", :options %>
-        <!--<#%= link_to_add_option "Add option", f, :options, 1234567890123%>-->
       <% else %>
         <%= link_to_add_option "Add option", f, :options, panel.id %>
       <% end %>
