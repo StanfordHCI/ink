@@ -7,7 +7,6 @@ function Tag(tag_name, panel_id) {
   tag_request.send(); 
   tag_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {
-
       console.log(this.responseText);
       var tags = JSON.parse(this.responseText);
       console.log(tags);
@@ -24,10 +23,9 @@ function display_tag(tag) {
   //find the correct div for the tag
   //insert the tag into the div
   var tag_div = document.getElementById("tags" + tag[0].panel_id);
-
   var tag_id = new Date().getTime(); //ensures the number is different
-
   var panel_type = "text_panels";
+  
   if (tag[1] == "Picture") {
     panel_type = "pictures";
   } else if (tag[1] == "SSelectpanel") {

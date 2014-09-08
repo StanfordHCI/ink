@@ -1,11 +1,33 @@
-$(document).on('nested:fieldAdded', function(event) {
+$(document).on('nested:fieldAdded:text_panels', function(event) {
   update_form(event);
+});
+
+$(document).on('nested:fieldAdded:pictures', function(event) {
+  update_form(event);
+});
+
+$(document).on('nested:fieldAdded:m_selectpanels', function(event) {
+  update_form(event);
+});
+
+$(document).on('nested:fieldAdded:s_selectpanels', function(event) {
+  update_form(event);
+});
+
+$(document).on('nested:fieldAdded:options', function(event) {
+  update_form(event);
+  panel = $(event.field).parent().parent();
+  panel_id = (panel[0].id).match(/\d+/);
+  console.log(panel_id);
+  relabel_options(event, panel_id);
+  console.log("Added an option");
 });
 
 function update_form(event) {
   $('table').hide();
   $('#panel_button').show();
   var panel = event.field;
+  var panel_id;
 
   $("#pageform").submit(function(e) {
     var form = $(this);
@@ -23,10 +45,15 @@ function update_form(event) {
       cache: false,
       processData: false,
       success: function(data){
-        var id = JSON.parse(data)[0]; //Get new panel's ID from controller
-        panel_tags = JSON.parse(data)[1];
-        panel.children()[0].id = "panel" + id; //Resetting ID of panel div
-        panel_fields_id = panel.children()[0].id; //Store panel ID
+        var id = JSON.parse(data)[0]; //Get newest panel's ID from controller
+        var panel_tags = JSON.parse(data)[1];
+        var panel_fields_id;
+        if (panel.children()[0].id == "panel") {
+          panel.children()[0].id = "panel" + id; //Resetting ID of panel div
+          panel_fields_id = panel.children()[0].id; //Store panel ID
+        } else {
+          panel.children()[0].id = "options" + id;
+        }
         var fields = $(panel.children()[0]).children().children(); //Form fields for the panel
         var panel_type = undefined;
 
@@ -42,7 +69,7 @@ function update_form(event) {
             if (fields[i].id == "tags") {
               fields[i].id = "tags" + id;
             }
-              fields[i].id = fields[i].id.replace(/\d{13}/g, id);
+            fields[i].id = fields[i].id.replace(/\d{13}/g, id);
           }
           if (fields[i].name != undefined) {
             fields[i].name = fields[i].name.replace(/\d{13}/g, id);
@@ -50,7 +77,6 @@ function update_form(event) {
           if (fields[i].type == "file" ) {
             file_upload(fields[i]);
           }
-
 
           //Relabel a panel's tags
           tags = $(fields[i]).children();
@@ -62,22 +88,11 @@ function update_form(event) {
             $(document.getElementById("tags"+id)).children()[k].innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_tags_attributes_'+panel_tags[k].id+'_id" name="page['+panel_type+'_attributes]['+id+'][tags_attributes]['+panel_tags[k].id+'][id]" type="hidden" value="'+panel_tags[k].id+'">'; //Add hidden field for tag id
           }
         }
-        
-        //Relabel a panel's options
-        var option_link = $(fields[0]).parent().find(".add_option");
-        console.log(option_link);
-        console.log(option_link.data("fields"));
-        var fields = option_link.data("fields").replace(/\d{13}/g, id);
-        option_link.data("fields", fields);
-        option_link.attr("data-fields", fields);
-        console.log(option_link.data("fields"));
-        console.log(option_link);
-        //var option_link_two = $(fields[0]).parent().find(".add_option");
-        //console.log(option_link_two.data("fields"));
-
-        document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
-        $(document.getElementById(panel_fields_id)).children()[0].innerHTML += '<div class="preview">'+JSON.parse(data)[2]+'</div>'; //Add panel preview
-        $("nav").find("ul")[0].innerHTML += '<li><a href="#panel' + id + '">[New Panel]</a></li>'; 
+        if (panel_fields_id != undefined) { //Check that update_form is being called on a panel and not an option
+          document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
+          $(document.getElementById(panel_fields_id)).children()[0].innerHTML += '<div class="preview">'+JSON.parse(data)[2]+'</div>'; //Add panel preview
+          $("nav").find("ul")[0].innerHTML += '<li><a href="#panel' + id + '">[New Panel]</a></li>'; 
+        }
         console.log($("nav").find("ul"));
         console.log("Form submitted");
       }
@@ -115,4 +130,34 @@ function delete_panels() {
       $(destroy_fields[i]).parent().parent().parent().remove();
     } 
   }
+}
+
+//Resets ID and name for option form fields and adds hidden field
+function relabel_options(event, panel_id) {
+  option_fields = event.field;
+  $.ajax({
+    type: "GET",
+    url: "/pages/option?panelid="+panel_id,
+    datatype: "json",
+    success: function(data){
+      console.log(option_fields); 
+      fields = $(option_fields).children().children();
+      var panel_type = undefined;
+      for (i=0; i<fields.length; i++) {
+        if(fields[i].htmlFor != undefined) {
+          if (panel_type == undefined) { //Storing panel type if not yet defined
+            panel_type = get_panel_type(fields[i].htmlFor);
+          }
+          fields[i].htmlFor = fields[i].htmlFor.replace(/\d{13}/g, data.id);
+        }
+        if (fields[i].name != undefined) {
+          fields[i].name = fields[i].name.replace(/\d{13}/g, data.id); 
+        }
+        if (fields[i].id!= undefined) {
+          fields[i].id = fields[i].id.replace(/\d{13}/g, data.id); 
+        }
+      }
+      $(document.getElementById("options"+panel_id)).parent()[0].innerHTML += '<input id="page_' + panel_type +'_attributes_' + panel_id +'_options_attributes_' + data.id +'" name="page['+ panel_type + '_attributes][' + panel_id +'][options_attributes][' + data.id + '][id]" type="hidden" value="'+ data.id + '">'; //Add hidden fields to the option
+    }
+  });
 }

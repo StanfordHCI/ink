@@ -23,6 +23,7 @@ ready = ->
     $('#menu').before($(this).data('fields').replace(regexp, time)) 
     event.preventDefault()
 
+#This one isn't really necessary any more
   $('form').on 'click', '.add_option', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')

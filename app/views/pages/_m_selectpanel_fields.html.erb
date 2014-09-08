@@ -1,7 +1,9 @@
 <% if f.object.new_record? %>
   <div id="panel">
+  <% panel_id = 1234567890123 %>
   <% else %>
     <div id="panel<%=panel.id%>">
+    <% panel_id = panel.id %>
     <% end %>
     <span class="input-group-addon">
       <%= f.label :panel_name, "Panel title*" %>
@@ -15,10 +17,11 @@
       <%= f.label :info, "User prompt for select options*" %>
       <%= f.text_area :info %><br/><br/>
       <%= f.fields_for :options do |builder| %>
-        <%= render 'option_fields', f: builder, panel_id: panel.id %>
+        <%= render 'option_fields', f: builder, panel_id: panel_id %>
       <% end %>
       <% if f.object.new_record?%>
-        <%= link_to_add_option "Add option", f, :options, 1234567890123%>
+        <%= f.link_to_add "Add option", :options %>
+        <!--<#%= link_to_add_option "Add option", f, :options, 1234567890123%>-->
       <% else %>
         <%= link_to_add_option "Add option", f, :options, panel.id %>
       <% end %>

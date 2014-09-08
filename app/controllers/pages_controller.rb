@@ -174,6 +174,12 @@ class PagesController < ApplicationController
     render json: panels
   end
 
+  #Returns last created option
+  def option
+    panel = Panel.find(params[:panelid])
+    render json: panel.options.order(:created_at).last
+  end
+
   private
 
   def page_params
