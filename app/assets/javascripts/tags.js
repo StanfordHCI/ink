@@ -1,6 +1,5 @@
 function Tag(tag_name, panel_id) {
   this.tag_name = tag_name;
-
   var tag_request = new XMLHttpRequest();
   var URL = "/pages/tag?tagname=" + tag_name + "&panelid=" + panel_id;
   tag_request.open("GET", URL, true);

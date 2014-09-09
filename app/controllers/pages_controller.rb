@@ -82,15 +82,6 @@ class PagesController < ApplicationController
         tag.destroy
       end
     end
-
-    #Removes panels without a name
-=begin
-    for panel in @page.panels
-      if panel.panel_name.blank?
-        panel.destroy
-      end
-    end
-=end
   end
 
   def update
@@ -123,11 +114,10 @@ class PagesController < ApplicationController
 
       if request.xhr? #Called by AJAX
         panel = @page.panels.order(:created_at).last #Get the most recently created panel
-        id = panel.id
         fields = get_panel_preview(panel) 
 
         respond_to do |format|
-          format.json {render json: [id, panel.tags, fields]} #returns the most recently created panel's id, its tags, and its preview
+          format.json {render json: [panel.id, panel.tags, fields]} #returns the most recently created panel's id, its tags, and its preview
         end
       elsif params[:commit] == 'Publish' #Called when 'Publish' button is hit
         redirect_to @page.site
@@ -137,7 +127,7 @@ class PagesController < ApplicationController
     else
       puts("PAGE_PARAMS: update failed")
       puts(page_params)
-      #Need to add a case for AJAX here
+      #Need to add a case for AJAX here?
       redirect_to action: 'edit', alert: "Could not update. Please try again."
     end
   end

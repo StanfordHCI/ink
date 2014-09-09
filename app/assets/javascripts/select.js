@@ -11,11 +11,12 @@ window.onload = function() {
     var selected;
     var service_blocks = $(".service-block");
     var children = e.target.childNodes;
+    var panel_id = $(e.target).parent().parent().parent().parent().parent()[0].id;
 
     if (children.length == 7) {
-      var lastSelected = document.getElementById("selected");
+      var lastSelected = document.getElementById("selected"+panel_id);
       console.log("Selecting single" + lastSelected);
-      if (e.target.id == "selected") {
+      if (e.target.id == "selected"+panel_id) {
         console.log("De-selecting");
         var index = selected_tags.indexOf(lastSelected.children[1].innerHTML);
         lastSelected.id = "";
@@ -38,9 +39,10 @@ window.onload = function() {
         selected_tags.push(selected);
         console.log("Updated single" + selected_tags);
 
-        $('.service-block').css("background-color", "#D3D3D3");
+        //Make all options gray and then make last selected black
+        $($('#'+ panel_id).find('.service-block')).css("background-color", "#D3D3D3");
         e.target.style.background = "#000000";
-        e.target.id = "selected";
+        e.target.id = "selected"+panel_id;
 
         display_panels(e.target);
       }

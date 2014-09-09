@@ -120,7 +120,7 @@ function relabel_tags(tag, id, tag_id) {
   tag.name = tag.name.replace(/\d{10}/g, tag_id);
 }
 
-//Deletes panels that have been destroyed in the database
+//Deletes hidden panels that have been destroyed in the database
 function delete_panels() {
   var destroy_fields = $(".destroy");
   for (i=0; i<destroy_fields.length; i++) {
@@ -130,6 +130,7 @@ function delete_panels() {
   }
 }
 
+//Deletes hidden option fields that have been destroyed in the database
 function delete_options() {
   var destroy_fields = $(".destroy_option");
   for (i=0; i<destroy_fields.length; i++) {

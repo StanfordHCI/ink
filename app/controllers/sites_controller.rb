@@ -23,9 +23,11 @@ class SitesController < ApplicationController
     @page = @site.page
     @panels = Array.new
     selected = params[:selected]
-    for panel in @page.panels.reverse_each 
+    for panel in @page.panels.order(:created_at)
       options = Array.new
-      if find_selected(panel, selected)
+      if panel_not_tagged(panel)
+        @panels.push([panel, 1, panel.type, options])
+      elsif find_selected(panel, selected)
         @panels.push([panel, 1, panel.type, options])  
       else
         if (panel.type == "SSelectpanel" || panel.type == "MSelectpanel") 
