@@ -7,6 +7,6 @@
   <br/>
   <%= f.label :photo, "Upload icon" %>
   <%= f.file_field :photo %>
-  <%= f.hidden_field :_destroy %>
+  <%= f.hidden_field :_destroy, class: "destroy_option" %>
   <%= link_to "remove", "#", class: "remove_options" %>
 </fieldset>

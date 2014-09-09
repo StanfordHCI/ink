@@ -1,33 +1,27 @@
 $(document).on('nested:fieldAdded:text_panels', function(event) {
-  update_form(event);
+  update_form(event, false);
 });
 
 $(document).on('nested:fieldAdded:pictures', function(event) {
-  update_form(event);
+  update_form(event, false);
 });
 
 $(document).on('nested:fieldAdded:m_selectpanels', function(event) {
-  update_form(event);
+  update_form(event, false);
 });
 
 $(document).on('nested:fieldAdded:s_selectpanels', function(event) {
-  update_form(event);
+  update_form(event, false);
 });
 
 $(document).on('nested:fieldAdded:options', function(event) {
-  update_form(event);
-  panel = $(event.field).parent().parent();
-  panel_id = (panel[0].id).match(/\d+/);
-  console.log(panel_id);
-  relabel_options(event, panel_id);
-  console.log("Added an option");
+  update_form(event, true);
 });
 
-function update_form(event) {
+function update_form(event, isOption) {
   $('table').hide();
   $('#panel_button').show();
   var panel = event.field;
-  var panel_id;
 
   $("#pageform").submit(function(e) {
     var form = $(this);
@@ -48,7 +42,7 @@ function update_form(event) {
         var id = JSON.parse(data)[0]; //Get newest panel's ID from controller
         var panel_tags = JSON.parse(data)[1];
         var panel_fields_id;
-        if (panel.children()[0].id == "panel") {
+        if (panel.children()[0].id == "panel") { //Consider changing this to !isOption
           panel.children()[0].id = "panel" + id; //Resetting ID of panel div
           panel_fields_id = panel.children()[0].id; //Store panel ID
         }
@@ -86,13 +80,18 @@ function update_form(event) {
             $(document.getElementById("tags"+id)).children()[k].innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_tags_attributes_'+panel_tags[k].id+'_id" name="page['+panel_type+'_attributes]['+id+'][tags_attributes]['+panel_tags[k].id+'][id]" type="hidden" value="'+panel_tags[k].id+'">'; //Add hidden field for tag id
           }
         }
-        if (panel_fields_id != undefined) { //Check that update_form is being called on a panel and not an option
+        if (panel_fields_id != undefined) { //Check that update_form is being called on a panel and not an option; consider changing to !isOption
           document.getElementById(panel_fields_id).innerHTML += '<input id="page_'+panel_type+'_attributes_'+id+'_id" name="page[' +panel_type+ '_attributes]['+id+'][id]" type="hidden" value="'+id+'">'; //Add hidden field for panel id
           $(document.getElementById(panel_fields_id)).children()[0].innerHTML += '<div class="preview">'+JSON.parse(data)[2]+'</div>'; //Add panel preview
           $("nav").find("ul")[0].innerHTML += '<li><a href="#panel' + id + '">[New Panel]</a></li>'; 
         }
-        console.log($("nav").find("ul"));
         console.log("Form submitted");
+        if (isOption) {
+          var panel_var = $(event.field).parent().parent();
+          var panel_id = (panel_var[0].id).match(/\d+/);
+          relabel_options(event, panel_id);
+          console.log("Added an option");
+        }
       }
     });
     e.preventDefault();
@@ -101,6 +100,7 @@ function update_form(event) {
 
   $("#pageform").submit(); //Calls above submit function
   delete_panels();
+  delete_options();
 };
 
 //Returns the panel type based on form label field
@@ -130,6 +130,15 @@ function delete_panels() {
   }
 }
 
+function delete_options() {
+  var destroy_fields = $(".destroy_option");
+  for (i=0; i<destroy_fields.length; i++) {
+    if (destroy_fields[i].value == 1) {
+      $(destroy_fields[i]).parent().parent().remove();
+    }
+  }
+}
+
 //Resets ID and name for option form fields and adds hidden field
 function relabel_options(event, panel_id) {
   option_fields = event.field;
@@ -138,7 +147,6 @@ function relabel_options(event, panel_id) {
     url: "/pages/option?panelid="+panel_id,
     datatype: "json",
     success: function(data){
-      console.log(option_fields); 
       fields = $(option_fields).children().children();
       var panel_type = undefined;
       option_fields.children()[0].id = "options" + data.id;

@@ -176,21 +176,6 @@ class PagesController < ApplicationController
 
   #Returns last created option
   def option
-=begin
-      @session_user = User.find(session[:user_id])
-      @page = @session_user.page
-      #Creates an array of existing select options
-      @options = Array.new
-      for panel in Panel.find(:all) 
-        if panel.page_id == @page.id
-          if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
-            for option in panel.options
-              @options.push(option.option_title)
-            end
-          end
-        end
-      end
-=end
     panel = Panel.find(params[:panelid])
     render json: panel.options.order(:created_at).last
   end

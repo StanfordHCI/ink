@@ -7,11 +7,8 @@ function Tag(tag_name, panel_id) {
   tag_request.send(); 
   tag_request.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200) {
-      console.log(this.responseText);
       var tags = JSON.parse(this.responseText);
-      console.log(tags);
       var count = Object.keys(tags).length;
-      console.log(count);
       for(var i=0; i < count; i++) {
         display_tag(tags[i]); 
       } 
