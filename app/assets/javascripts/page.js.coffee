@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
-  $('table').hide()
+  $('#menu').hide()
 
   $('form').on 'click', '.remove_fields', (event) ->
     $(this).prev('input[type=hidden]').val('1')
@@ -31,7 +31,7 @@ ready = ->
     event.preventDefault()
 
   $('form').on 'click', '.add_panel', (event) ->
-    $('table').show()
+    $('#menu').show()
     $('#panel_button').hide()
     event.preventDefault()
 

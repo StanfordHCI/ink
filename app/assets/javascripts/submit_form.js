@@ -14,12 +14,16 @@ $(document).on('nested:fieldAdded:s_selectpanels', function(event) {
   update_form(event, false);
 });
 
+$(document).on('nested:fieldAdded:left_pic_textpanels', function(event) {
+  update_form(event, false);
+});
+
 $(document).on('nested:fieldAdded:options', function(event) {
   update_form(event, true);
 });
 
 function update_form(event, isOption) {
-  $('table').hide();
+  $('#menu').hide();
   $('#panel_button').show();
   var panel = event.field;
 
@@ -113,6 +117,7 @@ function get_panel_type(label) {
   if(label.match('pictures_attributes')){return 'pictures';}
   if(label.match('s_selectpanels_attributes')){return 's_selectpanels';}
   if(label.match('m_selectpanels_attributes')){return 'm_selectpanels';}
+  if(label.match('left_pic_textpanels_attributes')){return 'left_pic_textpanels';}
   return undefined; //Should never reach here
 }
 

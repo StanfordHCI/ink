@@ -23,6 +23,7 @@ class PagesController < ApplicationController
     @session_user = User.find(session[:user_id])
     @page = Page.new(page_params)
     file_upload(params[:page][:pictures_attributes], @page.pictures)
+    file_upload(params[:page][:left_pic_textpanels_attributes], @page.left_pic_textpanels)
     if !((params[:page][:s_selectpanels_attributes]).nil?)
       for panel in params[:page][:s_selectpanels_attributes]
         for select_panel in @page.s_selectpanels
@@ -88,6 +89,7 @@ class PagesController < ApplicationController
     @page = @session_user.page
 
     file_upload(params[:page][:pictures_attributes], @page.pictures)
+    file_upload(params[:page][:left_pic_textpanels_attributes], @page.left_pic_textpanels)
     if !((params[:page][:s_selectpanels_attributes]).nil?)
       for panel in params[:page][:s_selectpanels_attributes]
         for select_panel in @page.s_selectpanels
@@ -204,19 +206,21 @@ class PagesController < ApplicationController
   def page_params
     params.require(:page).permit(
       :user_id, :site_name, :description, :display_description,
-      panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy, :file, :type, :panel_type,
-        options_attributes: [:id, :info,  :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+      panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy, :file, :caption, :type, :panel_type,
+        options_attributes: [:id, :info, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-        text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-          tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-          pictures_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :_destroy,
-            tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-            s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-              options_attributes: [:id, :info, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
-              tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
-              m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
-                options_attributes: [:id, :info, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
-                tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
+      text_panels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+      pictures_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :_destroy,
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+      s_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+        options_attributes: [:id, :info, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+      m_selectpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :_destroy,
+        options_attributes: [:id, :info, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+      left_pic_textpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :caption, :_destroy,
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
   end
 
   def file_upload(parameter, array)
@@ -224,12 +228,14 @@ class PagesController < ApplicationController
       for attribute in parameter
         uploaded = attribute[1][:photo]
         if !(uploaded.nil?)
+=begin
           # Only works if saving locally
-          #File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
-          #  file.write(uploaded.read)
-          #end
+          File.open(Rails.root.join('app', 'assets', 'images', uploaded.original_filename), 'wb') do |file|
+            file.write(uploaded.read)
+          end
+=end
           for panel in array
-            if array == @page.pictures
+            if array == @page.pictures || array == @page.left_pic_textpanels
               if panel.panel_name == attribute[1][:panel_name]
                 panel.file = uploaded 
               end
@@ -252,8 +258,10 @@ class PagesController < ApplicationController
       partial = 'picture_panel'
     elsif (panel.type) == 'SSelectpanel'
       partial = 's_selectpanel'
-    else #panel is multi-select
+    elsif (panel.type) == 'MSelectpanel' #panel is multi-select
       partial = 'm_selectpanel'
+    else
+      partial = 'left_pic_textpanel'
     end
     return render_to_string(partial: '/sites/'+partial, locals: {panel: panel})
   end

@@ -53,9 +53,13 @@
         <%= f.fields_for :s_selectpanels, panel, child_index: panel.id do |builder| %>
           <%= render 's_selectpanel_fields', f: builder, panel: panel%>
         <% end %>
-      <% else %> 
+      <% elsif panel.type == "MSelectpanel" %> 
         <%= f.fields_for :m_selectpanels, panel, child_index: panel.id do |builder| %>
           <%= render 'm_selectpanel_fields', f: builder, panel: panel%>
+        <% end %>
+      <% else %>
+        <%= f.fields_for :left_pic_textpanels, panel, child_index: panel.id do |builder| %>
+          <%= render 'left_pic_textpanel_fields', f: builder, panel: panel %>
         <% end %>
       <% end %>
     <% end %>
@@ -82,12 +86,18 @@
         <%= render 's_selectpanel_fields', f: builder%>
       <% end %>
     <% end %> 
+    <% if @page.left_pic_textpanels.empty? %>
+      <%= f.fields_for :left_pic_textpanels do |builder| %>
+        <%= render 'left_pic_textpanel_fields', f: builder%>
+      <% end %>
+    <% end %>
 
     <table id="menu">
       <td><%= f.link_to_add image_tag("text.png"), :text_panels, data: {target: "#panels"} %></td>
       <td><%= f.link_to_add image_tag("picture.png"), :pictures, data: {target: "#panels"} %></td>
       <td><%= f.link_to_add image_tag("single.png"), :s_selectpanels, data: {target: "#panels"} %></td>
       <td><%= f.link_to_add image_tag("multi.png"), :m_selectpanels, data: {target: "#panels"} %></td>
+      <td><%= f.link_to_add image_tag("left_pic.png"), :left_pic_textpanels, data: {target: "#panels"} %></td>
     </table>
 
     <div id="panel_button">

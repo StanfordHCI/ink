@@ -42,6 +42,8 @@ function display_tag(tag) {
     panel_type = 'm_selectpanel';
   } else if (tag.panel_type == 'SSelectpanel') {
     panel_type = 's_selectpanel';
+  } else if (tag.panel_type == 'LeftPicTextpanel') {
+    panel_type = 'left_pic_textpanel';
   }
   
   //Insert the tag into the div

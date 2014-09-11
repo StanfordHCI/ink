@@ -61,8 +61,10 @@
           <%= render 'picture_panel', panel: panel %>
         <% elsif panel.type == "SSelectpanel" %>
           <%= render 's_selectpanel', panel: panel %>
-        <% else %>
+        <% elsif panel.type == "MSelectpanel" %>
           <%= render 'm_selectpanel', panel: panel %>
+        <% else %>
+          <%= render 'left_pic_textpanel', panel: panel %>
         <% end %>
       </div>
       <% if !(@panels.include?(panel)) %>

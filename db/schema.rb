@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813234648) do
+ActiveRecord::Schema.define(version: 20140911180909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "left_pic_textpanels", force: true do |t|
+    t.integer  "page_id"
+    t.string   "panel_name"
+    t.integer  "display"
+    t.text     "info"
+    t.string   "file"
+    t.text     "caption"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "left_pic_textpanels", ["page_id"], name: "index_left_pic_textpanels_on_page_id", using: :btree
 
   create_table "m_selectpanels", force: true do |t|
     t.integer  "page_id"
@@ -55,6 +68,7 @@ ActiveRecord::Schema.define(version: 20140813234648) do
     t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "caption"
   end
 
   add_index "panels", ["page_id"], name: "index_panels_on_page_id", using: :btree
