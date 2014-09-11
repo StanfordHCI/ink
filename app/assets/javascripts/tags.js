@@ -34,6 +34,9 @@ function Tag(tag_name, panel_id, newpanel_id) {
 function display_tag(tag) {
   //Find the correct div for the tag
   var tag_div = document.getElementById("tags" + tag.panel_id);
+  if (tag_div.innerHTML == "") {
+    $(tag_div).before('<div>Panel present when user selects...</div>');
+  }
   var panel_type = 'text_panel';
 
   if (tag.panel_type == 'Picture') {
@@ -45,7 +48,7 @@ function display_tag(tag) {
   } else if (tag.panel_type == 'LeftPicTextpanel') {
     panel_type = 'left_pic_textpanel';
   }
-  
+
   //Insert the tag into the div
   tag_div.innerHTML += '<input id="page_' + panel_type + 's_attributes_' + tag.panel_id + '_tags_attributes_' + tag.id + '_name" name="page[' + panel_type + 's_attributes][' + tag.panel_id + '][tags_attributes][' + tag.id + '][name]" type="hidden" value="' + tag.name + '">';
   tag_div.innerHTML += '<input id="page_' + panel_type + 's_attributes_' + tag.panel_id + '_tags_attributes_' + tag.id + '_destroy" name="page[' + panel_type + 's_attributes][' + tag.panel_id + '][tags_attributes][' + tag.id + '][_destroy]" type="hidden" value="false">';

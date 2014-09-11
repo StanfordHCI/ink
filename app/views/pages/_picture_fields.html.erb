@@ -17,9 +17,12 @@
       <%= f.label :photo, "Upload file" %>
       <%= f.file_field :photo %><br/>
 
-      <div>Panel present when user selects...</div>
       <br/>
       <% if !(f.object.new_record?) %>
+        <!--Check if tags is empty.  If not, print Panel present when...-->
+        <% if !(panel.tags.empty?) %>
+          <div>Panel present when user selects...</div>
+        <% end %>
         <div id="tags<%= panel.id %>">
           <% for tag in panel.tags.order(:created_at) %>
             <%= f.fields_for :tags, tag, child_index: tag.id  do |builder| %>
