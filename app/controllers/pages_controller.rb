@@ -58,10 +58,10 @@ class PagesController < ApplicationController
 
     #Creates an array of existing select options
     @options = Array.new
-    for panel in Panel.find(:all) 
-      if panel.page_id == @page.id
-        if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
-          for option in panel.options
+    for panel in @page.panels.order(:created_at)
+      if (panel.type == "SSelectpanel") || (panel.type == "MSelectpanel")
+        if panel.options
+          for option in panel.options.order(:created_at)
             @options.push(option.option_title)
           end
         end
@@ -71,13 +71,12 @@ class PagesController < ApplicationController
     #Deletes tags whose panels have been deleted and whose options have been deleted/edited
     panel_ids = Array.new
     tags = Array.new
+    puts "TAGS"
+    puts tags
     for panel in @page.panels.order(:created_at)
       panel_ids.push(panel.id)
-      for tag in panel.tags.order(:created_at)
-        tags.push(tag)
-      end
     end
-    for tag in tags
+    Tag.find_each(conditions: {page_id: @page.id}) do |tag|
       if !(panel_ids.include?(tag.panel_id)) || !(@options.include?(tag.name))
         tag.destroy
       end
@@ -138,17 +137,19 @@ class PagesController < ApplicationController
     @page = @session_user.page
     @tags = Array.new 
     for panel in @page.panels.order(:created_at)
-      if panel.id > (params[:panelid]).to_i 
-        tag = Tag.new
-        tag.name = params[:tagname]
-        tag.value = 0
-        tag.page_id = @page.id
-        tag.panel_id = panel.id
-        tag.panel_type = panel.type
-        @tags.push([tag, panel.type])
+      #Use a max function on :panelid and :newpanelid?
+      if !(panel_has_tag(panel, params[:tagname]))
+        if panel.id > (params[:panelid]).to_i && panel.id >= (params[:newpanelid]).to_i 
+          tag = Tag.new
+          tag.name = params[:tagname]
+          tag.page_id = @page.id
+          tag.panel_id = panel.id
+          tag.panel_type = panel.type
+          tag.save
+          @tags.push(tag)
+        end
       end
     end
-
     render json: @tags
   end
 
@@ -170,7 +171,35 @@ class PagesController < ApplicationController
     render json: panel.options.order(:created_at).last
   end
 
+  #Returns all options for a page
+  def options
+    @session_user = User.find(session[:user_id])
+    @page = @session_user.page
+    options = Array.new
+    for panel in @page.panels.order(:created_at)
+      if panel.type == 'MSelectpanel' || panel.type == 'SSelectpanel'
+        if panel.options
+          for option in panel.options.order(:created_at)
+            options.push(option)
+          end
+        end  
+      end 
+    end
+    render json: options
+  end
+
   private
+
+  def panel_has_tag(panel, tag_name)
+    if panel.tags
+      for tag in panel.tags 
+        if tag.name == tag_name
+          return true
+        end
+      end
+    end
+    return false
+  end
 
   def page_params
     params.require(:page).permit(

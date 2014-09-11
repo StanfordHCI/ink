@@ -91,6 +91,10 @@ function update_form(event, isOption) {
           var panel_id = (panel_var[0].id).match(/\d+/);
           relabel_options(event, panel_id);
           console.log("Added an option");
+        } else { //Add appropriate tags
+          var panel_id = (panel.children()[0].id).match(/\d+/);
+          console.log("PANEL ID: " + panel_id);
+          get_options(panel_id);
         }
       }
     });
@@ -161,7 +165,10 @@ function relabel_options(event, panel_id) {
         if (fields[i].name != undefined) {
           fields[i].name = fields[i].name.replace(/\d{13}/g, data.id); 
         }
-        if (fields[i].id!= undefined) {
+        if (fields[i].id != undefined) {
+          if (fields[i].id == '1234567890123') {
+            fields[i].id = panel_id;
+          }
           if (fields[i].id != fields[i].id.match(/\d+/)) {
             fields[i].id = fields[i].id.replace(/\d{13}/g, data.id); 
           }

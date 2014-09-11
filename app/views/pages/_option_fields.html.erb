@@ -1,6 +1,6 @@
 <fieldset class="options, input-group-addon"> 
   <%= f.label :option_title, "Option title" %>
-  <%= f.text_field :option_title, id: panel_id, :onblur=>'Tag(this.value, this.id)'%>
+  <%= f.text_field :option_title, id: panel_id, :onblur=>'Tag(this.value, this.id, 0)'%>
   <br/> 
   <%= f.label :info, "Option description"%>
   <%= f.text_area :info %>

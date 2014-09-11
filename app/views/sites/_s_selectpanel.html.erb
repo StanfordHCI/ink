@@ -14,7 +14,7 @@
   </header>
   <% count = 0 %>
   <% if !((panel.options).nil?) %>
-    <% for option in panel.options %>
+    <% for option in panel.options.order(:created_at) %>
       <% if (count % 3) == 0 %>
         <div class='row'>
         <% end %>

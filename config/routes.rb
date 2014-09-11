@@ -18,6 +18,7 @@ Project4::Application.routes.draw do
       get 'demo'
       get 'previews'
       get 'option'
+      get 'options'
     end
   end
 

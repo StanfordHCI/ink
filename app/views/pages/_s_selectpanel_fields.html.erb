@@ -37,17 +37,14 @@
       <br/>
       <% if !(f.object.new_record?) %>
         <div id="tags<%= panel.id %>">
-          <% for option in panel.tags.order(:created_at) %>
-            <%= f.fields_for :tags, option, child_index: option.id  do |builder| %>
-              <%= render 'tag_fields', f: builder, option_name: option.name %>
+          <% for tag in panel.tags.order(:created_at) %>
+            <%= f.fields_for :tags, tag, child_index: tag.id  do |builder| %>
+              <%= render 'tag_fields', f: builder, option_name: tag.name %>
             <% end %>
           <% end %>
         </div>
       <% else %>
         <div id="tags">
-          <% for option in @options %>
-            <%= add_tags f, :tags, option, @page.id, "SSelectpanel" %>
-          <% end %>
         </div>
       <% end %>
       <br/>

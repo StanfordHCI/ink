@@ -23,7 +23,7 @@ window.onload = function() {
         if (index > -1) {
           selected_tags.splice(index, 1);
         }
-        $('.service-block').css("background-color", "#D3D3D3");
+        $($('#'+panel_id).find('.service-block')).css("background-color", "#D3D3D3");
         display_panels(e.target);
       } else {
         if (lastSelected) {
