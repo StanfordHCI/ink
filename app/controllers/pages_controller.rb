@@ -118,7 +118,7 @@ class PagesController < ApplicationController
         fields = get_panel_preview(panel) 
 
         respond_to do |format|
-          format.json {render json: [panel.id, panel.tags, fields]} #returns the most recently created panel's id, its tags, and its preview
+          format.json {render json: [panel.id, panel.tags.order(:created_at), fields]} #returns the most recently created panel's id, its tags, and its preview
         end
       elsif params[:commit] == 'Publish' #Called when 'Publish' button is hit
         redirect_to @page.site
