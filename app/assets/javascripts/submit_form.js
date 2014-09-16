@@ -30,6 +30,42 @@ $(document).on('nested:fieldAdded:options', function(event) {
   update_form(event, true);
 });
 
+//Currently not called since not using gem's link_to_remove
+$(document).on('nested:fieldRemoved', function(event) {
+  save_form();
+});
+
+//Function to be called after changes are made to the form, except for adding fields
+function save_form() {
+  $("#pageform").submit(function(e) {
+    var form = $(this);
+    var formURL = form.attr("action");
+    var formData = new FormData(this); 
+    var toParse = $(this).serializeArray();
+
+    $.ajax({
+      type: "POST",
+      url: formURL,
+      data: formData,
+      mimeType: "multipart/form-data",
+      datatype: "json",
+      contentType: false,
+      cache: false,
+      processData: false,
+      success: function(data){
+        console.log("Form saved");
+      }
+    });
+    e.preventDefault();
+    $("#pageform").off('submit'); //Eliminates extra submit events
+  });
+
+  $("#pageform").submit(); //Calls above submit function
+  delete_panels();
+  delete_options();
+}
+
+//Function to be called every time a new set of fields is added
 function update_form(event, isOption) {
   $('#menu').hide();
   $('#panel_button').show();

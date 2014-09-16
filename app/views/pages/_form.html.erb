@@ -135,8 +135,13 @@
   <% end %>
 </div>
 
-<!-- Allows S3 file uploads -->
 <script>
+  //Saves form and updates previews on blur events
+  var pageform = document.getElementById("pageform");
+  pageform.addEventListener("blur", save_form, true);
+  pageform.addEventListener("blur", update_previews, true);
+
+  //Allows S3 file uploads
   $(function() {
     $('.directUpload').find("input:file").each(function(i, elem) {
       file_upload(elem);
