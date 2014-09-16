@@ -47,11 +47,7 @@ class PagesController < ApplicationController
     if @page.save
       @session_user.page = @page
       @page.site = Site.new
-      if params[:commit] == 'Publish' #Called when 'Publish' button is hit
-        redirect_to @page.site
-      elsif params[:commit] == 'Save' #Called when 'Save' button is hit
-        redirect_to action: 'index', notice: "Successfully saved."
-      end
+      redirect_to action: 'index', notice: "Successfully saved."
     else
       redirect_to action: 'new', alert: "Invalid form. Please try again."
     end

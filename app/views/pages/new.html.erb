@@ -1,2 +1,20 @@
-<h1> Your New Page </h1>
-<%= render "form" %>
+<h1> Name your page </h1>
+
+<!-- Color option -->
+<%= stylesheet_link_tag asset_path "red.css", media: "all" %>
+
+<div class="formoid-default-red">
+  <%= nested_form_for(@page, html:{class: "directUpload", id: "pageform"}) do |f| %>
+    <div id="site_info" class="input-group-addon">
+      <%= f.label :site_name, "Site Name*" %>
+      <%= f.text_field :site_name %><br/>
+      <br/>
+      <%= f.label :description, "Site Description" %>
+      <%= f.text_area :description %><br/>
+      <%= f.check_box :display_description %>
+      <%= "Display description on page?" %><br/>
+    </div>
+    </br>
+    <div id="saveform"> <%= f.submit "Create page" %></div>
+  <% end %>
+</div>
