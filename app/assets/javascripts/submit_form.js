@@ -22,6 +22,10 @@ $(document).on('nested:fieldAdded:pic_caption_panels', function(event) {
   update_form(event, false);
 });
 
+$(document).on('nested:fieldAdded:quote_panels', function(event) {
+  update_form(event, false);
+});
+
 $(document).on('nested:fieldAdded:options', function(event) {
   update_form(event, true);
 });
@@ -123,6 +127,7 @@ function get_panel_type(label) {
   if(label.match('m_selectpanels_attributes')){return 'm_selectpanels';}
   if(label.match('left_pic_textpanels_attributes')){return 'left_pic_textpanels';}
   if(label.match('pic_caption_panels_attributes')){return 'pic_caption_panels';}
+  if(label.match('quote_panels_attributes')){return 'quote_panels';}
   return undefined; //Should never reach here
 }
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140916160530) do
+ActiveRecord::Schema.define(version: 20140916180111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20140916160530) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "caption"
+    t.string   "source"
   end
 
   add_index "panels", ["page_id"], name: "index_panels_on_page_id", using: :btree
@@ -96,6 +97,19 @@ ActiveRecord::Schema.define(version: 20140916160530) do
   end
 
   add_index "pictures", ["page_id"], name: "index_pictures_on_page_id", using: :btree
+
+  create_table "quote_panels", force: true do |t|
+    t.integer  "page_id"
+    t.string   "panel_name"
+    t.integer  "display"
+    t.text     "info"
+    t.string   "source"
+    t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "quote_panels", ["page_id"], name: "index_quote_panels_on_page_id", using: :btree
 
   create_table "s_selectpanels", force: true do |t|
     t.integer  "page_id"

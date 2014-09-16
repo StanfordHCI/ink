@@ -15,6 +15,9 @@
       <%= render 'sites/options_head', option: option %>
     <% end %>
   <% end %>
+  <% for quote_panel in @page.quote_panels %>
+      <%= render 'sites/quote_panel_head', panel: quote_panel %>
+  <% end %>
 <% end %>
 
 <nav class="panel_menu navbar-right" role="navigation">
@@ -61,9 +64,13 @@
         <%= f.fields_for :left_pic_textpanels, panel, child_index: panel.id do |builder| %>
           <%= render 'left_pic_textpanel_fields', f: builder, panel: panel %>
         <% end %>
-      <% else %>
+      <% elsif panel.type == "PicCaptionPanel" %>
         <%= f.fields_for :pic_caption_panels, panel, child_index: panel.id do |builder| %>
           <%= render 'pic_caption_panel_fields', f: builder, panel: panel %>
+        <% end %>
+      <% else %>
+        <%= f.fields_for :quote_panels, panel, child_index: panel.id do |builder| %>
+          <%= render 'quote_panel_fields', f: builder, panel: panel %>
         <% end %>
       <% end %>
     <% end %>
@@ -100,6 +107,11 @@
         <%= render 'pic_caption_panel_fields', f: builder %>
       <% end %>
     <% end %>
+    <% if @page.quote_panels.empty? %>
+      <%= f.fields_for :quote_panels do |builder| %>
+        <%= render 'quote_panel_fields', f: builder %>
+      <% end %>
+    <% end %>
 
     <table id="menu">
       <tr>
@@ -111,6 +123,7 @@
       <tr>
         <td><%= f.link_to_add image_tag("left_pic.png"), :left_pic_textpanels, data: {target: "#panels"} %></td>
         <td><%= f.link_to_add image_tag("pic_caption.png"), :pic_caption_panels, data: {target: "#panels"} %></td>
+        <td><%= f.link_to_add image_tag("quote.png"), :quote_panels, data: {target: "#panels"} %></td>
       </tr>
     </table>
 

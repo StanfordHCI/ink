@@ -28,6 +28,9 @@
         <%= render 'options_multi_head', option: option %>
       <% end %>
     <% end %>
+    <% for quote_panel in @page.quote_panels %>
+      <%= render 'quote_panel_head', panel: quote_panel %>
+    <% end %>
   <% end %>
 </head>
 <body>
@@ -65,8 +68,10 @@
           <%= render 'm_selectpanel', panel: panel %>
         <% elsif panel.type == "LeftPicTextpanel" %>
           <%= render 'left_pic_textpanel', panel: panel %>
-        <% else %>
+        <% elsif panel.type == "PicCaptionPanel" %>
           <%= render 'pic_caption_panel', panel: panel %>
+        <% else %>
+          <%= render 'quote_panel', panel: panel %>
         <% end %>
       </div>
       <% if !(@panels.include?(panel)) %>

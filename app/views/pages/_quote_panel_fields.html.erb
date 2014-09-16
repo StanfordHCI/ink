@@ -1,0 +1,48 @@
+<% if f.object.new_record? %>
+  <div id="panel">
+  <% else %>
+    <div id="panel<%=panel.id%>">
+    <% end %>
+    <span class="input-group-addon">
+      <%= f.label :panel_name, "Panel title*" %>
+    <% if f.object.new_record? %>
+      <%= f.text_field :panel_name %><br/>
+    <% else %>
+      <%= f.text_field :panel_name, id: panel.id, onblur: "update_panel_menu(this.value, this.id)" %><br/>
+    <% end %>
+      <%= f.check_box :display %>
+      <%= "Display panel name?"%><br/><br/>
+      <%= f.label :info, "Quote"%>
+      <%= f.text_area :info %><br/><br/>
+      <%= f.label :source, "Source"%>
+      <%= f.text_field :source %><br/><br/>
+      <%= f.label :photo, "Upload background picture" %>
+      <%= f.file_field :photo %><br/>
+
+      <br/>
+      <% if !(f.object.new_record?) %>
+        <!--Check if tags is empty.  If not, print Panel present when...-->
+        <% if !(panel.tags.empty?) %>
+          <div>Panel present when user selects...</div>
+        <% end %>
+        <div id="tags<%= panel.id %>">
+          <% for tag in panel.tags.order(:created_at) %>
+            <%= f.fields_for :tags, tag, child_index: tag.id  do |builder| %>
+              <%= render 'tag_fields', f: builder, option_name: tag.name %>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div id="tags">
+        </div>
+      <% end %>
+      <br/>
+      <%= f.hidden_field :_destroy, class: "destroy" %>
+      <%= link_to "remove", "#", class: "remove_fields" %>
+      <% if !(f.object.new_record?) %>
+        <div class="preview">
+          <%= render template: 'sites/panel', :locals => {panel: panel} %>
+        </div>
+      <% end %>
+    </span>
+  </div>

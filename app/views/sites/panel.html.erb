@@ -8,6 +8,8 @@
   <%= render 'sites/m_selectpanel', panel: panel %>
 <% elsif panel.type == "LeftPicTextpanel" %>
   <%= render 'sites/left_pic_textpanel', panel: panel %>
-<% else %>
+<% elsif panel.type == "PicCaptionPanel" %>
   <%= render 'sites/pic_caption_panel', panel: panel %>
+<% else %>
+  <%= render 'sites/quote_panel', panel: panel %>
 <% end %>
