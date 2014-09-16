@@ -22,6 +22,7 @@
 
 <nav class="panel_menu navbar-right" role="navigation">
   <div class="navbar-header">Panels</div>
+  <br/>
   <ul>
     <% for panel in @page.panels.order(:created_at)%>
       <li><a href="#panel<%=panel.id%>"><%=panel.panel_name%></a></li>
