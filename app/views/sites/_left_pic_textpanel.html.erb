@@ -1,27 +1,23 @@
 <body>
   <section id='parallax-quote' class='parallax'>
-  <div class='parallax-background<%=panel.id %> parallax-background'></div>
-  <div class='container'>
-    <div class='row'>
-      <div class='col-md-12'>
-        <div class='parallax-content'>
-          <table>
-            <td style="width:50%">
-              <%= image_tag panel.file %>
-              <p><%= panel.caption %></p>
-            </td>
-            <td>
-              <blockquote>
-                <%= render 'sites/panel_title', panel: panel %>
-                <footer>
-                <%= render 'sites/panel_info', panel: panel %>
-                </footer>
-              </blockquote>
-            </td>
-          </table>
+  <table class='left-pic-panel'>
+    <td class='left-pic'>
+      <%= image_tag panel.file %>
+    </td>
+    <td>
+      <div class='row'>
+        <div class='col-md-12'>
+          <div class='parallax-content'>
+            <blockquote>
+              <%= render 'sites/panel_title', panel: panel %>
+              <footer>
+              <%= render 'sites/panel_info', panel: panel %>
+              </footer>
+            </blockquote>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </td>
+  </table>
   </section>
 </body>

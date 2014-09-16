@@ -6,6 +6,8 @@
   <%= render 'sites/s_selectpanel', panel: panel %>
 <% elsif panel.type == "MSelectpanel" %>
   <%= render 'sites/m_selectpanel', panel: panel %>
-<% else %>
+<% elsif panel.type == "LeftPicTextpanel" %>
   <%= render 'sites/left_pic_textpanel', panel: panel %>
+<% else %>
+  <%= render 'sites/pic_caption_panel', panel: panel %>
 <% end %>

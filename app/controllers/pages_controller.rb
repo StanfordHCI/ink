@@ -24,6 +24,7 @@ class PagesController < ApplicationController
     @page = Page.new(page_params)
     file_upload(params[:page][:pictures_attributes], @page.pictures)
     file_upload(params[:page][:left_pic_textpanels_attributes], @page.left_pic_textpanels)
+    file_upload(params[:page][:pic_caption_panels_attributes], @page.pic_caption_panels)
     if !((params[:page][:s_selectpanels_attributes]).nil?)
       for panel in params[:page][:s_selectpanels_attributes]
         for select_panel in @page.s_selectpanels
@@ -93,6 +94,7 @@ class PagesController < ApplicationController
 
     file_upload(params[:page][:pictures_attributes], @page.pictures)
     file_upload(params[:page][:left_pic_textpanels_attributes], @page.left_pic_textpanels)
+    file_upload(params[:page][:pic_caption_panels_attributes], @page.pic_caption_panels)
     if !((params[:page][:s_selectpanels_attributes]).nil?)
       for panel in params[:page][:s_selectpanels_attributes]
         for select_panel in @page.s_selectpanels
@@ -223,6 +225,8 @@ class PagesController < ApplicationController
         options_attributes: [:id, :info, :selectpanel_id, :selectpanel_type, :option_title, :file, :_destroy],
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
       left_pic_textpanels_attributes: [:id, :page_id, :panel_name, :display, :info, :file, :caption, :_destroy,
+        tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]],
+      pic_caption_panels_attributes: [:id, :page_id, :panel_name, :display, :caption, :file, :_destroy,
         tags_attributes: [:id, :page_id, :panel_id, :panel_type, :name, :value, :_destroy]])
   end
 
@@ -238,7 +242,7 @@ class PagesController < ApplicationController
           end
 =end
           for panel in array
-            if array == @page.pictures || array == @page.left_pic_textpanels
+            if array == @page.pictures || array == @page.left_pic_textpanels || array == @page.pic_caption_panels
               if panel.panel_name == attribute[1][:panel_name]
                 panel.file = uploaded 
               end
@@ -261,10 +265,12 @@ class PagesController < ApplicationController
       partial = 'picture_panel'
     elsif (panel.type) == 'SSelectpanel'
       partial = 's_selectpanel'
-    elsif (panel.type) == 'MSelectpanel' #panel is multi-select
+    elsif (panel.type) == 'MSelectpanel' 
       partial = 'm_selectpanel'
-    else
+    elsif (panel.type) == 'LeftPicTextpanel'
       partial = 'left_pic_textpanel'
+    else
+      partial = 'pic_caption_panel'
     end
     return render_to_string(partial: '/sites/'+partial, locals: {panel: panel})
   end

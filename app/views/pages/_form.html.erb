@@ -57,9 +57,13 @@
         <%= f.fields_for :m_selectpanels, panel, child_index: panel.id do |builder| %>
           <%= render 'm_selectpanel_fields', f: builder, panel: panel%>
         <% end %>
-      <% else %>
+      <% elsif panel.type == "LeftPicTextpanel" %>
         <%= f.fields_for :left_pic_textpanels, panel, child_index: panel.id do |builder| %>
           <%= render 'left_pic_textpanel_fields', f: builder, panel: panel %>
+        <% end %>
+      <% else %>
+        <%= f.fields_for :pic_caption_panels, panel, child_index: panel.id do |builder| %>
+          <%= render 'pic_caption_panel_fields', f: builder, panel: panel %>
         <% end %>
       <% end %>
     <% end %>
@@ -91,13 +95,23 @@
         <%= render 'left_pic_textpanel_fields', f: builder%>
       <% end %>
     <% end %>
+    <% if @page.pic_caption_panels.empty? %>
+      <%= f.fields_for :pic_caption_panels do |builder| %>
+        <%= render 'pic_caption_panel_fields', f: builder %>
+      <% end %>
+    <% end %>
 
     <table id="menu">
-      <td><%= f.link_to_add image_tag("text.png"), :text_panels, data: {target: "#panels"} %></td>
-      <td><%= f.link_to_add image_tag("picture.png"), :pictures, data: {target: "#panels"} %></td>
-      <td><%= f.link_to_add image_tag("single.png"), :s_selectpanels, data: {target: "#panels"} %></td>
-      <td><%= f.link_to_add image_tag("multi.png"), :m_selectpanels, data: {target: "#panels"} %></td>
-      <td><%= f.link_to_add image_tag("left_pic.png"), :left_pic_textpanels, data: {target: "#panels"} %></td>
+      <tr>
+        <td><%= f.link_to_add image_tag("text.png"), :text_panels, data: {target: "#panels"} %></td>
+        <td><%= f.link_to_add image_tag("picture.png"), :pictures, data: {target: "#panels"} %></td>
+        <td><%= f.link_to_add image_tag("single.png"), :s_selectpanels, data: {target: "#panels"} %></td>
+        <td><%= f.link_to_add image_tag("multi.png"), :m_selectpanels, data: {target: "#panels"} %></td>
+      </tr>
+      <tr>
+        <td><%= f.link_to_add image_tag("left_pic.png"), :left_pic_textpanels, data: {target: "#panels"} %></td>
+        <td><%= f.link_to_add image_tag("pic_caption.png"), :pic_caption_panels, data: {target: "#panels"} %></td>
+      </tr>
     </table>
 
     <div id="panel_button">
